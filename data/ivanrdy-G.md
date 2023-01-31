@@ -12,15 +12,12 @@
 <p>uint i = 1;<br>
 i++; // == 1 but i == 2 </p>
 
-
-<h5>P.s I'm sorry if there is problems with submissions formatting. I am beginner and I didn`t found information how to link a code in a right way and other thing. I tried to do my best. Thank you</h5>
-
 <h5>However, ++i returns the actual incremented value:</h5>
 
 <p>uint i = 1;<br>
 ++i; //  == 2 and i == 2 too, so there is no need for a temporary variable</p>
 
-<h6>When we take the first case ( i++),the compiler has to create a temporary variable</h6>
+<h6>When we take the first case ( i++), the compiler has to create a temporary variable</h6>
 
 
 
