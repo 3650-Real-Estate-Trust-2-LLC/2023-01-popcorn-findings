@@ -1,0 +1,8 @@
+{
+  "contest": 211,
+  "handle": "0xjuicer",
+  "risk": "2",
+  "title": "Protocol fees can be bypassed using ERC4626 compliant Adapters",
+  "issueId": 18,
+  "issueUrl": "https://github.com/code-423n4/2023-01-popcorn-findings/issues/18"
+}
