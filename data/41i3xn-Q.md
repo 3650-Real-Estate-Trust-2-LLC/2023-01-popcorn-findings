@@ -1,27 +1,26 @@
-Input Validation  vulnerability 
-
-an input validation vulnerability spotted in the  "PermissionRegistry.sol" contract the vulnerability lies in the function "setPermissions()" which does not have proper input validation checks as a result the caller of this function is able to pass an array with different lengths for the "targets" and "newPermissions" parameters leading to unexpected behavior and potential exploitation
+Missing input validation vulnerability 
 
 Impact:
-this vulnerability can potentially allow an attacker to manipulate the permissions of any address stored in the "permissions" mapping the attacker can also create an array with mismatched lengths to trigger a "revert" and cause the function to fail potentially leading to a denial of service attack
+the function bellow "setPermissions()" does not have proper input validation checks as a result the caller of this function is able to pass an array with different lengths for the "targets" and "newPermissions" parameters, a mismatch could lead to an exception or undefined behavior
 
-Recommendation:
+Proof of Concept: 
 
-a possible solution to address the input validation is to add proper input validations to ensure that the inputs are within expected bounds and meet certain requirements before processing them for example in the 'setPermissions' function you can add checks to validate that the length of 'targets'
+https://github.com/code-423n4/2023-01-popcorn/blob/main/src/vault/PermissionRegistry.sol#L38-L48
 
-and 'newPermissions'arrays match and that the values of 'newPermissions' are within acceptable bounds
+when calling the 'setPermissions' function with an array of target addresses and an array of permissions that are not of equal length it reverts with a 'Mismatch' error indicating that the input validation check has failed
 
-Here's an example implementation:
+modifying the 'targets' array to be longer than the length of the 'newPermissions' array then Calling the 'setPermissions' function again it continues executing instead of reverting with a 'Mismatch' error indicating that the input validation check has been bypassed.
 
-function setPermissions(address[] calldata targets, Permission[] calldata newPermissions) external onlyOwner {
-  require(targets.length == newPermissions.length, "Length of targets and newPermissions arrays must match");
-  
-  for (uint256 i = 0; i < targets.length; i++) {
-    require(!newPermissions[i].endorsed || !newPermissions[i].rejected, "A permission cannot be both endorsed and rejected");
-    emit PermissionSet(targets[i], newPermissions[i].endorsed, newPermissions[i].rejected);
-    permissions[targets[i]] = newPermissions[i];
-  }
-}
+tools used: 
+Visual Studio Code, Remix
+
+Recommended Mitigation:
+Add input validation to check that the arrays lengths match :
+
+require(targets.length == newPermissions.length, "Mismatch");
+
+this will ensure that the "setPermissions()" function is only executed when the arrays are of equal lengths and will prevent any potential exploitation
 
 
-this implementation uses the 'require' function to validate the input conditions and will revert the transaction if any of the conditions are not met
+
+
