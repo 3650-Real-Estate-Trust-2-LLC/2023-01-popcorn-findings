@@ -1,0 +1,8 @@
+{
+  "contest": 211,
+  "handle": "0xastronatey",
+  "risk": "3",
+  "title": "Unchecked External Calls in the \"adminProxy\" Contract",
+  "issueId": 7,
+  "issueUrl": "https://github.com/code-423n4/2023-01-popcorn-findings/issues/7"
+}
