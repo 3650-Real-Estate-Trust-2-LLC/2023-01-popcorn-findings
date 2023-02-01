@@ -1,0 +1,8 @@
+{
+  "contest": 211,
+  "handle": "yellowBirdy",
+  "risk": "2",
+  "title": "Removing or adding assets via (DEPOSIT, MINT and WITHDRAW) may cause loss of performance fee. RACE CONDITION - FRONT RUNNING",
+  "issueId": 30,
+  "issueUrl": "https://github.com/code-423n4/2023-01-popcorn-findings/issues/30"
+}
