@@ -1,4 +1,4 @@
-Missing input validation vulnerability 
+Missing input validation
 
 Impact:
 the function bellow "setPermissions()" does not have proper input validation checks as a result the caller of this function is able to pass an array with different lengths for the "targets" and "newPermissions" parameters, a mismatch could lead to an exception or undefined behavior
