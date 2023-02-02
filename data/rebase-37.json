@@ -1,0 +1,8 @@
+{
+  "contest": 211,
+  "handle": "rebase",
+  "risk": "2",
+  "title": "Change proxy owners when vaults and adapters are paused",
+  "issueId": 37,
+  "issueUrl": "https://github.com/code-423n4/2023-01-popcorn-findings/issues/37"
+}
