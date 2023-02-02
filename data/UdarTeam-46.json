@@ -1,0 +1,8 @@
+{
+  "contest": 211,
+  "handle": "UdarTeam",
+  "risk": "2",
+  "title": "No revert on ERC20's transfer function can lock user rewards forever in MultiRewardStaking.sol ",
+  "issueId": 46,
+  "issueUrl": "https://github.com/code-423n4/2023-01-popcorn-findings/issues/46"
+}
