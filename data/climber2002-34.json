@@ -1,0 +1,8 @@
+{
+  "contest": 211,
+  "handle": "climber2002",
+  "risk": "2",
+  "title": "toggleTemplateEndorsement could pass a wrong templateCategory and not revert",
+  "issueId": 34,
+  "issueUrl": "https://github.com/code-423n4/2023-01-popcorn-findings/issues/34"
+}
