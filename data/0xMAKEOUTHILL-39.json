@@ -1,0 +1,8 @@
+{
+  "contest": 211,
+  "handle": "0xMAKEOUTHILL",
+  "risk": "2",
+  "title": "Missing onlyOwner modifier on addTemplate function",
+  "issueId": 39,
+  "issueUrl": "https://github.com/code-423n4/2023-01-popcorn-findings/issues/39"
+}
