@@ -69,3 +69,9 @@ function setPermissions(address[] calldata targets, bool[] calldata newPermissio
 - TemplateRegistry.addTemplate() lacks checking template.implementation address as a non zero address, or better be checking for the implementation contract code size to be greater than zero.
 
 - TemplateRegistry.toggleTemplateEndorsement() lacks checking that the templateCategory exists in templateCategoryExists mapping.
+
+- no need to use  a modifier if it is used in 1 function, refering to takeFees modifier and takeManagementAndPerformanceFees function. it is advised to move the modifier body to the function.
+
+- prepend internal function names with `_`, i.e instead of computeDomainSeparator(), we may use _computeDomainSeparator()
+
+- VaultController.deployVault(), it needs to check for staking contract code size instead of zero address.
