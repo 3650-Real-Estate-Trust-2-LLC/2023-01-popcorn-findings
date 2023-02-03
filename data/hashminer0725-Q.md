@@ -68,28 +68,19 @@ https://github.com/code-423n4/2023-01-popcorn/blob/main/src/vault/VaultControlle
 ```
 ```metadata``` is set in the function again.
 
-### 6. ```swapTokenAddresses``` could be removed from the struct.
-https://github.com/code-423n4/2023-01-popcorn/blob/main/src/interfaces/vault/IVaultRegistry.sol#L17
+### 6. Some attributes could be removed from the struct.
+https://github.com/code-423n4/2023-01-popcorn/blob/main/src/interfaces/vault/IVaultRegistry.sol#L16-L21
 ```
+    /// @notice OPTIONAL - If the asset is an Lp Token these are its underlying assets
     address[8] swapTokenAddresses;
-```
-It is never used.
-
-### 7. ```swapAddress``` could be removed from the struct.
-https://github.com/code-423n4/2023-01-popcorn/blob/main/src/interfaces/vault/IVaultRegistry.sol#L19
-```
+    /// @notice OPTIONAL - If the asset is an Lp Token its the pool address
     address swapAddress;
-```
-It is never used.
-
-### 8. ```exchange``` could be removed from the struct.
-https://github.com/code-423n4/2023-01-popcorn/blob/main/src/interfaces/vault/IVaultRegistry.sol#L21
-```
+    /// @notice OPTIONAL - If the asset is an Lp Token this is the identifier of the exchange (1 = curve)
     uint256 exchange;
 ```
-It is never used.
+```swapTokenAddresses```, ```swapAddress```, and ```exchange``` are never used from the contracts.
 
-### 9. ```newCooldown``` can include ```1 day``` even if ```1 day``` is not allowed in VaultController.
+### 7. ```newCooldown``` can include ```1 day``` even if ```1 day``` is not allowed in VaultController.
 https://github.com/code-423n4/2023-01-popcorn/blob/main/src/vault/adapter/abstracts/AdapterBase.sol#L502
 ```
     if (newCooldown >= 1 days) revert InvalidHarvestCooldown(newCooldown);
@@ -99,19 +90,19 @@ https://github.com/code-423n4/2023-01-popcorn/blob/main/src/vault/VaultControlle
     if (newCooldown > 1 days) revert InvalidHarvestCooldown(newCooldown);
 ```
 
-### 10. ```NoteSubmitter()``` is never used.
+### 8. ```NoteSubmitter()``` is never used.
 https://github.com/code-423n4/2023-01-popcorn/blob/main/src/utils/MultiRewardStaking.sol#L226
 ```
     error NotSubmitter(address submitter);
 ```
 
-### 11. ``` NoFee(IERC20 token)``` is never used.
+### 9. ``` NoFee(IERC20 token)``` is never used.
 https://github.com/code-423n4/2023-01-popcorn/blob/main/src/utils/MultiRewardEscrow.sol#L200
 ```
     error NoFee(IERC20 token);
 ```
 
-### 12. ```setPermissions()``` function is only reverted if both ```newPermissions[i].endorsed``` and ```newPermissions[i].rejected``` are ```true```. But it also should be reverted if both are ```false```.
+### 10. ```setPermissions()``` function is only reverted if both ```newPermissions[i].endorsed``` and ```newPermissions[i].rejected``` are ```true```. But it also should be reverted if both are ```false```.
 https://github.com/code-423n4/2023-01-popcorn/blob/main/src/vault/PermissionRegistry.sol#L43
 ```
     if (newPermissions[i].endorsed && newPermissions[i].rejected) revert Mismatch();
