@@ -14,7 +14,7 @@ function deposit(uint256 assets, address receiver)
         // use -> start
         shares = convertToShares(assets);
 
-        uint256 feeShares =  _shares.mulDiv(uint256(fees.deposit), 1e18, Math.Rounding.Down);
+        uint256 feeShares =  shares.mulDiv(uint256(fees.deposit), 1e18, Math.Rounding.Down);
         
         if(feeShares > 0) {
             shares -= feeShares;
