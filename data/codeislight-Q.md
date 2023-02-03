@@ -72,6 +72,17 @@ function setPermissions(address[] calldata targets, bool[] calldata newPermissio
 
 - no need to use  a modifier if it is used in 1 function, refering to takeFees modifier and takeManagementAndPerformanceFees function. it is advised to move the modifier body to the function.
 
+instance: in Vault : takeManagementAndPerformanceFees and takeFees
+instance: in AdapterBase : harvest and takeFees
+
 - prepend internal function names with `_`, i.e instead of computeDomainSeparator(), we may use _computeDomainSeparator()
 
 - VaultController.deployVault(), it needs to check for staking contract code size instead of zero address.
+
+-  AdapterBase.__AdapterBase_init() lacks checking for zero address _owner, and check for code size greater than zero for asset and _strategy.
+
+-  AdapterBase.__AdapterBase_init() lacks checking for _harvestCooldown bound value validity, it is advised to use setHarvestCooldown() or manually check for a 1 day maximum period.
+
+- add an extra check to ensure that in BeefyAdapter.initialize(), _beefyBooster is a contract with a size greater than zero.
+
+- YearnAdapter.initialize() lacks ensuring that (IYearn(yVault) == _asset) 
