@@ -13,4 +13,16 @@ uint32 offset`
 ## After - 
 `unit32 duration, unit32 offset, unit256 amount`
 
+As well as:
 
+File: `src/utils/MultiRewardStaking.sol`
+Line 248-250
+## Before - 
+    `uint192 escrowPercentage,
+    uint32 escrowDuration,
+    uint32 offset`
+## After:
+    `uint32 escrowDuration,
+    uint32 offset,
+    uint192 escrowPercentage`
+ 
