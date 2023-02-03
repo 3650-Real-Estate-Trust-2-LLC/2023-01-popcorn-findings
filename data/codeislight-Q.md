@@ -85,4 +85,4 @@ instance: in AdapterBase : harvest and takeFees
 
 - add an extra check to ensure that in BeefyAdapter.initialize(), _beefyBooster is a contract with a size greater than zero.
 
-- YearnAdapter.initialize() lacks ensuring that (IYearn(yVault) == _asset) 
+- YearnAdapter.initialize() lacks ensuring that (IYearn(yVault) == _asset)
