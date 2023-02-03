@@ -1,0 +1,8 @@
+{
+  "contest": 211,
+  "handle": "rvierdiiev",
+  "risk": "3",
+  "title": "Protocol loses fees because highWaterMark is updated every time someone deposit, withdraw, mint",
+  "issueId": 70,
+  "issueUrl": "https://github.com/code-423n4/2023-01-popcorn-findings/issues/70"
+}
