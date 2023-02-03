@@ -42,3 +42,4 @@ function deposit(uint256 assets, address receiver)
         emit Deposit(msg.sender, receiver, assets, shares);
     }
 ```
+- declare memory and local variables outside of loops to reduce on gas to be consumed on assigning new memory allocation on each loop.
