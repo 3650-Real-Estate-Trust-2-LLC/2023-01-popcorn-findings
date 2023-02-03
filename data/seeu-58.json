@@ -1,0 +1,8 @@
+{
+  "contest": 211,
+  "handle": "seeu",
+  "risk": "3",
+  "title": "VaultController.sol does not check the result of ERC20 transferFrom in the functions addStakingRewardsTokens and fundStakingRewards",
+  "issueId": 58,
+  "issueUrl": "https://github.com/code-423n4/2023-01-popcorn-findings/issues/58"
+}
