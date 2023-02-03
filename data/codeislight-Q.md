@@ -70,19 +70,16 @@ function setPermissions(address[] calldata targets, bool[] calldata newPermissio
 
 - TemplateRegistry.toggleTemplateEndorsement() lacks checking that the templateCategory exists in templateCategoryExists mapping.
 
-- no need to use  a modifier if it is used in 1 function, refering to takeFees modifier and takeManagementAndPerformanceFees function. it is advised to move the modifier body to the function.
+- no need to directly cast function array input length to uint8, since if the length is greater than 255, it would overflow without any actual damage to the logic execution, recommended to instead assign it to uint256 variable directly without any down casting.
 
-instance: in Vault : takeManagementAndPerformanceFees and takeFees
-instance: in AdapterBase : harvest and takeFees
+as an elaboration, you may try the following input on the following function:
+input: [5,6,5,6,5,6,5,6,5,6,5,6,5,6,5,5,6,5,6,5,6,5,6,5,6,5,6,5,6,5,6,5,6,5,6,5,6,5,6,5,6,5,6,5,6,5,6,5,6,5,6,5,6,5,6,5,6,5,6,5,6,5,6,5,6,5,6,5,6,5,6,5,6,5,6,5,6,5,6,5,6,5,6,5,6,5,6,5,6,5,6,5,6,5,6,5,6,5,6,5,6,5,6,5,6,5,6,5,6,5,6,5,6,5,6,5,6,5,6,5,6,5,6,5,6,5,6,5,6,5,6,5,6,5,6,5,6,5,6,5,6,5,6,5,6,5,6,5,6,5,6,5,6,5,6,5,6,5,6,5,6,5,6,5,6,5,6,5,6,5,6,5,6,5,6,5,6,5,6,5,6,5,6,5,6,5,6,5,6,5,6,5,6,5,6,5,6,5,6,5,6,5,6,5,6,5,6,5,6,5,6,5,6,5,6,5,6,5,6,5,6,5,6,5,6,5,6,5,6,5,6,5,6,5,6,5,6,5,6,5,6,5,6,5,6,5,6,5,6,5,6,5,6,5,5,5,5]
 
-- prepend internal function names with `_`, i.e instead of computeDomainSeparator(), we may use _computeDomainSeparator()
-
-- VaultController.deployVault(), it needs to check for staking contract code size instead of zero address.
-
--  AdapterBase.__AdapterBase_init() lacks checking for zero address _owner, and check for code size greater than zero for asset and _strategy.
-
--  AdapterBase.__AdapterBase_init() lacks checking for _harvestCooldown bound value validity, it is advised to use setHarvestCooldown() or manually check for a 1 day maximum period.
-
-- add an extra check to ensure that in BeefyAdapter.initialize(), _beefyBooster is a contract with a size greater than zero.
-
-- YearnAdapter.initialize() lacks ensuring that (IYearn(yVault) == _asset)
+```
+contract Test {
+    function test(uint256[] calldata array) public returns(uint8){
+        return uint8(array.length);
+    }
+}
+```
+it would return 1.
