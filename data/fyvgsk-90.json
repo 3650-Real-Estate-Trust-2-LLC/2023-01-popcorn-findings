@@ -1,0 +1,8 @@
+{
+  "contest": 211,
+  "handle": "fyvgsk",
+  "risk": "2",
+  "title": "changeAdapter() and changeFees() in Vault could be called earlier than expected",
+  "issueId": 90,
+  "issueUrl": "https://github.com/code-423n4/2023-01-popcorn-findings/issues/90"
+}
