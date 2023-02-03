@@ -1,0 +1,8 @@
+{
+  "contest": 211,
+  "handle": "Bauer",
+  "risk": "2",
+  "title": "USDT approve is not supported and may cause transaction failure",
+  "issueId": 59,
+  "issueUrl": "https://github.com/code-423n4/2023-01-popcorn-findings/issues/59"
+}
