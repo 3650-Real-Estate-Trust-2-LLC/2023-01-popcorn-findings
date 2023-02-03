@@ -1,0 +1,8 @@
+{
+  "contest": 211,
+  "handle": "amber_0x5F",
+  "risk": "3",
+  "title": "modifier canCreate() would always pass before owner endores address(1) to permissionRegistry.",
+  "issueId": 68,
+  "issueUrl": "https://github.com/code-423n4/2023-01-popcorn-findings/issues/68"
+}
