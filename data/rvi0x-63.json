@@ -1,0 +1,8 @@
+{
+  "contest": 211,
+  "handle": "rvi0x",
+  "risk": "3",
+  "title": "attacker can withdraw vault assets without burning any shares",
+  "issueId": 63,
+  "issueUrl": "https://github.com/code-423n4/2023-01-popcorn-findings/issues/63"
+}
