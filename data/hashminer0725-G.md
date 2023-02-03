@@ -124,19 +124,7 @@ src/utils/MultiRewardEscrow.sol
 ```
 They are only assigned when deploying the contract.
 
-### 11. Some attributes could be removed from the struct.
-https://github.com/code-423n4/2023-01-popcorn/blob/main/src/interfaces/vault/IVaultRegistry.sol#L16-L21
-```
-    /// @notice OPTIONAL - If the asset is an Lp Token these are its underlying assets
-    address[8] swapTokenAddresses;
-    /// @notice OPTIONAL - If the asset is an Lp Token its the pool address
-    address swapAddress;
-    /// @notice OPTIONAL - If the asset is an Lp Token this is the identifier of the exchange (1 = curve)
-    uint256 exchange;
-```
-```swapTokenAddresses```, ```swapAddress```, and ```exchange``` are never used from the contracts.
-
-### 12. ```nominatedOwner``` is read multiple times from storage.
+### 11. ```nominatedOwner``` is read multiple times from storage.
 https://github.com/code-423n4/2023-01-popcorn/blob/main/src/utils/Owned.sol#L23-L25
 https://github.com/code-423n4/2023-01-popcorn/blob/main/src/utils/OwnedUpgradeable.sol#L25-L27
 ```
