@@ -2,7 +2,7 @@
 
 src/vault/VaultController.sol: [L79](https://github.com/code-423n4/2023-01-popcorn/blob/main/src/vault/VaultController.sol#L79) Says that "Caller must be owner", but the [modifier](https://github.com/code-423n4/2023-01-popcorn/blob/main/src/vault/VaultController.sol#L97) on the function is not the ```onlyOwner``` modifier, instead it is ```canCreate``` and it does not check if ```msg.sender == owner```.
 
-# [Q-02] Mark abstarct contracts as abstract
+# [Q-02] Mark abstract contracts as abstract
 
 Contracts [OnlyStrategy](https://github.com/code-423n4/2023-01-popcorn/blob/main/src/vault/adapter/abstracts/OnlyStrategy.sol) and [WithRewards](https://github.com/code-423n4/2023-01-popcorn/blob/main/src/vault/adapter/abstracts/WithRewards.sol) are meant to be abstract, but not marked like that.
 
@@ -34,3 +34,12 @@ https://github.com/code-423n4/2023-01-popcorn/blob/main/src/utils/MultiRewardEsc
      uint256 feePerc = fees[token].feePerc;
      if (feePerc > 0) {
 ```
+
+# [Q-04] Explicitly mark variables visibility
+
+Marking variables visibility makes code consistent and improves code readability.
+
+## Code location
+
+- src/vault/adapter/yearn/YearnAdapter.sol: [L25](https://github.com/code-423n4/2023-01-popcorn/blob/main/src/vault/adapter/yearn/YearnAdapter.sol#L25)
+- src/vault/Vault.sol: [L35](https://github.com/code-423n4/2023-01-popcorn/blob/main/src/vault/Vault.sol#L35)
