@@ -54,3 +54,16 @@ Have _protocolWithdraw( ) stop execution before calling beefyBooster.withdraw() 
                 beefyBooster.withdraw(beefyShares);
             beefyVault.withdraw(beefyShares);
         }
+
+# Yearn Adapter Cannot Be Paused if the Underlying Balance is Equal to Zero
+
+pause( ) in AdapterBase calls _protocolWithdraw( ).  
+
+        function pause() external onlyOwner {
+            _protocolWithdraw(totalAssets(), totalSupply());
+            // Update the underlying balance to prevent inflation attacks
+            underlyingBalance = 0;
+            _pause();
+         }
+
+_protocolWithdraw( ) in YearnAdapter calls ConvertToUnderlyingShares
