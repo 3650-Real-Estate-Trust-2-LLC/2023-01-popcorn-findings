@@ -1,39 +1,48 @@
 | Total Low issues |
-|-------------------|
+|------------------|
 
-| Risk   | Issues Details                                                | Number        |
-|--------|---------------------------------------------------------------|---------------|
-| [L-01] | No Storage Gap for Upgradeable contracts                      | 4             |
-| [L-02] | Loss of precision due to rounding                             | 2             |
-| [L-03] | Allows malleable `SECP256K1` signatures                       | 3             |
-| [L-04] | Integer overflow by unsafe casting                            | 17            |
-| [L-05] | Misleading NatSpec                                            | 1             |
-| [L-06] | Value is not validated to be different than the existing one  | 5             |
-| [L-07] | Unhandled return values of `transfer` and `transferFrom`      | 3             |
+| Risk   | Issues Details                                                             | Number        |
+|--------|----------------------------------------------------------------------------|---------------|
+| [L-01] | No Storage Gap for Upgradeable contracts                                   | 4             |
+| [L-02] | Loss of precision due to rounding                                          | 2             |
+| [L-03] | Allows malleable `SECP256K1` signatures                                    | 3             |
+| [L-04] | Integer overflow by unsafe casting                                         | 17            |
+| [L-05] | Misleading NatSpec                                                         | 1             |
+| [L-06] | Value is not validated to be different than the existing one               | 5             |
+| [L-07] | Unhandled return values of `transfer` and `transferFrom`                   | 3             |
+| [L-08] | Not all tokens support approve-max                                         | 8             |
+| [L-09] | ERC4626 does not work with fee-on-transfer tokens                          | 2             |
+| [L-10] | ERC4626 implmentation is not fully up to EIP-4626's specification          | 2             |
+| [L-11] | Missing checks for `address(0)`                                            | 2             |
 
 | Total Non-Critical issues |
 |---------------------------|
 
-| Risk    | Issues Details                                                             | Number        |
-|---------|----------------------------------------------------------------------------|---------------|
-| [NC-01] | Open TODO                                                                  | 1             |
-| [NC-02] | Include `@return` parameters in NatSpec comments                           | All Contracts |
-| [NC-03] | Lines are too long                                                         | 7             |
-| [NC-04] | Signature Malleability of EVM's `ecrecover()`                              | 3             |
-| [NC-05] | Use scientific notation rather than exponentiation                         | 1             |
-| [NC-06] | Use `bytes.concat()` and `string.concat()`                                 | 7             |
-| [NC-07] | Use a more recent version of solidity                                      | All Contracts |
-| [NC-08] | Lock pragmas to specific compiler version                                  | All Contracts |
-| [NC-09] | Constants in comparisons should appear on the left side                    | 15            |
-| [NC-10] | Function writing does not comply with the `Solidity Style Guide`           | All Contracts |
-| [NC-11] | NatSpec comments should be increased in contracts                          | All Contracts |
-| [NC-12] | Follow Solidity standard naming conventions                                | All Contracts |
-| [NC-13] | Consider using `delete` rather than assigning zero to clear values         | 2             |
-| [NC-14] | Critical changes should use-two step procedure                             | 1             |
-| [NC-15] | Contracts should have full test coverage                                   | All Contracts |
-| [NC-16] | Using vulnerable dependency of solmate                                     | 1             |
-| [NC-17] | Use SMTChecker                                                             |               |
-| [NC-18] | Not using the named return variables anywhere in the function is confusing | 1             |
+| Risk    | Issues Details                                                                             | Number        |
+|---------|--------------------------------------------------------------------------------------------|---------------|
+| [NC-01] | Open TODO                                                                                  | 1             |
+| [NC-02] | Include `@return` parameters in NatSpec comments                                           | All Contracts |
+| [NC-03] | Lines are too long                                                                         | 7             |
+| [NC-04] | Signature Malleability of EVM's `ecrecover()`                                              | 3             |
+| [NC-05] | Use scientific notation rather than exponentiation                                         | 3             |
+| [NC-06] | Use `bytes.concat()` and `string.concat()`                                                 | 7             |
+| [NC-07] | Use a more recent version of solidity                                                      | All Contracts |
+| [NC-08] | Lock pragmas to specific compiler version                                                  | All Contracts |
+| [NC-09] | Constants in comparisons should appear on the left side                                    | 15            |
+| [NC-10] | Function writing does not comply with the `Solidity Style Guide`                           | All Contracts |
+| [NC-11] | NatSpec comments should be increased in contracts                                          | All Contracts |
+| [NC-12] | Follow Solidity standard naming conventions                                                | All Contracts |
+| [NC-13] | Consider using `delete` rather than assigning zero to clear values                         | 2             |
+| [NC-14] | Critical changes should use-two step procedure                                             | 1             |
+| [NC-15] | Contracts should have full test coverage                                                   | All Contracts |
+| [NC-16] | Using vulnerable dependency of solmate                                                     | 1             |
+| [NC-17] | Use SMTChecker                                                                             |               |
+| [NC-18] | Not using the named return variables anywhere in the function is confusing                 | 1             |
+| [NC-19] | Using vulnerable dependency of OpenZeppelin                                                | 1             |
+| [NC-20] | Events that mark critical parameter changes should contain both the old and the new value  | 1             |
+| [NC-21] | Add a timelock to critical functions                                                       | 7             |
+| [NC-22] | Need Fuzzing test                                                                          | All Contracts |
+| [NC-23] | Add NatSpec comment to mapping                                                             | 9             |
 
 ## [L-01] No Storage Gap for Upgradeable contracts
 
@@ -229,6 +238,108 @@ This is a known issue with solmate and Opanzeppelin ERC20 libraries, For example
 
 Check the return value and revert on false.
 
+## [L-08] Not all tokens support approve-max
+
+#### Description
+
+Some tokens consider uint256 as just another value. If one of these tokens is used and the approval balance eventually reaches only a couple wei, nobody will be able to send funds because there won't be enough approval.
+
+```solidity
+      rewardToken.safeApprove(address(escrow), type(uint256).max);
+```
+
+#### Lines of code 
+
+- [MultiRewardStaking.sol#L271](https://github.com/code-423n4/2023-01-popcorn//blob/main/src/utils/MultiRewardStaking.sol#L271)
+- [BeefyAdapter.sol#L80](https://github.com/code-423n4/2023-01-popcorn//blob/main/src/vault/adapter/beefy/BeefyAdapter.sol#L80)
+- [BeefyAdapter.sol#L83](https://github.com/code-423n4/2023-01-popcorn//blob/main/src/vault/adapter/beefy/BeefyAdapter.sol#L83)
+- [Vault.sol#L80](https://github.com/code-423n4/2023-01-popcorn//blob/main/src/vault/Vault.sol#L80)
+- [Vault.sol#L610](https://github.com/code-423n4/2023-01-popcorn//blob/main/src/vault/Vault.sol#L610)
+- [VaultController.sol#L452](https://github.com/code-423n4/2023-01-popcorn//blob/main/src/vault/VaultController.sol#L452)
+- [VaultController.sol#L456](https://github.com/code-423n4/2023-01-popcorn//blob/main/src/vault/VaultController.sol#L456)
+- [YearnAdapter.sol#L54](https://github.com/code-423n4/2023-01-popcorn//blob/main/src/vault/adapter/yearn/YearnAdapter.sol#L54)
+
+## [L-09] ERC4626 does not work with fee-on-transfer tokens
+
+#### Description
+
+The ERC4626 [deposit](https://github.com/code-423n4/2023-01-popcorn//blob/main/src/vault/adapter/abstracts/AdapterBase.sol#L110-L122)/[mint](https://github.com/code-423n4/2023-01-popcorn//blob/main/src/vault/adapter/abstracts/AdapterBase.sol#L129-L141) functions do not work well with fee-on-transfer tokens as the `assets` variable is the pre-fee amount, including the fee, whereas the `totalAssets` do not include the fee anymore.
+
+This can be abused to mint more shares than desired.
+
+#### Lines of code 
+
+- [AdapterBase.sol](https://github.com/code-423n4/2023-01-popcorn//blob/main/src/vault/adapter/abstracts/AdapterBase.sol)
+- [Vault.sol](https://github.com/code-423n4/2023-01-popcorn//blob/main/src/vault/Vault.sol)
+
+#### Recommended Mitigation Steps
+
+`assets` should be the amount excluding the fee (i.e the amount the contract actually received), therefore it's recommended to use the balance change before and after the transfer instead of the amount.
+
+## [L-10] ERC4626 implmentation is not fully up to EIP-4626's specification
+
+#### Description
+
+Must return the maximum amount of shares mint would allow to be deposited to receiver and not cause a revert, which must not be higher than the actual maximum that would be accepted (it should underestimate if necessary).
+
+This assumes that the user has infinite assets, i.e. must not rely on balanceOf of asset.
+
+```solidity
+    function maxDeposit(address)
+        public
+        view
+        virtual
+        override
+        returns (uint256)
+    {
+        return paused() ? 0 : type(uint256).max;
+    }
+```
+
+```solidity
+    function maxMint(address) public view virtual override returns (uint256) {
+        return paused() ? 0 : type(uint256).max;
+    }
+
+```
+
+#### Lines of code 
+
+- [AdapterBase.sol#L404-L412](https://github.com/code-423n4/2023-01-popcorn//blob/main/src/vault/adapter/abstracts/AdapterBase.sol#L404-L412)
+- [AdapterBase.sol#L419-L421](https://github.com/code-423n4/2023-01-popcorn//blob/main/src/vault/adapter/abstracts/AdapterBase.sol#L419-L421)
+
+#### Recommended Mitigation Steps
+
+`maxMint()` and `maxDeposit()` should reflect the limitation of maxSupply.
+
+## [L-11] Missing checks for `address(0)`
+
+#### Description
+
+Check of `address(0)` to protect the code from `(0x0000000000000000000000000000000000000000)` address problem just in case. This is best practice or instead of suggesting that they verify `_address != address(0)`, you could add some good NatSpec comments explaining what is valid and what is invalid and what are the implications of accidentally using an invalid address.
+
+```solidity
+  constructor(
+    address _owner,
+    ICloneFactory _cloneFactory,
+    ICloneRegistry _cloneRegistry,
+    ITemplateRegistry _templateRegistry
+  ) Owned(_owner) {
+    cloneFactory = _cloneFactory;
+    cloneRegistry = _cloneRegistry;
+    templateRegistry = _templateRegistry;
+  }
+```
+
+#### Lines of code 
+
+- [VaultController.sol#L53-L70](https://github.com/code-423n4/2023-01-popcorn//blob/main/src/vault/VaultController.sol#L53-L70)
+- [DeploymentController.sol#L35-L44](https://github.com/code-423n4/2023-01-popcorn//blob/main/src/vault/DeploymentController.sol#L35-L44)
+
+#### Recommended Mitigation Steps
+
+Add checks for `address(0)` when assigning values to address state variables.	
+
 ## [NC-01] Open TODO
 
 #### Description
@@ -306,6 +417,8 @@ While the compiler knows to optimize away the exponentiation, it's still better 
 #### Lines of code 
 
 - [YearnAdapter.sol#L25](https://github.com/code-423n4/2023-01-popcorn//blob/main/src/vault/adapter/yearn/YearnAdapter.sol#L25)
+- [MultiRewardStaking.sol#L274](https://github.com/code-423n4/2023-01-popcorn//blob/main/src/utils/MultiRewardStaking.sol#L274)
+- [MultiRewardStaking.sol#L406](https://github.com/code-423n4/2023-01-popcorn//blob/main/src/utils/MultiRewardStaking.sol#L406)
 
 #### Recommended Mitigation Steps
 
@@ -614,4 +727,127 @@ Consider changing the variable to be an unnamed one:
                 ? assets
                 : assets.mulDiv(_totalSupply, _totalAssets, rounding);
     }
+```
+
+## [NC-19] Using vulnerable dependency of OpenZeppelin
+
+#### Description
+
+The package.json configuration file says that the project is using 4.7.1 of OpenZeppelin which has a not last update version.
+
+```solidity
+{
+  "name": "@openzeppelin/contracts-upgradeable",
+  "description": "Secure Smart Contract library for Solidity",
+  "version": "4.7.1",
+  "files": [
+    "**/*.sol",
+    "/build/contracts/*.json",
+    "!/mocks/**/*"
+  ],
+```
+
+#### Recommended Mitigation Steps
+
+Use patched versions Latest non vulnerable version 4.8.0.
+
+## [NC-20] Events that mark critical parameter changes should contain both the old and the new value
+
+#### Description
+
+Events that mark critical parameter changes should contain both the old and the new value:
+
+```solidity
+    function setQuitPeriod(uint256 _quitPeriod) external onlyOwner {
+        if (_quitPeriod < 1 days || _quitPeriod > 7 days)
+            revert InvalidQuitPeriod();
+
+        quitPeriod = _quitPeriod;
+
+        emit QuitPeriodSet(quitPeriod);
+    }
+```
+
+#### Lines of code 
+
+- [Vault.sol#L629-L636](https://github.com/code-423n4/2023-01-popcorn//blob/main/src/vault/Vault.sol#L629-L636)
+
+#### Recommended Mitigation Steps
+
+```solidity
+    
+    event QuitPeriodSet(uint256 previousQuitPeriod, uint256 newQuitPeriod);
+      
+    function setQuitPeriod(uint256 _quitPeriod) external onlyOwner {
+        if (_quitPeriod < 1 days || _quitPeriod > 7 days)
+            revert InvalidQuitPeriod();
+        
+        emit QuitPeriodSet(quitPeriod, _quitPeriod);
+        quitPeriod = _quitPeriod;
+    }
+```
+
+## [NC-21] Add a timelock to critical functions
+
+#### Description
+
+It is a good practice to give time for users to react and adjust to critical changes. A timelock provides more guarantees and reduces the level of trust required, thus decreasing risk for users. It also indicates that the project is legitimate.
+
+#### Lines of code 
+
+- [AdapterBase.sol#L500](https://github.com/code-423n4/2023-01-popcorn//blob/main/src/vault/adapter/abstracts/AdapterBase.sol#L500)
+- [AdapterBase.sol#L549](https://github.com/code-423n4/2023-01-popcorn//blob/main/src/vault/adapter/abstracts/AdapterBase.sol#L549)
+- [MultiRewardEscrow.sol#L207](https://github.com/code-423n4/2023-01-popcorn//blob/main/src/utils/MultiRewardEscrow.sol#L207)
+- [Vault.sol#L629](https://github.com/code-423n4/2023-01-popcorn//blob/main/src/vault/Vault.sol#L629)
+- [VaultController.sol#L543](https://github.com/code-423n4/2023-01-popcorn//blob/main/src/vault/VaultController.sol#L543)
+- [VaultController.sol#L751](https://github.com/code-423n4/2023-01-popcorn//blob/main/src/vault/VaultController.sol#L751)
+- [VaultController.sol#L791](https://github.com/code-423n4/2023-01-popcorn//blob/main/src/vault/VaultController.sol#L791)
+
+#### Recommended Mitigation Steps
+
+Consider adding a timelock to the critical changes.
+
+## [NC-22] Need Fuzzing test
+
+#### Description
+
+As Alberto Cuesta Canada said: Fuzzing is not easy, the tools are rough, and the math is hard, but it is worth it. Fuzzing gives me a level of confidence in my smart contracts that I didn’t have before. Relying just on unit testing anymore and poking around in a testnet seems reckless now.
+
+> Ref: https://medium.com/coinmonks/smart-contract-fuzzing-d9b88e0b0a05
+
+#### Lines of code 
+
+- [All Contracts](https://github.com/code-423n4/2023-01-popcorn/tree/main/src)
+
+#### Recommended Mitigation Step
+
+Use fuzzing test like Echidna.
+
+## [NC-23] Add NatSpec comment to mapping
+
+#### Description
+
+Add NatSpec comments describing mapping keys and values.
+
+```solidity
+    mapping(address => uint256) public nonces;
+```
+
+#### Lines of code 
+
+- [AdapterBase.sol#L627](https://github.com/code-423n4/2023-01-popcorn//blob/main/src/vault/adapter/abstracts/AdapterBase.sol#L627)
+- [CloneRegistry.sol#L28](https://github.com/code-423n4/2023-01-popcorn//blob/main/src/vault/CloneRegistry.sol#L28)
+- [MultiRewardStaking.sol#L440](https://github.com/code-423n4/2023-01-popcorn//blob/main/src/utils/MultiRewardStaking.sol#L440)
+- [PermissionRegistry.sol#L26](https://github.com/code-423n4/2023-01-popcorn//blob/main/src/vault/PermissionRegistry.sol#L26)
+- [TemplateRegistry.sol#L32](https://github.com/code-423n4/2023-01-popcorn//blob/main/src/vault/TemplateRegistry.sol#L32)
+- [TemplateRegistry.sol#L33](https://github.com/code-423n4/2023-01-popcorn//blob/main/src/vault/TemplateRegistry.sol#L33)
+- [TemplateRegistry.sol#L35](https://github.com/code-423n4/2023-01-popcorn//blob/main/src/vault/TemplateRegistry.sol#L35)
+- [Vault.sol#L659](https://github.com/code-423n4/2023-01-popcorn//blob/main/src/vault/Vault.sol#L659)
+- [VaultController.sol#L851](https://github.com/code-423n4/2023-01-popcorn//blob/main/src/vault/VaultController.sol#L851)
+
+#### Recommended Mitigation Steps
+
+```solidity
+/// @dev  address(user) => uint256(nonce)
+    mapping(address => uint256) public nonces;
 ```
