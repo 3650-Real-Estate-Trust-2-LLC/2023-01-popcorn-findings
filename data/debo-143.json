@@ -1,0 +1,8 @@
+{
+  "contest": 211,
+  "handle": "debo",
+  "risk": "3",
+  "title": "Function call from attack contract obtains the balance of victim contract and costs the victim contract gas money",
+  "issueId": 143,
+  "issueUrl": "https://github.com/code-423n4/2023-01-popcorn-findings/issues/143"
+}
