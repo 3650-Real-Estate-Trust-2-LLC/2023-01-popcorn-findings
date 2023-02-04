@@ -36,10 +36,20 @@ Ownership change implicitly resets performance fees, which can lead to some lost
 PoC: 
 Add following test to `test.vault.VaultController.t.sol`:
 ```
-function testFail_ownershipChangeKeepsPerformanceFees() public {       
+function testFail_ownershipChangeKeepsPerformanceFees() public {      
         uint256 performanceFee = 1e16;
+        address[] memory targets = new address[](1);
+        addTemplate("Adapter", templateId, adapterImpl, true, true);
+        address adapter = deployAdapter();
+        targets[0] = adapter;
+
+        // set the fees    
         controller.setPerformanceFee(performanceFee);
+        controller.setAdapterPerformanceFees(targets);
+
         assertEq(controller.performanceFee(), performanceFee);      
+        assertEq(IAdapter(adapter).performanceFee(), 1e16);
+
         VaultController bobController = new VaultController( 
             address(bob), 
             adminProxy, 
@@ -56,12 +66,7 @@ function testFail_ownershipChangeKeepsPerformanceFees() public {
         assertEq(adminProxy.owner(), address(bobController));
         
         // bob's performanceFee becomes zero
-        assertEq(bobController.performanceFee(), performanceFee);   
-        
-        // although they still can be properly set
-        // vm.prank(bob); 
-        // bobController.setPerformanceFee(performanceFee);
-        // assertEq(bobController.performanceFee(), performanceFee);                   
+        assertEq(bobController.performanceFee(), performanceFee);                           
         }
  ```
 Test Output for finding #2:
