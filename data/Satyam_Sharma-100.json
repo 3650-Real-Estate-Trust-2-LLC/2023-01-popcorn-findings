@@ -1,0 +1,8 @@
+{
+  "contest": 211,
+  "handle": "Satyam_Sharma",
+  "risk": "2",
+  "title": "CloneFactory.deploy function get other/every contract implementation data on same clone address",
+  "issueId": 100,
+  "issueUrl": "https://github.com/code-423n4/2023-01-popcorn-findings/issues/100"
+}
