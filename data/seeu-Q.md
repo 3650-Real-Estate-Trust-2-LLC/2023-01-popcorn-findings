@@ -171,3 +171,30 @@ To increase explicitness and readability, take into account introducing and util
 ### References
 
 - [Unnamed return parameters | Opyn Bull Strategy Contracts Audit](https://blog.openzeppelin.com/opyn-bull-strategy-contracts-audit/#unnamed-return-parameters)
+
+
+## [L-04] decimals() is not part of ERC20 standard and it may fail
+
+Since `decimals()` is not a part of the official ERC20 standard, it could not work for some tokens.
+
+### Description
+
+### Findings
+
+- [src/utils/MultiRewardStaking.sol](https://github.com/code-423n4/2023-01-popcorn//blob/main/src/utils/MultiRewardStaking.sol)
+  ```Solidity
+  ::51 =>     _decimals = IERC20Metadata(address(_stakingToken)).decimals();
+  ::274 =>     uint64 ONE = (10**IERC20Metadata(address(rewardToken)).decimals()).safeCastTo64();
+  ```Solidity
+- [src/vault/Vault.sol](https://github.com/code-423n4/2023-01-popcorn//blob/main/src/vault/Vault.sol#L82)
+  ```Solidity
+  _decimals = IERC20Metadata(address(asset_)).decimals();
+  ```
+- [src/vault/adapter/abstracts/AdapterBase.sol](https://github.com/code-423n4/2023-01-popcorn//blob/main/src/vault/adapter/abstracts/AdapterBase.sol#L77)
+  ```Solidity
+  _decimals = IERC20Metadata(asset).decimals();
+  ```
+
+### Resources
+
+- [[L-02] DECIMALS() NOT PART OF ERC20 STANDARD](https://code4rena.com/reports/2022-07-axelar#l-02-decimals-not-part-of-erc20-standard)
