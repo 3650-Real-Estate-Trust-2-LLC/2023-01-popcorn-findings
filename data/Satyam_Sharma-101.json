@@ -1,0 +1,8 @@
+{
+  "contest": 211,
+  "handle": "Satyam_Sharma",
+  "risk": "2",
+  "title": "In CloneRegistry.addClone it don not check if the address of the clone to be added in a registry already registered or not",
+  "issueId": 101,
+  "issueUrl": "https://github.com/code-423n4/2023-01-popcorn-findings/issues/101"
+}
