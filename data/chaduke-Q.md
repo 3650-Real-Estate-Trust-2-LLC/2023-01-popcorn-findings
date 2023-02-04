@@ -58,6 +58,11 @@ Suggestions: change it to
  if (rewardsPerSecond == 0) revert ZeroRewardsPerSecond();
 ```
 
+QA5.  It is important to declare a uint _gap[50] state variable for the following upgradable implementation contracts so that when they are upgraded with the introduction of new state variables, other inheriting contracts will not be disturbed. A storage gap allows new variables to be added in future versions of the contracts without changing the inheritance chain. see https://docs.openzeppelin.com/contracts/4.x/upgradeable#storage_gaps for further explanation. 
+
+https://github.com/code-423n4/2023-01-popcorn/blob/d95fc31449c260901811196d617366d6352258cd/src/utils/MultiRewardStaking.sol#L26
+
+
 
 
 
