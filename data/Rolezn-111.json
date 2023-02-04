@@ -1,0 +1,8 @@
+{
+  "contest": 211,
+  "handle": "Rolezn",
+  "risk": "2",
+  "title": "`claimRewards` calls `accrueRewards` twice on transfer",
+  "issueId": 111,
+  "issueUrl": "https://github.com/code-423n4/2023-01-popcorn-findings/issues/111"
+}
