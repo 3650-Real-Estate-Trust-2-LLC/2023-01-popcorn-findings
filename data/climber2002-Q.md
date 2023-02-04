@@ -8,12 +8,13 @@
 
 1. [StrategyBase.verifyAdapterSelectorCompatibility](https://github.com/climber2002/2023-01-popcorn/blob/1a6aea3e5e39de10befc61884d64a7dd8db4624e/src/vault/strategy/StrategyBase.sol#L12), from the method name it shouldn't change contract state
 
+2. [VaultController. _encodeAdapterData](https://github.com/climber2002/2023-01-popcorn/blob/1a6aea3e5e39de10befc61884d64a7dd8db4624e/src/vault/VaultController.sol#L243)
+
 ## fees_ param is not validated in Vault.initialize
 
 The fees param is validated in [proposeFees](https://github.com/climber2002/2023-01-popcorn/blob/1a6aea3e5e39de10befc61884d64a7dd8db4624e/src/vault/Vault.sol#L527) but in [initialize](https://github.com/climber2002/2023-01-popcorn/blob/1a6aea3e5e39de10befc61884d64a7dd8db4624e/src/vault/Vault.sol#L88) the param is not validated.
 
 We can extract a `_validateFees` internal function and call it in two places.
 
-2. [VaultController. _encodeAdapterData](https://github.com/climber2002/2023-01-popcorn/blob/1a6aea3e5e39de10befc61884d64a7dd8db4624e/src/vault/VaultController.sol#L243)
 
 
