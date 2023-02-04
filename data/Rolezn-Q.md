@@ -39,8 +39,9 @@ Total: 36 contexts over 11 issues
 | [NC&#x2011;17](#NC&#x2011;17) | Open TODOs | 1 |
 | [NC&#x2011;18](#NC&#x2011;18) | Use `bytes.concat()` | 1 |
 | [NC&#x2011;19](#NC&#x2011;19) | Use of Block.Timestamp | 8 |
+| [NC&#x2011;20](#NC&#x2011;20) | Incomplete functions | 2 |
 
-Total: 281 contexts over 19 issues
+Total: 283 contexts over 20 issues
 
 ## Low Risk Issues
 
@@ -1780,5 +1781,23 @@ Block timestamps should not be used for entropy or generating random numbers—i
 
 Time-sensitive logic is sometimes required; e.g., for unlocking contracts (time-locking), completing an ICO after a few weeks, or enforcing expiry dates. It is sometimes recommended to use block.number and an average block time to estimate times; with a 10 second block time, 1 week equates to approximately, 60480 blocks. Thus, specifying a block number at which to change a contract state can be more secure, as miners are unable to easily manipulate the block number.
 
+### <a href="#Summary">[NC&#x2011;20]</a><a name="NC&#x2011;20"> Incomplete functions
 
+These functions are incomplete, if not used then they should be removed.
 
+#### <ins>Proof Of Concept</ins>
+```solidity
+    /// @notice deposit into the underlying protocol.
+    function _protocolDeposit(uint256 assets, uint256 shares) internal virtual {
+        // OPTIONAL - convertIntoUnderlyingShares(assets,shares)
+    }
+
+    /// @notice Withdraw from the underlying protocol.
+    function _protocolWithdraw(uint256 assets, uint256 shares)
+        internal
+        virtual
+    {
+        // OPTIONAL - convertIntoUnderlyingShares(assets,shares)
+    }
+```
+https://github.com/code-423n4/2023-01-popcorn/blob/main/src/vault/adapter/abstracts/AdapterBase.sol#L593-L604
