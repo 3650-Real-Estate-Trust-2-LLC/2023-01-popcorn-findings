@@ -1,0 +1,8 @@
+{
+  "contest": 211,
+  "handle": "0xRobocop",
+  "risk": "2",
+  "title": "If the `templeId` of an adapter contract is zero, it will prevent the deployment of the adapter during the `vaultDeploy()` function",
+  "issueId": 94,
+  "issueUrl": "https://github.com/code-423n4/2023-01-popcorn-findings/issues/94"
+}
