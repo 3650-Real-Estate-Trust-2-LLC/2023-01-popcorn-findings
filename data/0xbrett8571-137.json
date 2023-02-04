@@ -1,0 +1,8 @@
+{
+  "contest": 211,
+  "handle": "0xbrett8571",
+  "risk": "2",
+  "title": "Bypass Vulnerability in the takeFees Modifier.",
+  "issueId": 137,
+  "issueUrl": "https://github.com/code-423n4/2023-01-popcorn-findings/issues/137"
+}
