@@ -92,3 +92,21 @@ In solidity version 0.8.0 and higher, unchecked saves 30-40 gas per loop
 ### References
 
 - [[G-02] ++I/I++ SHOULD BE UNCHECKED{++I}/UNCHECKED{I++} WHEN IT IS NOT POSSIBLE FOR THEM TO OVERFLOW, AS IS THE CASE WHEN USED IN FOR- AND WHILE-LOOPS](https://code4rena.com/reports/2022-12-caviar/#g-02-ii-should-be-uncheckediuncheckedi-when-it-is-not-possible-for-them-to-overflow-as-is-the-case-when-used-in-for--and-while-loops)
+
+## [G-03] Superfluos event fields
+
+### Description
+
+In the event information, `block.number` and `block.timestamp` are already added by default.
+
+### Findings
+
+[src/vault/Vault.sol](https://github.com/code-423n4/2023-01-popcorn//blob/main/src/vault/Vault.sol)
+```Solidity
+::512 =>     event NewFeesProposed(VaultFees newFees, uint256 timestamp);
+::569 =>     event NewAdapterProposed(IERC4626 newAdapter, uint256 timestamp);
+```
+
+### Resources
+
+- [[G-08] SUPERFLUOUS EVENT FIELDS](https://code4rena.com/reports/2022-12-caviar/#g-08-superfluous-event-fields)
