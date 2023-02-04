@@ -1,0 +1,8 @@
+{
+  "contest": 211,
+  "handle": "gjaldon",
+  "risk": "2",
+  "title": "Several Vault management functions inaccessible due to access control issue",
+  "issueId": 108,
+  "issueUrl": "https://github.com/code-423n4/2023-01-popcorn-findings/issues/108"
+}
