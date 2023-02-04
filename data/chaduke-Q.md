@@ -38,8 +38,28 @@ QA2. Use safeApprove and safeTransfer and safeTransferFrom instead of calling di
 
 [https://github.com/OpenZeppelin/openzeppelin-contracts-upgradeable/blob/master/contracts/token/ERC20/utils/SafeERC20Upgradeable.sol](https://github.com/OpenZeppelin/openzeppelin-contracts-upgradeable/blob/master/contracts/token/ERC20/utils/SafeERC20Upgradeable.sol)
 
+https://github.com/code-423n4/2023-01-popcorn/blob/d95fc31449c260901811196d617366d6352258cd/src/utils/MultiRewardStaking.sol#L182
+
+
 QA3. It is advised to lock all contract to a particular Solidity compiler version such as 0.8.10 (not too old but not too recent)
 
 https://github.com/code-423n4/2023-01-popcorn/blob/d95fc31449c260901811196d617366d6352258cd/src/utils/MultiRewardStaking.sol#L4
+
+https://github.com/code-423n4/2023-01-popcorn/blob/d95fc31449c260901811196d617366d6352258cd/src/vault/VaultController.sol#L3
+
+QA4. Misleading error name:
+https://github.com/code-423n4/2023-01-popcorn/blob/d95fc31449c260901811196d617366d6352258cd/src/utils/MultiRewardStaking.sol#L299
+```
+ if (rewardsPerSecond == 0) revert ZeroAmount();
+```
+
+Suggestions: change it to
+```
+ if (rewardsPerSecond == 0) revert ZeroRewardsPerSecond();
+```
+
+
+
+
 
 
