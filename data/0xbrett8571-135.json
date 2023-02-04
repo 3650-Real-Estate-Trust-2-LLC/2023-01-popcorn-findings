@@ -1,0 +1,8 @@
+{
+  "contest": 211,
+  "handle": "0xbrett8571",
+  "risk": "2",
+  "title": "Handling of Null Addresses Vulnerability in Function.",
+  "issueId": 135,
+  "issueUrl": "https://github.com/code-423n4/2023-01-popcorn-findings/issues/135"
+}
