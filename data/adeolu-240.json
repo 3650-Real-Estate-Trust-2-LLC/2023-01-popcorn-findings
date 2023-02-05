@@ -1,0 +1,8 @@
+{
+  "contest": 211,
+  "handle": "adeolu",
+  "risk": "2",
+  "title": "Its is possible to set implementation address to zero address in CloneFactory.sol",
+  "issueId": 240,
+  "issueUrl": "https://github.com/code-423n4/2023-01-popcorn-findings/issues/240"
+}
