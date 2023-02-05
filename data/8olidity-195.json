@@ -1,0 +1,8 @@
+{
+  "contest": 211,
+  "handle": "8olidity",
+  "risk": "3",
+  "title": "changeAdapter() should judge that the proposedAdapter address is not address(0)",
+  "issueId": 195,
+  "issueUrl": "https://github.com/code-423n4/2023-01-popcorn-findings/issues/195"
+}
