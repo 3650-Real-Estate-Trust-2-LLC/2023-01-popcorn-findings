@@ -22,3 +22,23 @@ at below line, we should not first check block.timestamp > feesUpdatedAt ?
 https://github.com/code-423n4/2023-01-popcorn/blob/d95fc31449c260901811196d617366d6352258cd/src/vault/Vault.sol#L434
 
 ////////////////////////////////////////////// ***** //////////////////////////////////////////////
+
+in the below line, you have if block, 
+https://github.com/code-423n4/2023-01-popcorn/blob/d95fc31449c260901811196d617366d6352258cd/src/vault/adapter/abstracts/AdapterBase.sol#L221
+
+        if (!paused()) {
+            uint256 underlyingBalance_ = _underlyingBalance();  
+            _protocolWithdraw(assets, shares);
+            // Update the underlying balance to prevent inflation attacks
+            underlyingBalance -= underlyingBalance_ - _underlyingBalance();
+        }
+
+why you didn't move the below codes to the if block?
+
+        _burn(owner, shares);
+
+        IERC20(asset()).safeTransfer(receiver, assets);
+
+        harvest();
+
+////////////////////////////////////////////// ***** //////////////////////////////////////////////
