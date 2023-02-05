@@ -38,7 +38,7 @@ function testFail_ownershipChangeKeepsPerformanceFees() public {
         assertEq(bobController.performanceFee(), performanceFee);                           
         }
  ```
-Test Output for finding #2:
+Test Output for finding #1:
 ```
  ~/se/c/latest/2023-01-popcorn │ on main !1 ?1  forge test --match-path test/vault/VaultController.t.sol --match-test "testFail_ownershipChangeKeepsPerformanceFees"
 [⠒] Compiling...
