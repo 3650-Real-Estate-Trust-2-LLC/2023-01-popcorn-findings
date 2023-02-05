@@ -8,15 +8,9 @@ https://github.com/code-423n4/2023-01-popcorn/blob/d95fc31449c260901811196d61736
 
 But this code is returning `VaultMetadata`, which is wrong. In this implementation, this function is working exactly same as getVault, which should not be expected.
 
-# 2. AdapterBases FEE_RECIPIENT is an invalid constant
+# 2. AdapterBases FEE_RECIPIENT can not be changed
 
-https://github.com/code-423n4/2023-01-popcorn/blob/d95fc31449c260901811196d617366d6352258cd/src/vault/adapter/abstracts/AdapterBase.sol#L563
-
-https://github.com/code-423n4/2023-01-popcorn/blob/d95fc31449c260901811196d617366d6352258cd/src/vault/adapter/abstracts/AdapterBase.sol#L517
-
-adapter's performance fee is sent to this invalid address `0x4444`, this should be changed to a meaningful address.
-
-No change can be made for this FEE_RECIPIENT, consider adding a function to change it, or mark it as constant or immutable (setting it in the constructor)
+No change can be made for this FEE_RECIPIENT, consider adding a function to change it
 
 # 3. Should not emit Harvested event if no harvest function is called
 
