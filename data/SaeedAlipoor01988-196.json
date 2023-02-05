@@ -1,0 +1,8 @@
+{
+  "contest": 211,
+  "handle": "SaeedAlipoor01988",
+  "risk": "3",
+  "title": "A malicious early user/attacker can manipulate the LToken's pricePerShare to take an unfair share of future users' deposits",
+  "issueId": 196,
+  "issueUrl": "https://github.com/code-423n4/2023-01-popcorn-findings/issues/196"
+}
