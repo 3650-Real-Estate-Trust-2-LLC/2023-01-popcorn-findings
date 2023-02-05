@@ -1,0 +1,8 @@
+{
+  "contest": 211,
+  "handle": "critical-or-high",
+  "risk": "3",
+  "title": "It's possible to set an adapter for a vault that isn't a real adapter, vault becomes unusable",
+  "issueId": 233,
+  "issueUrl": "https://github.com/code-423n4/2023-01-popcorn-findings/issues/233"
+}
