@@ -6,3 +6,9 @@ As function `getRegisteredAddresses` has returned `allVaults` ( all items return
 
 There's no usage of `allVaults(uint256)` in other contract, so marking as private has no impact.
 Off-chain consumers can always fetch the array items by eth_getStorage.
+
+# 2. CloneRegistry's clones and allClones can be marked as private to save gas
+
+public clones's behavior is same as   `function getClonesByCategoryAndId(bytes32 templateCategory, bytes32 templateId)`
+
+public allClones is not needed as there's getAllClones
