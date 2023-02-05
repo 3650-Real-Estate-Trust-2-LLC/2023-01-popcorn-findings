@@ -195,6 +195,27 @@ Since `decimals()` is not a part of the official ERC20 standard, it could not wo
   _decimals = IERC20Metadata(asset).decimals();
   ```
 
-### Resources
+### References
 
 - [[L-02] DECIMALS() NOT PART OF ERC20 STANDARD](https://code4rena.com/reports/2022-07-axelar#l-02-decimals-not-part-of-erc20-standard)
+
+## [L-05] Upgradeable contracts are lacking the storage variable __gap[50]
+
+### Description
+
+Even if it's possible that certain contracts aren't already subclassifiedsub-classed, including the storage variable `__gap[50]` now will prevent forgetting to do so in the future.
+
+### Findings
+
+- [src/interfaces/IMultiRewardEscrow.sol](https://github.com/code-423n4/2023-01-popcorn/blob/main/src/interfaces/IMultiRewardEscrow.sol)
+- [src/interfaces/vault/IERC4626.sol](https://github.com/code-423n4/2023-01-popcorn/blob/main/src/interfaces/vault/IERC4626.sol)
+- [src/utils/MultiRewardEscrow.sol](https://github.com/code-423n4/2023-01-popcorn/blob/main/src/utils/MultiRewardEscrow.sol)
+- [src/utils/MultiRewardStaking.sol](https://github.com/code-423n4/2023-01-popcorn/blob/main/src/utils/MultiRewardStaking.sol)
+- [src/vault/Vault.sol](https://github.com/code-423n4/2023-01-popcorn/blob/main/src/vault/Vault.sol)
+- [src/vault/VaultController.sol](https://github.com/code-423n4/2023-01-popcorn/blob/main/src/vault/VaultController.sol)
+- [src/vault/adapter/abstracts/AdapterBase.sol](https://github.com/code-423n4/2023-01-popcorn/blob/main/src/vault/adapter/abstracts/AdapterBase.sol)
+
+### Resources
+
+- [Storage Gaps | OpenZeppelin docs](https://docs.openzeppelin.com/contracts/4.x/upgradeable#storage_gaps)
+- [[L-02] UPGRADEABLE CONTRACT IS MISSING A __GAP[50] STORAGE VARIABLE TO ALLOW FOR NEW STORAGE VARIABLES IN LATER VERSIONS](https://code4rena.com/reports/2022-06-badger#l-02-upgradeable-contract-is-missing-a-__gap50-storage-variable-to-allow-for-new-storage-variables-in-later-versions)
