@@ -1,0 +1,8 @@
+{
+  "contest": 211,
+  "handle": "Cryptor",
+  "risk": "2",
+  "title": "Owner can change rewards rate as a grieving attack",
+  "issueId": 162,
+  "issueUrl": "https://github.com/code-423n4/2023-01-popcorn-findings/issues/162"
+}
