@@ -50,3 +50,9 @@ Remove empty blocks because while deploying even single letter will consume the 
 
 code snippet:-
 https://github.com/code-423n4/2023-01-popcorn//blob/main/src/vault/Vault.sol#L477
+
+## 6 . No events for changes :-
+In changeRewardSpeed() changes the reward speed but no events to emit ,it a good practice to add event to changes. 
+
+code snippet:-
+https://github.com/code-423n4/2023-01-popcorn//blob/main/src/utils/MultiRewardStaking.sol#L296
