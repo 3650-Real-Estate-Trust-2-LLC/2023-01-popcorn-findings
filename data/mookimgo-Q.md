@@ -8,7 +8,7 @@ https://github.com/code-423n4/2023-01-popcorn/blob/d95fc31449c260901811196d61736
 
 But this code is returning `VaultMetadata`, which is wrong. In this implementation, this function is working exactly same as getVault, which should not be expected.
 
-# 2. AdapterBases FEE_RECIPIENT can not be changed
+# 2. AdapterBase's FEE_RECIPIENT can not be changed
 
 No change can be made for this FEE_RECIPIENT, consider adding a function to change it
 
@@ -22,7 +22,7 @@ Even when harvestCooldown check is not passed, this harvest function still emit 
 
 This means `lastHarvest` must be changed in the delegate call of strategy contract, which is error-prone because it requires exact variable layout.
 
-Suggestion, change to
+Suggestion: change to
 
 ```
     function harvest() public takeFees {
@@ -40,3 +40,19 @@ Suggestion, change to
 
     }
 ```
+
+----
+
+# 5. VaultController is missing call to setQuitPeriod and  setFeeRecipient to Vault
+
+There're 6 Vault functions that require `onlyOwner`: proposeFees setFeeRecipient proposeAdapter setQuitPeriod pause unpause
+
+The owner of Vault is the AdminProxy, which gives VaultController permission to call admin functions.
+
+For example, proposeFees is called by proposeVaultFees.
+
+However, 2 functions are missing corresponding function:   setQuitPeriod and  setFeeRecipient
+
+This makes nobody can change quit period  and fee recipient of Vaults.
+
+Suggestion: add setVaultQuitPeriod  and setVaultFeeRecipient
