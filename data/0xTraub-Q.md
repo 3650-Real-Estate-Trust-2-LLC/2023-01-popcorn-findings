@@ -28,10 +28,21 @@ function _verifyToken(address token) internal view {
       token.safeTransfer(feeRecipient, fee);
     }
 
-Similarly, Error NoFEe(IERC20) is never used. If accidental then function setFees() should check that each fee is nonzero when executing a new fee, otherwise remove dead-code.
+Similarly, Error NoFee(IERC20) is never used. If accidental then function setFees() should check that each fee is nonzero when executing a new fee, otherwise remove dead-code.
+
+
 
 4. MultiRewardEscrow.sol -> block.timestamp can be manipulated by validators. Consider using block.number instead, with
 duration equaling number_of_slots * seconds_per_slot (12)
 
 5. AdapterBase.sol -> `withdraw()` and `redeem()` not tagged nonReentrant. While vault does, the adapter makes calls to external contracts
 not owned by the protocol/user and so extra care should be applied
+
+
+
+
+
+
+
+
+
