@@ -12,3 +12,9 @@ Off-chain consumers can always fetch the array items by eth_getStorage.
 public clones's behavior is same as   `function getClonesByCategoryAndId(bytes32 templateCategory, bytes32 templateId)`
 
 public allClones is not needed as there's getAllClones
+
+# 3. TemplateRegistry's templateCategories, templateIds, templates can be marked as private to save gas
+
+- templateCategories has getTemplateCategories
+- templateIds has getTemplateIds
+- templates has getTemplate
