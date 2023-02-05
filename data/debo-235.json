@@ -1,0 +1,8 @@
+{
+  "contest": 211,
+  "handle": "debo",
+  "risk": "3",
+  "title": "SWC-112 Delegate call to Untrusted Callee. ",
+  "issueId": 235,
+  "issueUrl": "https://github.com/code-423n4/2023-01-popcorn-findings/issues/235"
+}
