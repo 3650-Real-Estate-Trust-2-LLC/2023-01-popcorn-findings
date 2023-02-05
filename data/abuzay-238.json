@@ -1,0 +1,8 @@
+{
+  "contest": 211,
+  "handle": "abuzay",
+  "risk": "2",
+  "title": "Denial-of-Service Attack Vulnerability in Smart Contract Due to Lack of Gas Limit for AdminProxy.execute Calls",
+  "issueId": 238,
+  "issueUrl": "https://github.com/code-423n4/2023-01-popcorn-findings/issues/238"
+}
