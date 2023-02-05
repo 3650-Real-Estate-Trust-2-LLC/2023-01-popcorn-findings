@@ -1,0 +1,8 @@
+{
+  "contest": 211,
+  "handle": "Ruhum",
+  "risk": "2",
+  "title": "Adapter's `harvest()` function will be called with every interaction because `lastHarvest` is not updated",
+  "issueId": 199,
+  "issueUrl": "https://github.com/code-423n4/2023-01-popcorn-findings/issues/199"
+}
