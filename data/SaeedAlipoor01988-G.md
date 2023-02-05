@@ -38,3 +38,8 @@ source :
 https://mirror.xyz/horsefacts.eth/R5N_Dzm2XKVvSI3cM8e8EHuFzvpPBttG2TEtyEZDa10
 
 ////////////////////////////////////////////// ***** //////////////////////////////////////////////
+
+in the below function, you are to Simulate the effects of a deposit at the current block, given current on-chain conditions.
+https://github.com/code-423n4/2023-01-popcorn/blob/d95fc31449c260901811196d617366d6352258cd/src/vault/Vault.sol#L323
+
+this function is not used in the vault contract and only reads data from the adapter contract. so why you don't read this function directly from the adapter contract in the web3.0 section or from front-end and remove this function from the vault contract?
