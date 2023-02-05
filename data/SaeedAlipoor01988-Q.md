@@ -15,3 +15,10 @@ https://github.com/code-423n4/2023-01-popcorn/blob/d95fc31449c260901811196d61736
 https://github.com/code-423n4/2023-01-popcorn/blob/d95fc31449c260901811196d617366d6352258cd/src/vault/adapter/abstracts/AdapterBase.sol#L27
 
 https://docs.openzeppelin.com/contracts/4.x/upgradeable#storage_gaps
+
+////////////////////////////////////////////// ***** //////////////////////////////////////////////
+
+at below line, we should not first check block.timestamp > feesUpdatedAt ?
+https://github.com/code-423n4/2023-01-popcorn/blob/d95fc31449c260901811196d617366d6352258cd/src/vault/Vault.sol#L434
+
+////////////////////////////////////////////// ***** //////////////////////////////////////////////
