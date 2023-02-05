@@ -1,0 +1,8 @@
+{
+  "contest": 211,
+  "handle": "mookimgo",
+  "risk": "2",
+  "title": "Malicious attacker can use staking contract to steal ERC20 tokens from VaultController and its adminProxy",
+  "issueId": 204,
+  "issueUrl": "https://github.com/code-423n4/2023-01-popcorn-findings/issues/204"
+}
