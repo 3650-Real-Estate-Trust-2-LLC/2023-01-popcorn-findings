@@ -1,0 +1,8 @@
+{
+  "contest": 211,
+  "handle": "0xRobocop",
+  "risk": "2",
+  "title": "A vault could end up initialized with a malicious or buggy adapter",
+  "issueId": 160,
+  "issueUrl": "https://github.com/code-423n4/2023-01-popcorn-findings/issues/160"
+}
