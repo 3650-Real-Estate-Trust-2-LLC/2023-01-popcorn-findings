@@ -1,0 +1,8 @@
+{
+  "contest": 211,
+  "handle": "cccz",
+  "risk": "3",
+  "title": "_calcRewardsEnd needs to take into account the change of rewardsPerSecond, otherwise it will be calculated incorrectly",
+  "issueId": 258,
+  "issueUrl": "https://github.com/code-423n4/2023-01-popcorn-findings/issues/258"
+}
