@@ -1,0 +1,8 @@
+{
+  "contest": 211,
+  "handle": "rvierdiiev",
+  "risk": "2",
+  "title": "AdapterBase.harvest should be called on every depposit/withdraw action. Otherwise users lose yields.",
+  "issueId": 304,
+  "issueUrl": "https://github.com/code-423n4/2023-01-popcorn-findings/issues/304"
+}
