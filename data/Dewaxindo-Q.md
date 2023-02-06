@@ -137,3 +137,22 @@ function setFeeRecipient(address _feeRecipient) external onlyOwner {
 ## Recommendation
 
 Lack of two-step procedure for critical operations leaves them error-prone. Consider adding two step procedure on the critical functions.
+
+<br>
+
+
+# USE `OWNABLE2STEPUPGRADEABLE` INSTEAD OF `OWNABLEUPGRADEABLE` CONTRACT
+
+## Context 
+
+- [Vault.sol#L13](https://github.com/code-423n4/2023-01-popcorn/blob/d95fc31449c260901811196d617366d6352258cd/src/vault/Vault.sol#L13)
+- [MultiRewardStaking.sol#L10](https://github.com/code-423n4/2023-01-popcorn/blob/d95fc31449c260901811196d617366d6352258cd/src/utils/MultiRewardStaking.sol#L10)
+- [AdapterBase.sol#L15](https://github.com/code-423n4/2023-01-popcorn/blob/d95fc31449c260901811196d617366d6352258cd/src/vault/adapter/abstracts/AdapterBase.sol#L15)
+
+## Recommendation
+
+`acceptOwnership` function is used to accept Ownership from OwnableUpgradeable.sol.
+
+There is another Openzeppelin Ownable contract (Ownable2StepUpgradeable.sol) has `acceptOwnership` function , use it is more secure due to 2-stage ownership transfer.
+
+[Ownable2StepUpgradeable.sol](https://github.com/OpenZeppelin/openzeppelin-contracts-upgradeable/blob/master/contracts/access/Ownable2StepUpgradeable.sol)
