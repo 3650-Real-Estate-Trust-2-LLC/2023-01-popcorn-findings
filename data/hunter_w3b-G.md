@@ -5,6 +5,7 @@ There are **14** instances of this issue:
 
 
 #### File: src/utils/MultiRewardStaking.sol
+https://github.com/code-423n4/2023-01-popcorn//blob/main/src/utils/MultiRewardStaking.sol#L191
 
 **191**:  function _lockToken(
 **192**:    address user,
@@ -16,6 +17,7 @@ There are **14** instances of this issue:
 
 
 #### File: src/vault/adapter/yearn/YearnAdapter.sol
+https://github.com/code-423n4/2023-01-popcorn//blob/main/src/vault/adapter/yearn/YearnAdapter.sol#L89
 
 **89**:  function _shareValue(uint256 yShares) internal
 
@@ -31,6 +33,7 @@ There are **14** instances of this issue:
 
 
 #### File: src/vault/VaultController.sol
+https://github.com/code-423n4/2023-01-popcorn//blob/main/src/vault/VaultController.sol#L120
 
 **120**: function _deployVault(VaultInitParams memory vaultData, IDeploymentController _deploymentController)
 **121**:    internal
@@ -62,5 +65,35 @@ There are **14** instances of this issue:
 
 
 #### File:/src/vault/adapter/abstracts/AdapterBase.sol
+https://github.com/code-423n4/2023-01-popcorn//blob/main/src/vault/adapter/abstracts/AdapterBase.sol#L479
 
 **479**:    function _verifyAndSetupStrategy(bytes4[8] memory requiredSigs) internal {
+
+
+## ADD UNCHECKED {} FOR SUBTRACTIONS WHERE THE OPERANDS CANNOT UNDERFLOW BECAUSE OF A PREVIOUS  IF-STATEMENT
+
+require( a < b );    =>   unchecked { x = b - a }
+if( a < b ){return a+b;}     =>  if (a <=b) { **unchecked{ return a + b; }** }
+
+There is **3** instance of this issue:
+
+#### File:/src/vault/adapter/yearn/YearnAdapter.sol  
+https://github.com/code-423n4/2023-01-popcorn//blob/main/src/vault/adapter/yearn/YearnAdapter.sol#L120
+
+  **120**  :      return
+  **121** :               lockedProfit -
+  **122**:                ((lockedFundsRatio * lockedProfit) / DEGRADATION_COEFFICIENT); 
+
+
+#### File:/src/utils/MultiRewardStaking.sol
+https://github.com/code-423n4/2023-01-popcorn//blob/main/src/utils/MultiRewardStaking.sol#L357
+
+
+**357** :    amount += uint256(rewardsPerSecond) * (rewardsEndTimestamp - block.timestamp);
+
+#### File:/src/vault/Vault.sol
+https://github.com/code-423n4/2023-01-popcorn//blob/main/src/vault/Vault.sol#L455
+
+
+**455** :                   (shareValue - highWaterMark) * totalSupply(),
+
