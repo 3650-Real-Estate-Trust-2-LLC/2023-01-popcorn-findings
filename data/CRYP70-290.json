@@ -1,0 +1,8 @@
+{
+  "contest": 211,
+  "handle": "CRYP70",
+  "risk": "2",
+  "title": "Unenforced min out tokens can cause front running resulting in sandwich attacks",
+  "issueId": 290,
+  "issueUrl": "https://github.com/code-423n4/2023-01-popcorn-findings/issues/290"
+}
