@@ -1,0 +1,8 @@
+{
+  "contest": 211,
+  "handle": "peanuts",
+  "risk": "2",
+  "title": "Fees can be set too low, resulting in dust fee amounts that truncates to zero",
+  "issueId": 300,
+  "issueUrl": "https://github.com/code-423n4/2023-01-popcorn-findings/issues/300"
+}
