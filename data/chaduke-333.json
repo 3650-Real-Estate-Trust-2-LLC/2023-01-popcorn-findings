@@ -1,0 +1,8 @@
+{
+  "contest": 211,
+  "handle": "chaduke",
+  "risk": "2",
+  "title": "Protocol failure: nobody can add a template into TemplateRegistry at all.",
+  "issueId": 333,
+  "issueUrl": "https://github.com/code-423n4/2023-01-popcorn-findings/issues/333"
+}
