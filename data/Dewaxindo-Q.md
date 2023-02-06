@@ -115,3 +115,25 @@ function redeem(
     ) public virtual override returns (uint256) {
         require(shares <= maxRedeem(owner), "redeem more than max");
 ```
+
+<br>
+
+# Critical Address Changes Should Use Two-Step Procedure
+
+## Context
+
+[Vault.sol#L553-L559](https://github.com/code-423n4/2023-01-popcorn/blob/d95fc31449c260901811196d617366d6352258cd/src/vault/Vault.sol#L553-L559)
+
+```Solidity
+function setFeeRecipient(address _feeRecipient) external onlyOwner {
+        if (_feeRecipient == address(0)) revert InvalidFeeRecipient();
+
+        emit FeeRecipientUpdated(feeRecipient, _feeRecipient);
+
+        feeRecipient = _feeRecipient;
+    }
+```
+
+## Recommendation
+
+Lack of two-step procedure for critical operations leaves them error-prone. Consider adding two step procedure on the critical functions.
