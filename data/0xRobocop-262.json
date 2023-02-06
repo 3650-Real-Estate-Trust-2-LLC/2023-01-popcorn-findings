@@ -1,0 +1,8 @@
+{
+  "contest": 211,
+  "handle": "0xRobocop",
+  "risk": "2",
+  "title": "IMultiRewardEscrow public escrow state variable from the VaultController.sol contract cannot be updated",
+  "issueId": 262,
+  "issueUrl": "https://github.com/code-423n4/2023-01-popcorn-findings/issues/262"
+}
