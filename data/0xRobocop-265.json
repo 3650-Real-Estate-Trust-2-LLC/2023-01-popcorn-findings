@@ -1,0 +1,8 @@
+{
+  "contest": 211,
+  "handle": "0xRobocop",
+  "risk": "2",
+  "title": "The feeRecipient variable from the MultiRewarddEscrow.sol contract cannot be updated.",
+  "issueId": 265,
+  "issueUrl": "https://github.com/code-423n4/2023-01-popcorn-findings/issues/265"
+}
