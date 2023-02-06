@@ -1,0 +1,8 @@
+{
+  "contest": 211,
+  "handle": "0xRobocop",
+  "risk": "2",
+  "title": "An ERC777 `rewardToken` on the MultiRewardStaking.sol contract will allow an attacker to drain all the `rewardToken` balance of the contract.",
+  "issueId": 373,
+  "issueUrl": "https://github.com/code-423n4/2023-01-popcorn-findings/issues/373"
+}
