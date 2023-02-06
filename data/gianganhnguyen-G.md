@@ -57,7 +57,7 @@ There are 6 instances of this issue:
 
 Make it outside and only use it inside.
 
-There are 6 instances of this issue:
+There are 19 instances of this issue:
 
     File src/utils/MultiRewardEscrow.sol, line 157, 159.
 
