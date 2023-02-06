@@ -1,0 +1,8 @@
+{
+  "contest": 211,
+  "handle": "0xRobocop",
+  "risk": "2",
+  "title": "changeRewardSpeed function at the MultiRewardStaking contract is incorrectly implemented and can leave the staking of a token on a denial of service state",
+  "issueId": 250,
+  "issueUrl": "https://github.com/code-423n4/2023-01-popcorn-findings/issues/250"
+}
