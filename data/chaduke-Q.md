@@ -65,7 +65,7 @@ https://github.com/code-423n4/2023-01-popcorn/blob/d95fc31449c260901811196d61736
 https://github.com/code-423n4/2023-01-popcorn/blob/d95fc31449c260901811196d617366d6352258cd/src/vault/adapter/beefy/BeefyAdapter.sol#L20
 
 
-QA5. The ``isClaimable()`` fails to consider other two conditions in the ``_getClaimableAmount()`` function.  We need to refactor them into ``isClaimable()`` to have the correct implementation for ``isClaimable()``:
+QA6. The ``isClaimable()`` fails to consider other two conditions in the ``_getClaimableAmount()`` function.  We need to refactor them into ``isClaimable()`` to have the correct implementation for ``isClaimable()``:
  
 [https://github.com/code-423n4/2023-01-popcorn/blob/d95fc31449c260901811196d617366d6352258cd/src/utils/MultiRewardEscrow.sol#L171-L176](https://github.com/code-423n4/2023-01-popcorn/blob/d95fc31449c260901811196d617366d6352258cd/src/utils/MultiRewardEscrow.sol#L171-L176)
 ```diff
@@ -87,6 +87,5 @@ function isClaimable(bytes32 escrowId) external view returns (bool) {
   }
 
 ```
-
 
 
