@@ -18,3 +18,6 @@ https://github.com/code-423n4/2023-01-popcorn/blob/d95fc31449c260901811196d61736
 https://github.com/code-423n4/2023-01-popcorn/blob/d95fc31449c260901811196d617366d6352258cd/src/vault/VaultController.sol#L79
 https://github.com/code-423n4/2023-01-popcorn/blob/d95fc31449c260901811196d617366d6352258cd/src/vault/VaultController.sol#L181
 https://github.com/code-423n4/2023-01-popcorn/blob/d95fc31449c260901811196d617366d6352258cd/src/vault/VaultController.sol#L274
+6. `@dev` states that there are 525600 minutes per year, but the function uses `SECONDS_PER_YEAR` constants, which is `365.25 days` or 525960 minutes.
+https://github.com/code-423n4/2023-01-popcorn/blob/d95fc31449c260901811196d617366d6352258cd/src/vault/Vault.sol#L422-L439
+https://github.com/code-423n4/2023-01-popcorn/blob/d95fc31449c260901811196d617366d6352258cd/src/vault/Vault.sol#L35
