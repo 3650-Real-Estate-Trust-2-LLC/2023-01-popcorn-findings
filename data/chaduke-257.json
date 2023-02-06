@@ -1,0 +1,8 @@
+{
+  "contest": 211,
+  "handle": "chaduke",
+  "risk": "2",
+  "title": "Users might loss rewards due to a bug in MultirewardStaking._accrueUser()",
+  "issueId": 257,
+  "issueUrl": "https://github.com/code-423n4/2023-01-popcorn-findings/issues/257"
+}
