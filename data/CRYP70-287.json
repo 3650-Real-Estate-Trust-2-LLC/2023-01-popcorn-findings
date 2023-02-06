@@ -1,0 +1,8 @@
+{
+  "contest": 211,
+  "handle": "CRYP70",
+  "risk": "3",
+  "title": "First depositor can steal the entire vault balance by manipulating the share prices of the vault",
+  "issueId": 287,
+  "issueUrl": "https://github.com/code-423n4/2023-01-popcorn-findings/issues/287"
+}
