@@ -1,0 +1,8 @@
+{
+  "contest": 211,
+  "handle": "CRYP70",
+  "risk": "2",
+  "title": "Vault fees are incorrectly calculated which may allow users to avoid fees entirely",
+  "issueId": 288,
+  "issueUrl": "https://github.com/code-423n4/2023-01-popcorn-findings/issues/288"
+}
