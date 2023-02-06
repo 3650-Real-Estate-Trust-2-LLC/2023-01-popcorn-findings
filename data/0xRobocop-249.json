@@ -1,0 +1,8 @@
+{
+  "contest": 211,
+  "handle": "0xRobocop",
+  "risk": "2",
+  "title": "The changeRewardSpeed function at MultiRewardStaking.sol contract can Denial of Service the contract temporally.",
+  "issueId": 249,
+  "issueUrl": "https://github.com/code-423n4/2023-01-popcorn-findings/issues/249"
+}
