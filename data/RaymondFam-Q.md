@@ -17,7 +17,8 @@ https://docs.soliditylang.org/en/v0.8.16/natspec-format.html
 
 For instance, it will be of added values to the users and developers if:
 
-- a comprehensive NatSpec is provided on [EIP165.sol](https://github.com/code-423n4/2023-01-popcorn//blob/main/src/utils/EIP165.sol)
+- at least a minimalist NatSpec is provided on [EIP165.sol](https://github.com/code-423n4/2023-01-popcorn//blob/main/src/utils/EIP165.sol)
+- @return is included in the function NatSpec of [`deploy()`](https://github.com/code-423n4/2023-01-popcorn//blob/main/src/vault/CloneFactory.sol#L34-L39) in CloneFactory.sol 
 
 ## Typo mistakes
 [File: AdminProxy.sol#L11](https://github.com/code-423n4/2023-01-popcorn//blob/main/src/vault/AdminProxy.sol#L11)
@@ -25,6 +26,12 @@ For instance, it will be of added values to the users and developers if:
 ```diff
 - * @notice  Ownes contracts in the vault ecosystem to allow for easy ownership changes.
 + * @notice  Owner contracts in the vault ecosystem to allow for easy ownership changes.
+```
+[File: CloneRegistry.sol#L14](https://github.com/code-423n4/2023-01-popcorn//blob/main/src/vault/CloneRegistry.sol#L14)
+
+```diff
+- * Is used by `VaultController` to check if a target is a registerd clone.
++ * Is used by `VaultController` to check if a target is a registered clone.
 ```
 ## Return statement on named returns
 
@@ -42,5 +49,29 @@ For instance, the following function may be refactored as:
   {
 -    return target.call(callData);
 +    (success, returndata) = target.call(callData);
+  }
+```
+## Sanity check to prevent adding duplicate clone
+Although only the owner can call `addClone()` in CloneRegistry.sol, it does not prevent accidental addition of duplicate clones. 
+
+Consider having the function refactored as follows to ensure all clones pushed into the arrays are unique:
+
+[File: CloneRegistry.sol#L41-L51](https://github.com/code-423n4/2023-01-popcorn//blob/main/src/vault/CloneRegistry.sol#L41-L51)
+
+```diff
++ error CloneAlreadyAdded();
+
+  function addClone(
+    bytes32 templateCategory,
+    bytes32 templateId,
+    address clone
+  ) external onlyOwner {
++    if (cloneExists[clone]) revert CloneAlreadyAdded();
+
+    cloneExists[clone] = true;
+    clones[templateCategory][templateId].push(clone);
+    allClones.push(clone);
+
+    emit CloneAdded(clone);
   }
 ```
