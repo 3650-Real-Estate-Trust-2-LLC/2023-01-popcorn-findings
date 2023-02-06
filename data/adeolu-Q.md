@@ -1,10 +1,10 @@
 ## Address(0) and address(this) can be saved as clone addresses to clone registry
 It is possible to add address(0) and address(this) to the cloneRegistry contract's allClones mapping. There should be checks to prevent this. 
 
-Link to affected part of code -->  https://github.com/code-423n4/2023-01-popcorn/blob/d95fc31449c260901811196d617366d6352258cd/src/vault/CloneRegistry.sol#L41
+**Link to affected part of code** -->  https://github.com/code-423n4/2023-01-popcorn/blob/d95fc31449c260901811196d617366d6352258cd/src/vault/CloneRegistry.sol#L41
 
 
-Proof of concept code 
+**Proof of concept code**
 ```
 // SPDX-License-Identifier: GPL-3.0
 // Docgen-SOLC: 0.8.15
@@ -57,12 +57,12 @@ contract CloneRegistryTest is Test {
   }
 }
 ```
-Recommended mitigation ---> add a check in the addClone function that reverts when address(0) is supplied as clone address.
+**Recommended mitigation** ---> add a check in the addClone function that reverts when address(0) is supplied as clone address.
 
 
 ## Event  PermissionSet should be emitted after the permission is actually set
 
-Link to code in repo --> https://github.com/code-423n4/2023-01-popcorn/blob/d95fc31449c260901811196d617366d6352258cd/src/vault/PermissionRegistry.sol#L45
+**Link to code in repo** --> https://github.com/code-423n4/2023-01-popcorn/blob/d95fc31449c260901811196d617366d6352258cd/src/vault/PermissionRegistry.sol#L45
 
 
 ```
@@ -79,7 +79,7 @@ Link to code in repo --> https://github.com/code-423n4/2023-01-popcorn/blob/d95f
     }
   }
 ```
-Recommended mitigation -->  The code above emits the PermissionSet event before the permission is actually set in logic. The event PermissionSet should be emitted after the permission is actually set so in this function the event emit should be the last line of code logic here, like this;
+**Recommended mitigation** -->  The code above emits the PermissionSet event before the permission is actually set in logic. The event PermissionSet should be emitted after the permission is actually set so in this function the event emit should be the last line of code logic here, like this;
 
 ```
   function setPermissions(address[] calldata targets, Permission[] calldata newPermissions) external onlyOwner {
@@ -99,7 +99,7 @@ Recommended mitigation -->  The code above emits the PermissionSet event before 
 
 ## Emit event ChangedFees after fees has really been changed in logic
 
-link to affected code --> https://github.com/code-423n4/2023-01-popcorn/blob/d95fc31449c260901811196d617366d6352258cd/src/vault/Vault.sol#L544
+**link to affected code** --> https://github.com/code-423n4/2023-01-popcorn/blob/d95fc31449c260901811196d617366d6352258cd/src/vault/Vault.sol#L544
 
 ```
     /// @notice Change fees to the previously proposed fees after the quit period has passed.
@@ -114,12 +114,12 @@ link to affected code --> https://github.com/code-423n4/2023-01-popcorn/blob/d95
 
 In the above function event is emitted before the fees value is actually changed in storage.
 
-Recommended Mitigation --> emit event after the fees value is set to the  proposedFees.
+**Recommended Mitigation** --> emit event after the fees value is set to the  proposedFees.
 
 
 ## Emit event FeeRecipientUpdated after feeReceipient has really been changed in logic
 
-link to affected code --> https://github.com/code-423n4/2023-01-popcorn/blob/d95fc31449c260901811196d617366d6352258cd/src/vault/Vault.sol#L553
+**link to affected code** --> https://github.com/code-423n4/2023-01-popcorn/blob/d95fc31449c260901811196d617366d6352258cd/src/vault/Vault.sol#L553
 
 ```
     function setFeeRecipient(address _feeRecipient) external onlyOwner {
@@ -133,5 +133,21 @@ link to affected code --> https://github.com/code-423n4/2023-01-popcorn/blob/d95
 
 In the above function event is emitted before the fees value is actually changed in storage.
 
-Recommended Mitigation --> emit event after the fees value is set to the  proposedFees.
+**Recommended Mitigation** --> emit event after the fees value is set to the  proposedFees.
 
+
+## getSubmitter() and getVault() return same object
+
+**Links to affected code in repo** --> https://github.com/code-423n4/2023-01-popcorn/blob/d95fc31449c260901811196d617366d6352258cd/src/vault/VaultRegistry.sol#L59, https://github.com/code-423n4/2023-01-popcorn/blob/d95fc31449c260901811196d617366d6352258cd/src/vault/VaultRegistry.sol#L75
+
+```
+  function getVault(address vault) external view returns (VaultMetadata memory) {
+    return metadata[vault];
+  }
+
+  function getSubmitter(address vault) external view returns (VaultMetadata memory) {
+    return metadata[vault];
+  }
+```
+
+**Recommended Mitigation** ---> The above functions are both in the VaultRegistry contract and they return the exact same thing, even though they are named differently. Perhaps getSubmitter is to return the `creator` value in `VaultMetadata` struct? If this is the case the code in getSubmitter() should be updated to return such or one of the functions should be removed to reduce bytecode size as they are both doing the same thing.
