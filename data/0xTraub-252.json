@@ -1,0 +1,8 @@
+{
+  "contest": 211,
+  "handle": "0xTraub",
+  "risk": "2",
+  "title": "Incorrect precision can result in never being able to collect performance fees",
+  "issueId": 252,
+  "issueUrl": "https://github.com/code-423n4/2023-01-popcorn-findings/issues/252"
+}
