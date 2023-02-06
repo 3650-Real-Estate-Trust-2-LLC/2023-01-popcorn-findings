@@ -107,3 +107,15 @@ https://github.com/code-423n4/2023-01-popcorn/blob/main/src/vault/PermissionRegi
 ```
     if (newPermissions[i].endorsed && newPermissions[i].rejected) revert Mismatch();
 ```
+
+### 11. ```accrued``` could be removed from the ```Fee``` struct.
+https://github.com/code-423n4/2023-01-popcorn//blob/main/src/interfaces/IMultiRewardEscrow.sol#L26
+```
+24    struct Fee {
+25      /// @notice Accrued fee amount
+26      uint256 accrued;
+27      /// @notice Fee percentage in 1e18 for 100% (1 BPS = 1e14)
+28      uint256 feePerc;
+29    }
+```
+It's never used from the contracts.
