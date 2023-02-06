@@ -1,4 +1,4 @@
-Anyone able to call `changeFees` function from Vault multiple times after `block.timestamp < proposedFeeTime + quitPeriod` satisfied, consider updating proposedFeeTime = 0
+Anyone able to call `changeFees` function from Vault multiple times after `block.timestamp < proposedFeeTime + quitPeriod` satisfied, consider updating `proposedFeeTime` to some large value at the end of a `changeFees` call.
 
 ```solidity
 function changeFees() external {
