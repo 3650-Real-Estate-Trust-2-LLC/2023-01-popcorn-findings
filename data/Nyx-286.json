@@ -1,0 +1,8 @@
+{
+  "contest": 211,
+  "handle": "Nyx",
+  "risk": "2",
+  "title": "Vault owner can change parameters before quitPeriod",
+  "issueId": 286,
+  "issueUrl": "https://github.com/code-423n4/2023-01-popcorn-findings/issues/286"
+}
