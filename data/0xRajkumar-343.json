@@ -1,0 +1,8 @@
+{
+  "contest": 211,
+  "handle": "0xRajkumar",
+  "risk": "3",
+  "title": "Intialize function does not check for InvalidVaultFees and it can create trap for users",
+  "issueId": 343,
+  "issueUrl": "https://github.com/code-423n4/2023-01-popcorn-findings/issues/343"
+}
