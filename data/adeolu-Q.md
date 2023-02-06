@@ -57,3 +57,41 @@ contract CloneRegistryTest is Test {
   }
 }
 ```
+
+
+
+## Event  PermissionSet should be emitted after the permission is actually set
+
+Link to code in repo --> https://github.com/code-423n4/2023-01-popcorn/blob/d95fc31449c260901811196d617366d6352258cd/src/vault/PermissionRegistry.sol#L45
+
+
+```
+  function setPermissions(address[] calldata targets, Permission[] calldata newPermissions) external onlyOwner {
+    uint256 len = targets.length;
+    if (len != newPermissions.length) revert Mismatch();
+
+    for (uint256 i = 0; i < len; i++) {
+      if (newPermissions[i].endorsed && newPermissions[i].rejected) revert Mismatch();
+
+      emit PermissionSet(targets[i], newPermissions[i].endorsed, newPermissions[i].rejected);
+
+      permissions[targets[i]] = newPermissions[i];
+    }
+  }
+```
+The code above emits the PermissionSet event before the permission is actually set in logic. The event PermissionSet should be emitted after the permission is actually set so in this function the event emit should be the last line of code logic here, like this;
+
+```
+  function setPermissions(address[] calldata targets, Permission[] calldata newPermissions) external onlyOwner {
+    uint256 len = targets.length;
+    if (len != newPermissions.length) revert Mismatch();
+
+    for (uint256 i = 0; i < len; i++) {
+      if (newPermissions[i].endorsed && newPermissions[i].rejected) revert Mismatch();
+
+      permissions[targets[i]] = newPermissions[i];
+
+     emit PermissionSet(targets[i], newPermissions[i].endorsed, newPermissions[i].rejected);
+    }
+  }
+```
