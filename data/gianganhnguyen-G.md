@@ -45,3 +45,22 @@ to:
 Boolean return value for `transfer` is not checked in file src/utils/MultiRewardStaking.sol line 182:
 
     _rewardTokens[i].transfer(user, rewardAmount); // I recommend:  require(_rewardTokens[i].transfer(user, rewardAmount);, "!transferReward");
+
+# 4. [G-4] <X> += <Y> COSTS MORE GAS THAN <X> = <X> + <Y> FOR STATE VARIABLES
+
+There are 6 instances of this issue:
+
+    File src/utils/MultiRewardStaking.sol, line 357, 408, 431.
+    File src/vault/Vault.sol, line 228, 343, 365.
+
+# 5. [G-5] Can make variable outside the loop to save gas
+
+Make it outside and only use it inside.
+
+There are 6 instances of this issue:
+
+    File src/utils/MultiRewardEscrow.sol, line 157, 159.
+
+    File src/utils/MultiRewardStaking.sol, line 176, 375.
+
+    File src/vault/VaultController.sol, line 323, 338, 360, 375, 439, 450, 497, 565, 588, 609, 620, 635, 648, 767, 807.
