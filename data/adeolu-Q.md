@@ -57,7 +57,7 @@ contract CloneRegistryTest is Test {
   }
 }
 ```
-
+Recommended mitigation ---> add a check in the addClone function that reverts when address(0) is supplied as clone address.
 
 
 ## Event  PermissionSet should be emitted after the permission is actually set
@@ -79,7 +79,7 @@ Link to code in repo --> https://github.com/code-423n4/2023-01-popcorn/blob/d95f
     }
   }
 ```
-The code above emits the PermissionSet event before the permission is actually set in logic. The event PermissionSet should be emitted after the permission is actually set so in this function the event emit should be the last line of code logic here, like this;
+Recommended mitigation -->  The code above emits the PermissionSet event before the permission is actually set in logic. The event PermissionSet should be emitted after the permission is actually set so in this function the event emit should be the last line of code logic here, like this;
 
 ```
   function setPermissions(address[] calldata targets, Permission[] calldata newPermissions) external onlyOwner {
@@ -95,3 +95,43 @@ The code above emits the PermissionSet event before the permission is actually s
     }
   }
 ```
+
+
+## Emit event ChangedFees after fees has really been changed in logic
+
+link to affected code --> https://github.com/code-423n4/2023-01-popcorn/blob/d95fc31449c260901811196d617366d6352258cd/src/vault/Vault.sol#L544
+
+```
+    /// @notice Change fees to the previously proposed fees after the quit period has passed.
+    function changeFees() external {
+        if (block.timestamp < proposedFeeTime + quitPeriod)
+            revert NotPassedQuitPeriod(quitPeriod);
+
+        emit ChangedFees(fees, proposedFees);
+        fees = proposedFees;
+    }
+```
+
+In the above function event is emitted before the fees value is actually changed in storage.
+
+Recommended Mitigation --> emit event after the fees value is set to the  proposedFees.
+
+
+## Emit event FeeRecipientUpdated after feeReceipient has really been changed in logic
+
+link to affected code --> https://github.com/code-423n4/2023-01-popcorn/blob/d95fc31449c260901811196d617366d6352258cd/src/vault/Vault.sol#L553
+
+```
+    function setFeeRecipient(address _feeRecipient) external onlyOwner {
+        if (_feeRecipient == address(0)) revert InvalidFeeRecipient();
+
+        emit FeeRecipientUpdated(feeRecipient, _feeRecipient);
+
+        feeRecipient = _feeRecipient;
+    }
+```
+
+In the above function event is emitted before the fees value is actually changed in storage.
+
+Recommended Mitigation --> emit event after the fees value is set to the  proposedFees.
+
