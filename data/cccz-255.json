@@ -1,0 +1,8 @@
+{
+  "contest": 211,
+  "handle": "cccz",
+  "risk": "3",
+  "title": "MultiRewardStaking.changeRewardSpeed uses the balance of rewardToken to adjust the end time, which will make the end time inflated",
+  "issueId": 255,
+  "issueUrl": "https://github.com/code-423n4/2023-01-popcorn-findings/issues/255"
+}
