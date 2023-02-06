@@ -1,0 +1,8 @@
+{
+  "contest": 211,
+  "handle": "bug_squ4sh",
+  "risk": "3",
+  "title": "PausableUpgradeable and ReentrancyGuardUpgradable init functions are not called in Vault initialize funciton ",
+  "issueId": 264,
+  "issueUrl": "https://github.com/code-423n4/2023-01-popcorn-findings/issues/264"
+}
