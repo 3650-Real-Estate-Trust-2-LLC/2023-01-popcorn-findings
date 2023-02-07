@@ -1,3 +1,76 @@
+
+##  ++I/I++ SHOULD BE UNCHECKED{++I}/UNCHECKED{I++} WHEN IT IS NOT POSSIBLE FOR THEM TO OVERFLOW, AS IS THE CASE WHEN USED IN FOR- AND WHILE-LOOPS
+
+
+The unchecked keyword is new in solidity version 0.8.0, so this only applies to that version or higher, which these instances are. This saves 30-40 gas PER LOOP
+
+There are **21** instances of this issue:
+
+#### File:/src/vaults/PermissionRegistry.sol
+
+https://github.com/code-423n4/2023-01-popcorn//blob/main/src/vault/PermissionRegistry.sol#L42
+
+**42**:     for (uint256 i = 0; i < len; i++) {
+
+
+#### File: src/vault/VaultController.sol
+
+https://github.com/code-423n4/2023-01-popcorn//blob/main/src/vault/VaultController.sol#L319
+
+
+**319**:     for (uint8 i = 0; i < len; i++) {
+
+**337**:     for (uint8 i = 0; i < len; i++) {
+
+**357**:     for (uint8 i = 0; i < len; i++) {
+
+**374**:     for (uint8 i = 0; i < len; i++) {
+
+**437**:     for (uint256 i = 0; i < len; i++) {
+
+**494**:     for (uint256 i = 0; i < len; i++) {
+
+**523**:     for (uint256 i = 0; i < len; i++) {
+
+**564**:     for (uint256 i = 0; i < len; i++) {
+
+**587**:     for (uint256 i = 0; i < len; i++) {
+
+**607**:     for (uint256 i = 0; i < len; i++) {
+
+**620**:     for (uint256 i = 0; i < len; i++) {
+
+**633**:     for (uint256 i = 0; i < len; i++) {
+
+**646**:     for (uint256 i = 0; i < len; i++) {
+
+**766**:     for (uint256 i = 0; i < len; i++) {
+
+**806**:     for (uint256 i = 0; i < len; i++) {
+
+
+#### File: src/utils/MultiRewardStaking.sol
+
+https://github.com/code-423n4/2023-01-popcorn//blob/main/src/utils/MultiRewardStaking.sol#L171
+
+
+**171**:     for (uint8 i; i < _rewardTokens.length; i++) {
+
+**373**:     for (uint8 i; i < _rewardTokens.length; i++) {
+
+
+#### File: src/utils/MultiRewardEscrow.sol
+
+https://github.com/code-423n4/2023-01-popcorn//blob/main/src/utils/MultiRewardEscrow.sol#L53
+
+**53**:     for (uint256 i = 0; i < escrowIds.length; i++) {
+
+**155**:     for (uint256 i = 0; i < escrowIds.length; i++) {
+
+**210**:     for (uint256 i = 0; i < tokens.length; i++) {
+
+
+
 ## INTERNAL FUNCTIONS ONLY CALLED ONCE CAN BE INLINED TO SAVE GAS
 Not inlining costs 20 to 40 gas because of two extra JUMP instructions and additional stack operations needed for function calls.
 
@@ -157,8 +230,6 @@ https://github.com/code-423n4/2023-01-popcorn//blob/main/src/utils/MultiRewardSt
 **251**:   ) external onlyOwner {
 
 
-
-
 #### File:/src/vault/VaultController.sol
 
 https://github.com/code-423n4/2023-01-popcorn//blob/main/src/vault/VaultController.sol#L408
@@ -179,4 +250,6 @@ https://github.com/code-423n4/2023-01-popcorn//blob/main/src/vault/adapter/abstr
 **574**:     function pause() external onlyOwner {
 
 **582**:    function unpause() external onlyOwner {
+
+
 
