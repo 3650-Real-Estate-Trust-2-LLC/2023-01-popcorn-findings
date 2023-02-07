@@ -1,0 +1,8 @@
+{
+  "contest": 211,
+  "handle": "simon135",
+  "risk": "2",
+  "title": "When admin is setting  permissions and user is already rejected,their is no check in  the code that he rejected and it makes for a werid edge case ",
+  "issueId": 465,
+  "issueUrl": "https://github.com/code-423n4/2023-01-popcorn-findings/issues/465"
+}
