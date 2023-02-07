@@ -32,6 +32,18 @@ Avoids a Gsset (20000 gas) in the constructor, and replaces each Gwarmaccess (10
 `feeRecipient` can be declared immutable
 - [MultiRewardEscrow.sol#L191](https://github.com/code-423n4/2023-01-popcorn//blob/main/src/utils/MultiRewardEscrow.sol#L191)
 
+`adminProxy`
+- [VaultController.sol#L717](https://github.com/code-423n4/2023-01-popcorn//blob/main/src/vault/VaultController.sol#L717)
+
+`vaultRegistry`
+- [VaultController.sol#L387](https://github.com/code-423n4/2023-01-popcorn//blob/main/src/vault/VaultController.sol#L387)
+
+`permissionRegistry`
+- [VaultController.sol#L822](https://github.com/code-423n4/2023-01-popcorn//blob/main/src/vault/VaultController.sol#L822)
+
+`escrow`
+- [VaultController.sol#L535](https://github.com/code-423n4/2023-01-popcorn//blob/main/src/vault/VaultController.sol#L535)
+
 
 ## 2. Structs can be packed into fewer storage slots
 
