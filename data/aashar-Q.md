@@ -29,7 +29,8 @@ Here is a test to demonstrate it:
     assertFalse(template.endorsed);
     template = registry.getTemplate(templateCategory1, templateId);
     assertTrue(template.endorsed);
-  }```
+  }
+```
 
 2. Missing call to __ReentrancyGuard_init() in Vault.sol - https://github.com/code-423n4/2023-01-popcorn/blob/d95fc31449c260901811196d617366d6352258cd/src/vault/Vault.sol#L57
 
