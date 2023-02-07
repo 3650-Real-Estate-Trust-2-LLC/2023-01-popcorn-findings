@@ -49,14 +49,6 @@ Variables only set in the constructor and never edited afterwards should be mark
 
 **`Gas Saved: 8 * 2.1k=16.8k`**
 
-https://github.com/code-423n4/2023-01-popcorn/blob/d95fc31449c260901811196d617366d6352258cd/src/vault/DeploymentController.sol#L23-L25
-
-```solidity
-File: /src/vault/DeploymentController.sol
-23:  ICloneFactory public cloneFactory;
-24:  ICloneRegistry public cloneRegistry;
-25:  ITemplateRegistry public templateRegistry;
-```
 
 https://github.com/code-423n4/2023-01-popcorn/blob/d95fc31449c260901811196d617366d6352258cd/src/utils/MultiRewardEscrow.sol#L191
 ```solidity
@@ -75,6 +67,15 @@ index cf50b08..67744e0 100644
 
 -  address public feeRecipient;
 +  address public immutable feeRecipient;
+```
+
+https://github.com/code-423n4/2023-01-popcorn/blob/d95fc31449c260901811196d617366d6352258cd/src/vault/DeploymentController.sol#L23-L25
+
+```solidity
+File: /src/vault/DeploymentController.sol
+23:  ICloneFactory public cloneFactory;
+24:  ICloneRegistry public cloneRegistry;
+25:  ITemplateRegistry public templateRegistry;
 ```
 
 https://github.com/code-423n4/2023-01-popcorn/blob/d95fc31449c260901811196d617366d6352258cd/src/vault/VaultController.sol#L535
