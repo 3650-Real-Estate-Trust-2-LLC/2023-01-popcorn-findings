@@ -1,0 +1,8 @@
+{
+  "contest": 211,
+  "handle": "KingNFT",
+  "risk": "2",
+  "title": "The calculation of ````takeFees```` in ````Vault```` contract is incorrect",
+  "issueId": 491,
+  "issueUrl": "https://github.com/code-423n4/2023-01-popcorn-findings/issues/491"
+}
