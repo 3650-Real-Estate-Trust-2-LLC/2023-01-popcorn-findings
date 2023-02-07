@@ -4,16 +4,22 @@
 
 ## Non-Critical Issues
 
-|      | Issue                                                                      |
-| ---- | :------------------------------------------------------------------------- |
-| NC-1 | NOT USING THE NAMED RETURN VARIABLES ANYWHERE IN THE FUNCTION IS CONFUSING |
-| NC-2 | ADD A TIMELOCK TO CRITICAL FUNCTIONS                                       |
-| NC-3 | USE OF BYTES.CONCAT() INSTEAD OF ABI.ENCODEPACKED(,)                       |
-| NC-4 | SIGNATURE MALLEABILITY OF EVM’S ECRECOVER()                                |
-| NC-5 | LACK OF EVENT EMISSION AFTER CRITICAL `INITIALIZE()` FUNCTIONS             |
-| NC-6 | ALLOWS MALLEABLE SECP256K1 SIGNATURES                                      |
-| NC-7 | NATSPEC COMMENTS SHOULD BE INCREASED IN CONTRACTS                          |
-| NC-8 | INCLUDE RETURN PARAMETERS IN NATSPEC COMMENTS                              |
+|       | Issue                                                                      |
+| ----- | :------------------------------------------------------------------------- |
+| NC-1  | NOT USING THE NAMED RETURN VARIABLES ANYWHERE IN THE FUNCTION IS CONFUSING |
+| NC-2  | ADD A TIMELOCK TO CRITICAL FUNCTIONS                                       |
+| NC-3  | USE OF BYTES.CONCAT() INSTEAD OF ABI.ENCODEPACKED(,)                       |
+| NC-4  | SIGNATURE MALLEABILITY OF EVM’S ECRECOVER()                                |
+| NC-5  | LACK OF EVENT EMISSION AFTER CRITICAL `INITIALIZE()` FUNCTIONS             |
+| NC-6  | ALLOWS MALLEABLE SECP256K1 SIGNATURES                                      |
+| NC-7  | NATSPEC COMMENTS SHOULD BE INCREASED IN CONTRACTS                          |
+| NC-8  | INCLUDE RETURN PARAMETERS IN NATSPEC COMMENTS                              |
+| NC-9  | NO SAME VALUE INPUT CONTROL                                                |
+| NC-10 | Omissions in events                                                        |
+| NC-11 | USE A MORE RECENT VERSION OF SOLIDITY                                      |
+| NC-12 | For functions, follow solidity standard naming conventions                 |
+| NC-13 | Lines are too long                                                         |
+| NC-14 | NOT VERIFIED INPUT                                                         |
 
 ### [NC-1] NOT USING THE NAMED RETURN VARIABLES ANYWHERE IN THE FUNCTION IS CONFUSING
 
@@ -306,6 +312,932 @@ If Return parameters are declared, you must prefix them with ”/// @return”.
 
 Some code analysis programs do analysis by reading NatSpec details, if they can’t see the “@return” tag, they do incomplete analysis.
 
+### [NC-9] NO SAME VALUE INPUT CONTROL
+
+#### **Proof Of Concept**
+
+```solidity
+File: src/vault/Vault.sol
+
+558:         feeRecipient = _feeRecipient;
+
+633:         quitPeriod = _quitPeriod;
+
+```
+
+```solidity
+File: src/vault/adapter/abstracts/AdapterBase.sol
+
+80:         strategyConfig = _strategyConfig;
+
+81:         harvestCooldown = _harvestCooldown;
+
+```
+
+#### Recommended Mitigation Steps:
+
+Add code like this; if (oracle == \_oracle revert ADDRESS_SAME();
+
+### [NC-10] Omissions in events
+
+Throughout the codebase, events are generally emitted when sensitive changes are made to the contracts. However, some events are missing important parameters.
+
+The events should include the new value and old value where possible.
+
+#### **Proof Of Concept**
+
+Events with no old value:
+
+```solidity
+File: src/vault/CloneFactory.sol
+
+47:     emit Deployment(clone);
+
+```
+
+```solidity
+File: src/vault/CloneRegistry.sol
+
+50:     emit CloneAdded(clone);
+
+```
+
+```solidity
+File: src/vault/TemplateRegistry.sol
+
+58:     emit TemplateCategoryAdded(templateCategory);
+
+```
+
+```solidity
+File: src/vault/Vault.sol
+
+635:         emit QuitPeriodSet(quitPeriod);
+
+```
+
+```solidity
+File: src/vault/adapter/abstracts/AdapterBase.sol
+
+449:         emit Harvested();
+
+```
+
+### [NC-11] USE A MORE RECENT VERSION OF SOLIDITY
+
+#### **Context:**
+
+All Contracts
+
+#### **Description:**
+
+For security, it is best practice to use the latest Solidity version.
+
+For the security fix list in the versions.
+
+https://github.com/ethereum/solidity/blob/develop/Changelog.md
+
+#### **Proof Of Concept**
+
+```solidity
+File: src/interfaces/IEIP165.sol
+
+2: pragma solidity ^0.8.15;
+
+```
+
+```solidity
+File: src/interfaces/IMultiRewardEscrow.sol
+
+3: pragma solidity ^0.8.15;
+
+```
+
+```solidity
+File: src/interfaces/IMultiRewardStaking.sol
+
+3: pragma solidity ^0.8.15;
+
+```
+
+```solidity
+File: src/interfaces/vault/IAdapter.sol
+
+4: pragma solidity ^0.8.15;
+
+```
+
+```solidity
+File: src/interfaces/vault/IAdminProxy.sol
+
+4: pragma solidity ^0.8.15;
+
+```
+
+```solidity
+File: src/interfaces/vault/ICloneFactory.sol
+
+4: pragma solidity ^0.8.15;
+
+```
+
+```solidity
+File: src/interfaces/vault/ICloneRegistry.sol
+
+4: pragma solidity ^0.8.15;
+
+```
+
+```solidity
+File: src/interfaces/vault/IDeploymentController.sol
+
+4: pragma solidity ^0.8.15;
+
+```
+
+```solidity
+File: src/interfaces/vault/IERC4626.sol
+
+3: pragma solidity ^0.8.15;
+
+```
+
+```solidity
+File: src/interfaces/vault/IPermissionRegistry.sol
+
+4: pragma solidity ^0.8.15;
+
+```
+
+```solidity
+File: src/interfaces/vault/IStrategy.sol
+
+4: pragma solidity ^0.8.15;
+
+```
+
+```solidity
+File: src/interfaces/vault/ITemplateRegistry.sol
+
+3: pragma solidity ^0.8.15;
+
+```
+
+```solidity
+File: src/interfaces/vault/IVault.sol
+
+3: pragma solidity ^0.8.15;
+
+```
+
+```solidity
+File: src/interfaces/vault/IVaultController.sol
+
+4: pragma solidity ^0.8.15;
+
+```
+
+```solidity
+File: src/interfaces/vault/IVaultRegistry.sol
+
+3: pragma solidity ^0.8.15;
+
+```
+
+```solidity
+File: src/interfaces/vault/IWithRewards.sol
+
+4: pragma solidity ^0.8.15;
+
+```
+
+```solidity
+File: src/utils/EIP165.sol
+
+4: pragma solidity ^0.8.15;
+
+```
+
+```solidity
+File: src/utils/MultiRewardEscrow.sol
+
+4: pragma solidity ^0.8.15;
+
+```
+
+```solidity
+File: src/utils/MultiRewardStaking.sol
+
+4: pragma solidity ^0.8.15;
+
+```
+
+```solidity
+File: src/vault/AdminProxy.sol
+
+4: pragma solidity ^0.8.15;
+
+```
+
+```solidity
+File: src/vault/CloneFactory.sol
+
+4: pragma solidity ^0.8.15;
+
+```
+
+```solidity
+File: src/vault/CloneRegistry.sol
+
+4: pragma solidity ^0.8.15;
+
+```
+
+```solidity
+File: src/vault/DeploymentController.sol
+
+4: pragma solidity ^0.8.15;
+
+```
+
+```solidity
+File: src/vault/PermissionRegistry.sol
+
+4: pragma solidity ^0.8.15;
+
+```
+
+```solidity
+File: src/vault/TemplateRegistry.sol
+
+4: pragma solidity ^0.8.15;
+
+```
+
+```solidity
+File: src/vault/Vault.sol
+
+4: pragma solidity ^0.8.15;
+
+```
+
+```solidity
+File: src/vault/VaultController.sol
+
+3: pragma solidity ^0.8.15;
+
+```
+
+```solidity
+File: src/vault/VaultRegistry.sol
+
+4: pragma solidity ^0.8.15;
+
+```
+
+```solidity
+File: src/vault/adapter/abstracts/AdapterBase.sol
+
+4: pragma solidity ^0.8.15;
+
+```
+
+```solidity
+File: src/vault/adapter/abstracts/OnlyStrategy.sol
+
+4: pragma solidity ^0.8.15;
+
+```
+
+```solidity
+File: src/vault/adapter/abstracts/WithRewards.sol
+
+4: pragma solidity ^0.8.15;
+
+```
+
+```solidity
+File: src/vault/adapter/beefy/BeefyAdapter.sol
+
+4: pragma solidity ^0.8.15;
+
+```
+
+```solidity
+File: src/vault/adapter/beefy/IBeefy.sol
+
+4: pragma solidity ^0.8.15;
+
+```
+
+```solidity
+File: src/vault/adapter/yearn/IYearn.sol
+
+4: pragma solidity ^0.8.15;
+
+```
+
+```solidity
+File: src/vault/adapter/yearn/YearnAdapter.sol
+
+4: pragma solidity ^0.8.15;
+
+```
+
+#### **Recommendation**
+
+Old version of Solidity is used, newer version can be used `(0.8.17)`
+
+### [NC-12] For functions, follow solidity standard naming conventions
+
+#### Description:
+
+Solidity’s standard naming convention for internal and private functions: the mixedCase format starting with an underscore (\_mixedCase starting with an underscore)
+
+#### **Proof Of Concept**
+
+```solidity
+File: src/utils/MultiRewardStaking.sol
+
+112:   ) internal override accrueRewards(caller, receiver) {
+
+127:   ) internal override accrueRewards(caller, receiver) {
+
+141:   ) internal override accrueRewards(from, to) {
+
+491:   function computeDomainSeparator() internal view virtual returns (bytes32) {
+
+```
+
+```solidity
+File: src/vault/Vault.sol
+
+716:     function computeDomainSeparator() internal view virtual returns (bytes32) {
+
+```
+
+```solidity
+File: src/vault/adapter/abstracts/AdapterBase.sol
+
+684:     function computeDomainSeparator() internal view virtual returns (bytes32) {
+
+```
+
+#### **Recommendation**
+
+Use solidity standard naming convention for internal and private functions
+
+### [NC-13] Lines are too long
+
+#### **Description:**
+
+Usually lines in source code are limited to 80 characters.
+
+[Reference](https://docs.soliditylang.org/en/v0.8.10/style-guide.html#maximum-line-length)
+
+#### **Proof Of Concept**
+
+```solidity
+File: src/interfaces/IMultiRewardEscrow.sol
+
+5: import { IERC20Upgradeable as IERC20 } from "openzeppelin-contracts-upgradeable/token/ERC20/IERC20Upgradeable.sol";
+
+40:   function setFees(IERC20[] memory tokens, uint256[] memory tokenFees) external;
+
+```
+
+```solidity
+File: src/interfaces/IMultiRewardStaking.sol
+
+48:   function changeRewardSpeed(IERC20 rewardToken, uint160 rewardsPerSecond) external;
+
+58:   function rewardInfos(IERC20 rewardToken) external view returns (RewardInfo memory);
+
+60:   function escrowInfos(IERC20 rewardToken) external view returns (EscrowInfo memory);
+
+```
+
+```solidity
+File: src/interfaces/vault/IAdapter.sol
+
+20:     function supportsInterface(bytes4 interfaceId) external view returns (bool);
+
+```
+
+```solidity
+File: src/interfaces/vault/IAdminProxy.sol
+
+9:   function execute(address target, bytes memory callData) external returns (bool, bytes memory);
+
+```
+
+```solidity
+File: src/interfaces/vault/ICloneFactory.sol
+
+10:   function deploy(Template memory template, bytes memory data) external returns (address);
+
+```
+
+```solidity
+File: src/interfaces/vault/IDeploymentController.sol
+
+12:   function templateCategoryExists(bytes32 templateCategory) external view returns (bool);
+
+24:   function toggleTemplateEndorsement(bytes32 templateCategory, bytes32 templateId) external;
+
+26:   function getTemplate(bytes32 templateCategory, bytes32 templateId) external view returns (Template memory);
+
+```
+
+```solidity
+File: src/interfaces/vault/IERC4626.sol
+
+5: import { IERC20Upgradeable as IERC20 } from "openzeppelin-contracts-upgradeable/token/ERC20/IERC20Upgradeable.sol";
+
+8:   event Deposit(address indexed sender, address indexed owner, uint256 assets, uint256 shares);
+
+26:   function convertToShares(uint256 assets) external view returns (uint256 shares);
+
+28:   function convertToAssets(uint256 shares) external view returns (uint256 assets);
+
+32:   function maxDeposit(address receiver) external view returns (uint256 maxAssets);
+
+34:   function previewDeposit(uint256 assets) external view returns (uint256 shares);
+
+36:   function deposit(uint256 assets, address receiver) external returns (uint256 shares);
+
+44:   function mint(uint256 shares, address receiver) external returns (uint256 assets);
+
+48:   function maxWithdraw(address owner) external view returns (uint256 maxAssets);
+
+50:   function previewWithdraw(uint256 assets) external view returns (uint256 shares);
+
+52:   function withdraw(uint256 assets, address receiver, address owner) external returns (uint256 shares);
+
+58:   function previewRedeem(uint256 shares) external view returns (uint256 assets);
+
+60:   function redeem(uint256 shares, address receiver, address owner) external returns (uint256 assets);
+
+```
+
+```solidity
+File: src/interfaces/vault/IPermissionRegistry.sol
+
+14:   function setPermissions(address[] calldata targets, Permission[] calldata newPermissions) external;
+
+```
+
+```solidity
+File: src/interfaces/vault/ITemplateRegistry.sol
+
+24:   function templates(bytes32 templateCategory, bytes32 templateId) external view returns (Template memory);
+
+26:   function templateCategoryExists(bytes32 templateCategory) external view returns (bool);
+
+32:   function getTemplate(bytes32 templateCategory, bytes32 templateId) external view returns (Template memory);
+
+34:   function getTemplateIds(bytes32 templateCategory) external view returns (bytes32[] memory);
+
+44:   function toggleTemplateEndorsement(bytes32 templateCategory, bytes32 templateId) external;
+
+```
+
+```solidity
+File: src/interfaces/vault/IVaultController.sol
+
+39:   function proposeVaultAdapters(address[] memory vaults, IERC4626[] memory newAdapter) external;
+
+43:   function proposeVaultFees(address[] memory vaults, VaultFees[] memory newFees) external;
+
+47:   function registerVaults(address[] memory vaults, VaultMetadata[] memory metadata) external;
+
+55:   function addStakingRewardsTokens(address[] memory vaults, bytes[] memory rewardsTokenData) external;
+
+69:   function setEscrowTokenFees(IERC20[] memory tokens, uint256[] memory fees) external;
+
+73:   function toggleTemplateEndorsements(bytes32[] memory templateCategories, bytes32[] memory templateIds) external;
+
+99:   function setDeploymentController(IDeploymentController _deploymentController) external;
+
+101:   function setActiveTemplateId(bytes32 templateCategory, bytes32 templateId) external;
+
+103:   function activeTemplateId(bytes32 templateCategory) external view returns (bytes32);
+
+```
+
+```solidity
+File: src/interfaces/vault/IVaultRegistry.sol
+
+25:   function getVault(address vault) external view returns (VaultMetadata memory);
+
+```
+
+```solidity
+File: src/utils/EIP165.sol
+
+7:   function supportsInterface(bytes4 interfaceId) public view virtual returns (bool) {}
+
+```
+
+```solidity
+File: src/utils/MultiRewardEscrow.sol
+
+6: import { SafeERC20Upgradeable as SafeERC20 } from "openzeppelin-contracts-upgradeable/token/ERC20/utils/SafeERC20Upgradeable.sol";
+
+7: import { IERC20Upgradeable as IERC20 } from "openzeppelin-contracts-upgradeable/token/ERC20/IERC20Upgradeable.sol";
+
+38:   function getEscrowIdsByUser(address account) external view returns (bytes32[] memory) {
+
+42:   function getEscrowIdsByUserAndToken(address account, IERC20 token) external view returns (bytes32[] memory) {
+
+51:   function getEscrows(bytes32[] calldata escrowIds) external view returns (Escrow[] memory) {
+
+73:   event Locked(IERC20 indexed token, address indexed account, uint256 amount, uint32 duration, uint32 offset);
+
+136:   event RewardsClaimed(IERC20 indexed token, address indexed account, uint256 amount);
+
+141:     return escrows[escrowId].lastUpdateTime != 0 && escrows[escrowId].balance > 0;
+
+144:   function getClaimableAmount(bytes32 escrowId) external view returns (uint256) {
+
+170:   function _getClaimableAmount(Escrow memory escrow) internal view returns (uint256) {
+
+207:   function setFees(IERC20[] memory tokens, uint256[] memory tokenFees) external onlyOwner {
+
+208:     if (tokens.length != tokenFees.length) revert ArraysNotMatching(tokens.length, tokenFees.length);
+
+```
+
+```solidity
+File: src/utils/MultiRewardStaking.sol
+
+6: import { SafeERC20Upgradeable as SafeERC20 } from "openzeppelin-contracts-upgradeable/token/ERC20/utils/SafeERC20Upgradeable.sol";
+
+7: import { ERC4626Upgradeable, ERC20Upgradeable, IERC20Upgradeable as IERC20, IERC20MetadataUpgradeable as IERC20Metadata } from "openzeppelin-contracts-upgradeable/token/ERC20/extensions/ERC4626Upgradeable.sol";
+
+8: import { MathUpgradeable as Math } from "openzeppelin-contracts-upgradeable/utils/math/MathUpgradeable.sol";
+
+49:     _name = string(abi.encodePacked("Staked ", IERC20Metadata(address(_stakingToken)).name()));
+
+50:     _symbol = string(abi.encodePacked("pst-", IERC20Metadata(address(_stakingToken)).symbol()));
+
+59:   function name() public view override(ERC20Upgradeable, IERC20Metadata) returns (string memory) {
+
+63:   function symbol() public view override(ERC20Upgradeable, IERC20Metadata) returns (string memory) {
+
+67:   function decimals() public view override(ERC20Upgradeable, IERC20Metadata) returns (uint8) {
+
+98:   function _convertToShares(uint256 assets, Math.Rounding) internal pure override returns (uint256) {
+
+102:   function _convertToAssets(uint256 shares, Math.Rounding) internal pure override returns (uint256) {
+
+128:     if (caller != owner) _approve(owner, msg.sender, allowance(owner, msg.sender) - shares);
+
+142:     if (from == address(0) || to == address(0)) revert ZeroAddressTransfer(from, to);
+
+159:   event RewardsClaimed(address indexed user, IERC20 rewardToken, uint256 amount, bool escrowed);
+
+170:   function claimRewards(address user, IERC20[] memory _rewardTokens) external accrueRewards(msg.sender, user) {
+
+197:     uint256 escrowed = rewardAmount.mulDiv(uint256(escrowInfo.escrowPercentage), 1e18, Math.Rounding.Down);
+
+201:     escrow.lock(rewardToken, user, escrowed, escrowInfo.escrowDuration, escrowInfo.offset);
+
+220:   event RewardInfoUpdate(IERC20 rewardToken, uint160 rewardsPerSecond, uint32 rewardsEndTimestamp);
+
+252:     if (asset() == address(rewardToken)) revert RewardTokenCantBeStakingToken();
+
+255:     if (rewards.lastUpdatedTimestamp > 0) revert RewardTokenAlreadyExist(rewardToken);
+
+274:     uint64 ONE = (10**IERC20Metadata(address(rewardToken)).decimals()).safeCastTo64();
+
+296:   function changeRewardSpeed(IERC20 rewardToken, uint160 rewardsPerSecond) external onlyOwner {
+
+300:     if (rewards.lastUpdatedTimestamp == 0) revert RewardTokenDoesntExist(rewardToken);
+
+309:       prevEndTime > block.timestamp ? prevEndTime : block.timestamp.safeCastTo32(),
+
+331:     if (rewards.lastUpdatedTimestamp == 0) revert RewardTokenDoesntExist(rewardToken);
+
+336:     uint256 accrued = rewards.rewardsPerSecond == 0 ? amount : _accrueStatic(rewards);
+
+342:       rewardsEndTimestamp = _calcRewardsEnd(rewards.rewardsEndTimestamp, rewards.rewardsPerSecond, amount);
+
+346:     rewardInfos[rewardToken].lastUpdatedTimestamp = block.timestamp.safeCastTo32();
+
+348:     emit RewardInfoUpdate(rewardToken, rewards.rewardsPerSecond, rewardsEndTimestamp);
+
+357:       amount += uint256(rewardsPerSecond) * (rewardsEndTimestamp - block.timestamp);
+
+359:     return (block.timestamp + (amount / uint256(rewardsPerSecond))).safeCastTo32();
+
+377:       if (rewards.rewardsPerSecond > 0) _accrueRewards(rewardToken, _accrueStatic(rewards));
+
+390:   function _accrueStatic(RewardInfo memory rewards) internal view returns (uint256 accrued) {
+
+406:       deltaIndex = accrued.mulDiv(uint256(10**decimals()), supplyTokens, Math.Rounding.Down).safeCastTo224();
+
+409:     rewardInfos[_rewardToken].lastUpdatedTimestamp = block.timestamp.safeCastTo32();
+
+427:     uint256 supplierDelta = balanceOf(_user).mulDiv(deltaIndex, uint256(rewards.ONE), Math.Rounding.Down);
+
+466:                 keccak256("Permit(address owner,address spender,uint256 value,uint256 nonce,uint256 deadline)"),
+
+481:       if (recoveredAddress == address(0) || recoveredAddress != owner) revert InvalidSigner(recoveredAddress);
+
+488:     return block.chainid == INITIAL_CHAIN_ID ? INITIAL_DOMAIN_SEPARATOR : computeDomainSeparator();
+
+495:           keccak256("EIP712Domain(string name,string version,uint256 chainId,address verifyingContract)"),
+
+```
+
+```solidity
+File: src/vault/CloneFactory.sol
+
+39:   function deploy(Template calldata template, bytes calldata data) external onlyOwner returns (address clone) {
+
+```
+
+```solidity
+File: src/vault/CloneRegistry.sol
+
+57:   function getClonesByCategoryAndId(bytes32 templateCategory, bytes32 templateId)
+
+```
+
+```solidity
+File: src/vault/DeploymentController.sol
+
+10: import { ITemplateRegistry, Template } from "../interfaces/vault/ITemplateRegistry.sol";
+
+80:   function toggleTemplateEndorsement(bytes32 templateCategory, bytes32 templateId) external onlyOwner {
+
+104:     Template memory template = templateRegistry.getTemplate(templateCategory, templateId);
+
+```
+
+```solidity
+File: src/vault/PermissionRegistry.sol
+
+38:   function setPermissions(address[] calldata targets, Permission[] calldata newPermissions) external onlyOwner {
+
+43:       if (newPermissions[i].endorsed && newPermissions[i].rejected) revert Mismatch();
+
+45:       emit PermissionSet(targets[i], newPermissions[i].endorsed, newPermissions[i].rejected);
+
+```
+
+```solidity
+File: src/vault/TemplateRegistry.sol
+
+39:   event TemplateAdded(bytes32 templateCategory, bytes32 templateId, address implementation);
+
+53:     if (templateCategoryExists[templateCategory]) revert TemplateCategoryExists(templateCategory);
+
+72:     if (!templateCategoryExists[templateCategory]) revert KeyNotFound(templateCategory);
+
+102:   function toggleTemplateEndorsement(bytes32 templateCategory, bytes32 templateId) external onlyOwner {
+
+108:     emit TemplateEndorsementToggled(templateCategory, templateId, oldEndorsement, !oldEndorsement);
+
+119:   function getTemplateIds(bytes32 templateCategory) external view returns (bytes32[] memory) {
+
+123:   function getTemplate(bytes32 templateCategory, bytes32 templateId) external view returns (Template memory) {
+
+```
+
+```solidity
+File: src/vault/Vault.sol
+
+6: import {SafeERC20Upgradeable as SafeERC20} from "openzeppelin-contracts-upgradeable/token/ERC20/utils/SafeERC20Upgradeable.sol";
+
+7: import {ReentrancyGuardUpgradeable} from "openzeppelin-contracts-upgradeable/security/ReentrancyGuardUpgradeable.sol";
+
+8: import {PausableUpgradeable} from "openzeppelin-contracts-upgradeable/security/PausableUpgradeable.sol";
+
+10: import {IERC20Metadata} from "openzeppelin-contracts/token/ERC20/extensions/IERC20Metadata.sol";
+
+12: import {MathUpgradeable as Math} from "openzeppelin-contracts-upgradeable/utils/math/MathUpgradeable.sol";
+
+14: import {ERC20Upgradeable} from "openzeppelin-contracts-upgradeable/token/ERC20/ERC20Upgradeable.sol";
+
+295:         uint256 supply = totalSupply(); // Saves an extra SLOAD if totalSupply is non-zero.
+
+309:         uint256 supply = totalSupply(); // Saves an extra SLOAD if totalSupply is non-zero.
+
+514:     event FeeRecipientUpdated(address oldFeeRecipient, address newFeeRecipient);
+
+686:                                     "Permit(address owner,address spender,uint256 value,uint256 nonce,uint256 deadline)"
+
+721:                         "EIP712Domain(string name,string version,uint256 chainId,address verifyingContract)"
+
+```
+
+```solidity
+File: src/vault/VaultController.sol
+
+5: import { SafeERC20Upgradeable as SafeERC20 } from "openzeppelin-contracts-upgradeable/token/ERC20/utils/SafeERC20Upgradeable.sol";
+
+7: import { IVault, VaultInitParams, VaultFees } from "../interfaces/vault/IVault.sol";
+
+10: import { IDeploymentController, ICloneRegistry } from "../interfaces/vault/IDeploymentController.sol";
+
+11: import { ITemplateRegistry, Template } from "../interfaces/vault/ITemplateRegistry.sol";
+
+12: import { IPermissionRegistry, Permission } from "../interfaces/vault/IPermissionRegistry.sol";
+
+13: import { IVaultRegistry, VaultMetadata } from "../interfaces/vault/IVaultRegistry.sol";
+
+40:   bytes4 internal immutable DEPLOY_SIG = bytes4(keccak256("deploy(bytes32,bytes32,bytes)"));
+
+76:   event VaultDeployed(address indexed vault, address indexed staking, address indexed adapter);
+
+104:       vaultData.adapter = IERC4626(_deployAdapter(vaultData.asset, adapterData, strategyData, _deploymentController));
+
+108:     if (staking == address(0)) staking = _deployStaking(IERC20(address(vault)), _deploymentController);
+
+116:     _handleInitialDeposit(initialDeposit, IERC20(vaultData.asset), IERC4626(vault));
+
+120:   function _deployVault(VaultInitParams memory vaultData, IDeploymentController _deploymentController)
+
+154:   function _handleVaultStakingRewards(address vault, bytes memory rewardsData) internal {
+
+194:     adapter = _deployAdapter(asset, adapterData, strategyData, deploymentController);
+
+213:       requiredSigs = templateRegistry.getTemplate(STRATEGY, strategyData.id).requiredSigs;
+
+219:         abi.encode(asset, address(adminProxy), IStrategy(strategy), harvestCooldown, requiredSigs, strategyData.data),
+
+232:       abi.encodeWithSelector(DEPLOY_SIG, ADAPTER, adapterData.id, _encodeAdapterData(adapterData, baseAdapterData))
+
+238:     adminProxy.execute(adapter, abi.encodeWithSelector(IAdapter.setPerformanceFee.selector, performanceFee));
+
+242:   function _encodeAdapterData(DeploymentArgs memory adapterData, bytes memory baseAdapterData)
+
+256:   function _deployStrategy(DeploymentArgs memory strategyData, IDeploymentController _deploymentController)
+
+284:   function _deployStaking(IERC20 asset, IDeploymentController _deploymentController)
+
+294:         abi.encodeWithSelector(IMultiRewardStaking.initialize.selector, asset, escrow, adminProxy)
+
+313:   function proposeVaultAdapters(address[] calldata vaults, IERC4626[] calldata newAdapter) external {
+
+321:       if (!_cloneRegistry.cloneExists(address(newAdapter[i]))) revert DoesntExist(address(newAdapter[i]));
+
+352:   function proposeVaultFees(address[] calldata vaults, VaultFees[] calldata fees) external {
+
+390:   function _registerVault(address vault, VaultMetadata memory metadata) internal {
+
+408:   function setPermissions(address[] calldata targets, Permission[] calldata newPermissions) external onlyOwner {
+
+412:       abi.encodeWithSelector(IPermissionRegistry.setPermissions.selector, targets, newPermissions)
+
+433:   function addStakingRewardsTokens(address[] memory vaults, bytes[] memory rewardTokenData) public {
+
+446:       ) = abi.decode(rewardTokenData[i], (address, uint160, uint256, bool, uint224, uint24, uint256));
+
+452:         abi.encodeWithSelector(IERC20.approve.selector, staking, type(uint256).max)
+
+457:       IERC20(rewardsToken).transferFrom(msg.sender, address(adminProxy), amount);
+
+499:         abi.encodeWithSelector(IMultiRewardStaking.changeRewardSpeed.selector, rewardTokens[i], rewardsSpeeds[i])
+
+543:   function setEscrowTokenFees(IERC20[] calldata tokens, uint256[] calldata fees) external onlyOwner {
+
+561:   function addTemplateCategories(bytes32[] calldata templateCategories) external onlyOwner {
+
+567:         abi.encodeWithSelector(IDeploymentController.addTemplateCategory.selector, templateCategories[i])
+
+579:   function toggleTemplateEndorsements(bytes32[] calldata templateCategories, bytes32[] calldata templateIds)
+
+667:   function _verifyCreatorOrOwner(address vault) internal returns (VaultMetadata memory metadata) {
+
+669:     if (msg.sender != metadata.creator || msg.sender != owner) revert NotSubmitterNorOwner(msg.sender);
+
+673:   function _verifyCreator(address vault) internal view returns (VaultMetadata memory metadata) {
+
+692:   function _verifyAdapterConfiguration(address adapter, bytes32 adapterId) internal view {
+
+700:   function _verifyEqualArrayLength(uint256 length1, uint256 length2) internal pure {
+
+764:   function setAdapterPerformanceFees(address[] calldata adapters) external onlyOwner {
+
+769:         abi.encodeWithSelector(IAdapter.setPerformanceFee.selector, performanceFee)
+
+804:   function setAdapterHarvestCooldowns(address[] calldata adapters) external onlyOwner {
+
+809:         abi.encodeWithSelector(IAdapter.setHarvestCooldown.selector, harvestCooldown)
+
+824:   event DeploymentControllerChanged(address oldController, address newController);
+
+832:   function setDeploymentController(IDeploymentController _deploymentController) external onlyOwner {
+
+836:   function _setDeploymentController(IDeploymentController _deploymentController) internal {
+
+837:     if (address(_deploymentController) == address(0) || address(deploymentController) == address(_deploymentController))
+
+840:     emit DeploymentControllerChanged(address(deploymentController), address(_deploymentController));
+
+864:   function setActiveTemplateId(bytes32 templateCategory, bytes32 templateId) external onlyOwner {
+
+```
+
+```solidity
+File: src/vault/VaultRegistry.sol
+
+45:     if (metadata[_metadata.vault].vault != address(0)) revert VaultAlreadyRegistered();
+
+59:   function getVault(address vault) external view returns (VaultMetadata memory) {
+
+63:   function getVaultsByAsset(address asset) external view returns (address[] memory) {
+
+75:   function getSubmitter(address vault) external view returns (VaultMetadata memory) {
+
+```
+
+```solidity
+File: src/vault/adapter/abstracts/AdapterBase.sol
+
+6: import {ERC4626Upgradeable, IERC20Upgradeable as IERC20, IERC20MetadataUpgradeable as IERC20Metadata, ERC20Upgradeable as ERC20} from "openzeppelin-contracts-upgradeable/token/ERC20/extensions/ERC4626Upgradeable.sol";
+
+7: import {SafeERC20Upgradeable as SafeERC20} from "openzeppelin-contracts-upgradeable/token/ERC20/utils/SafeERC20Upgradeable.sol";
+
+8: import {ReentrancyGuardUpgradeable} from "openzeppelin-contracts-upgradeable/security/ReentrancyGuardUpgradeable.sol";
+
+9: import {MathUpgradeable as Math} from "openzeppelin-contracts-upgradeable/utils/math/MathUpgradeable.sol";
+
+10: import {PausableUpgradeable} from "openzeppelin-contracts-upgradeable/security/PausableUpgradeable.sol";
+
+594:     function _protocolDeposit(uint256 assets, uint256 shares) internal virtual {
+
+654:                                     "Permit(address owner,address spender,uint256 value,uint256 nonce,uint256 deadline)"
+
+689:                         "EIP712Domain(string name,string version,uint256 chainId,address verifyingContract)"
+
+```
+
+```solidity
+File: src/vault/adapter/abstracts/WithRewards.sol
+
+21:   function supportsInterface(bytes4 interfaceId) public view virtual override returns (bool) {
+
+22:     return interfaceId == type(IWithRewards).interfaceId || interfaceId == type(IAdapter).interfaceId;
+
+```
+
+```solidity
+File: src/vault/adapter/beefy/BeefyAdapter.sol
+
+6: import {AdapterBase, IERC20, IERC20Metadata, SafeERC20, ERC20, Math, IStrategy, IAdapter} from "../abstracts/AdapterBase.sol";
+
+8: import {IBeefyVault, IBeefyBooster, IBeefyBalanceCheck, IBeefyStrat} from "./IBeefy.sol";
+
+9: import {IPermissionRegistry} from "../../../interfaces/vault/IPermissionRegistry.sol";
+
+```
+
+```solidity
+File: src/vault/adapter/yearn/IYearn.sol
+
+6: import { IERC20Upgradeable as IERC20 } from "openzeppelin-contracts-upgradeable/token/ERC20/IERC20Upgradeable.sol";
+
+```
+
+```solidity
+File: src/vault/adapter/yearn/YearnAdapter.sol
+
+6: import {AdapterBase, ERC4626Upgradeable as ERC4626, IERC20, IERC20Metadata, ERC20, SafeERC20, Math, IStrategy, IAdapter} from "../abstracts/AdapterBase.sol";
+
+45:         yVault = VaultAPI(IYearnRegistry(externalRegistry).latestVault(_asset));
+
+```
+
+#### **Recommendation**
+
+The lines should be split when they reach that length.
+
+### [NC-14] NOT VERIFIED INPUT
+
+External / public functions parameters should be validated to make sure the address is not 0.
+
+Otherwise if not given the right input it can mistakenly lead to loss of user funds.
+
+#### **Proof Of Concept**
+
+```solidity
+File: src/vault/DeploymentController.sol
+
+121:   function nominateNewDependencyOwner(address _owner) external onlyOwner {
+
+```
+
+```solidity
+File: src/vault/VaultController.sol
+
+723:   function nominateNewAdminProxyOwner(address newOwner) external onlyOwner {
+
+```
+
 ## Low Issues
 
 |      | Issue                                                                      |
@@ -317,17 +1249,17 @@ Some code analysis programs do analysis by reading NatSpec details, if they can�
 | L-5  | DoS with Failed Call                                                       |
 | L-6  | `INITIALIZE()` FUNCTION CAN BE CALLED BY ANYBODY                           |
 | L-7  | INSUFFICIENT COVERAGE                                                      |
-| L-8  | INSUFFICIENT COVERAGE                                                      |
+| L-8  | LACK OF INPUT VALIDATION                                                   |
 | L-9  | LOSS OF PRECISION DUE TO ROUNDING                                          |
 | L-10 | IMPLMENTATION IS NOT FULLY UP TO EIP-4626’S SPECIFICATION                  |
 | L-11 | MISSING CALLS TO \_\_REENTRANCYGUARD_INIT FUNCTIONS OF INHERITED CONTRACTS |
 | L-12 | SOLMATE’S SAFETRANSFERLIB DOESN’T CHECK WHETHER THE ERC20 CONTRACT EXISTS  |
-| L-13 | SOLMATE’S SAFETRANSFERLIB DOESN’T CHECK WHETHER THE ERC20 CONTRACT EXISTS  |
-| L-14 | Modifier side-effects                                                      |
+| L-13 | Modifier side-effects                                                      |
+| L-14 | A SINGLE POINT OF FAILURE                                                  |
 | L-15 | Block values as a proxy for time                                           |
 | L-16 | Account existence check for low-level calls                                |
 | L-17 | UNSAFE CAST                                                                |
-| L-18 | UNSAFE CAST                                                                |
+| L-18 | NOT USING THE LATEST VERSION OF OPENZEPPELIN FROM DEPENDENCIES             |
 | L-19 | Unspecific compiler version pragma                                         |
 
 ### [L-1] DoS with block gas limit
@@ -1465,7 +2397,7 @@ File: package.json
 
 Use patched versions. Latest non vulnerable version 4.8.1
 
-### [L-5] Unspecific compiler version pragma
+### [L-19] Unspecific compiler version pragma
 
 #### **Context:**
 
