@@ -1,0 +1,8 @@
+{
+  "contest": 211,
+  "handle": "rbserver",
+  "risk": "3",
+  "title": "`YearnAdapter._yTotalAssets` function uses `IERC20(asset()).balanceOf(address(yVault))` instead of Yearn vault's `self.totalIdle`",
+  "issueId": 578,
+  "issueUrl": "https://github.com/code-423n4/2023-01-popcorn-findings/issues/578"
+}
