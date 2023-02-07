@@ -1,0 +1,8 @@
+{
+  "contest": 211,
+  "handle": "cccz",
+  "risk": "3",
+  "title": "The Adapter's FEE_RECIPIENT is fixed to address(0x4444), which causes the protocol fee to be lost",
+  "issueId": 506,
+  "issueUrl": "https://github.com/code-423n4/2023-01-popcorn-findings/issues/506"
+}
