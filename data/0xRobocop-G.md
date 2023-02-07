@@ -1,8 +1,4 @@
-# [G-01] State variables can be made immutable to save gas:
-
-Variables that are immutable don't occupy storage slots of the contract, rather they are stored of the bytecode directly. So they access is cheaper because there is no need for the SLOAD instruction.
-
-# [G-02] Sometimes is better to do assigments of structs from storage to local storage rather than doing them from storage to memory
+# [G-01] Sometimes is better to do assigments of structs from storage to local storage rather than doing them from storage to memory
 
 The Solidity Documentation has a [section](https://docs.soliditylang.org/en/v0.8.18/types.html#data-location-and-assignment-behaviour) for data location and assigment behavior.  It says that when assigments are:
 
@@ -19,15 +15,46 @@ Instances found:
 
 [LoC 254](https://github.com/code-423n4/2023-01-popcorn/blob/main/src/utils/MultiRewardStaking.sol#L254) at the MultiRewardStaking.sol contract.
 
-
-
-# [G-03] Setting state variables to their default value refund gas.
+# [G-02] Setting state variables to their default value refund gas.
 
 At the page 12 of the [EVM yellowpaper](https://ethereum.github.io/yellowpaper/paper.pdf) one of the last paragraph says the following: 
 
 "Storage fees have a slightly nuanced behaviour—to incentivise minimisation of the use of storage (which corresponds directly to a larger state database on all nodes), the execution fee for an operation that clears an entry in the storage is not only waived, a qualified refund is given; in fact, this refund is effectively paid up-front since the initial usage of a storage location costs substantially more than normal usage."
 
-# [G-04] Don't repeat statements already executed on the same function.
+The `Vault.sol` contract in order to change `fees` and change the `adapter` uses a pattern similar to a 2-step transfer of ownership. The first transaction is used to propose the new values, and the second transaction confirm them. In the second transaction the proposed variables can be reset to their default values.
+
+```
+function changeAdapter() external takeFees {
+        if (block.timestamp < proposedAdapterTime + quitPeriod)
+            revert NotPassedQuitPeriod(quitPeriod);
+
+        adapter.redeem(
+            adapter.balanceOf(address(this)),
+            address(this),
+            address(this)
+        );
+
+        asset.approve(address(adapter), 0);
+
+        emit ChangedAdapter(adapter, proposedAdapter);
+
+        adapter = proposedAdapter;
+
+        asset.approve(address(adapter), type(uint256).max);
+
+        adapter.deposit(asset.balanceOf(address(this)), address(this));
+    }
+
+function changeFees() external {
+        if (block.timestamp < proposedFeeTime + quitPeriod)
+            revert NotPassedQuitPeriod(quitPeriod);
+
+        emit ChangedFees(fees, proposedFees);
+        fees = proposedFees;
+    }
+``` 
+
+# [G-03] Don't repeat statements already executed on the same function.
 
 The `fundReward` function at the [MultiRewardStaking.sol](https://github.com/code-423n4/2023-01-popcorn/blob/main/src/utils/MultiRewardStaking.sol) contract updates the `lastUpdatedTimestamp` of a staking token at the LoC 346:
 
@@ -35,7 +62,7 @@ The `fundReward` function at the [MultiRewardStaking.sol](https://github.com/cod
 
 But at the LoC 339 calls the internal function [_accrueRewards](https://github.com/code-423n4/2023-01-popcorn/blob/main/src/utils/MultiRewardStaking.sol#L339) that does the same.
 
-# [G-05] The `_transfer(address, address, uint256)` internal function from the `MultiRewardStaking.sol` contract can be implemented in a more gas-efficient manner.
+# [G-04] The `_transfer(address, address, uint256)` internal function from the `MultiRewardStaking.sol` contract can be implemented in a more gas-efficient manner.
 
 In order to apply the `_transfer` logic, it uses the internal functions `_burn` and `_mint` which are implemented the following way:
 
@@ -90,7 +117,7 @@ function _transfer(
     super._transfer(from, to, amount);
  }
 ```
-# [G-06] Use the `unchecked {}` block for arithmetic that wont overflow/underflow
+# [G-05] Use the `unchecked {}` block for arithmetic that wont overflow/underflow
 
 Solidity from the version 0.8.0 added by default overflow and underflow checks, this increase the gas consumption. By wrapping the operations within `unchecked` blocks, the checks are disabled and the gas cost gets reduced.
 
@@ -119,3 +146,9 @@ Other similar instances:
 
 [LoC 102 MultiRewardEscrow.sol](https://github.com/code-423n4/2023-01-popcorn/blob/main/src/utils/MultiRewardEscrow.sol#L102)
 [LoC 110 MultiRewardEscrow.sol](https://github.com/code-423n4/2023-01-popcorn/blob/main/src/utils/MultiRewardEscrow.sol#L110)
+
+# [G-06] Use immutable variables when possible
+
+Immutable variables don't use storage slots, their values are stored directly on the bytecode during deployment.
+
+The variables: `ICloneFactory public cloneFactory;`, `ICloneRegistry public cloneRegistry;` and `ITemplateRegistry public templateRegistry;` of the `DeploymentController.sol` contract can be made immutable.
