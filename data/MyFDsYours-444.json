@@ -1,0 +1,8 @@
+{
+  "contest": 211,
+  "handle": "MyFDsYours",
+  "risk": "3",
+  "title": "A malicious early user can manipulate the vault’s pricePerShare to take an unfair share of future users’ deposits",
+  "issueId": 444,
+  "issueUrl": "https://github.com/code-423n4/2023-01-popcorn-findings/issues/444"
+}
