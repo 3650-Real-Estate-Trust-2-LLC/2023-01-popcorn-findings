@@ -1,0 +1,8 @@
+{
+  "contest": 211,
+  "handle": "0Kage",
+  "risk": "2",
+  "title": "`ChangeAdapter` can lead to a DOS if the new adapter breaches the `maxDeposit` limit when assets are migrated from old adapter",
+  "issueId": 485,
+  "issueUrl": "https://github.com/code-423n4/2023-01-popcorn-findings/issues/485"
+}
