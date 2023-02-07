@@ -153,7 +153,7 @@ It’s recommended to reuse the code in order to be more readable and light
 
 ##
 
-## [L-6]  USING VULNERABLE DEPENDENCY OF OPENZEPPELIN
+## [L-6]  USING VULNERABLE DEPENDENCY OF OPENZEPPELIN. Use Latest non vulnerable version
 
 The package.json configuration file says that the project is using 4.7.3 of OZ which has a not last update version
 
