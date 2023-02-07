@@ -1,0 +1,8 @@
+{
+  "contest": 211,
+  "handle": "monrel",
+  "risk": "3",
+  "title": "Core functionality is not working due to revert in _verifyCreatorOrOwner()",
+  "issueId": 806,
+  "issueUrl": "https://github.com/code-423n4/2023-01-popcorn-findings/issues/806"
+}
