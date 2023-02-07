@@ -1,3 +1,13 @@
+## RETURN VALUE NOT CHECKED ON __deployAdapter
+
+### Description:
+
+We always checks the return value after performing the function `execute` to ensure that the function was successful . If not checked then the 
+function call might fail but there won't be any reverts and the user would not know if the transaction failed (tx would pass but execute failed).
+This happens here https://github.com/code-423n4/2023-01-popcorn//blob/main/src/vault/VaultController.sol#L238.
+There should be  a check like ` if (!success) revert UnderlyingError(returnData);` . 
+No adapter would be deployed if this execute failed.
+
 ## USE OF BYTES.CONCAT() INSTEAD OF ABI.ENCODEPACKED(,)
 
 ### Description:
