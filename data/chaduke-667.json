@@ -1,0 +1,8 @@
+{
+  "contest": 211,
+  "handle": "chaduke",
+  "risk": "3",
+  "title": "Inflation attack to BeefyAdapter will allow attackers to steal fund from other depositors during the pause-unpause window",
+  "issueId": 667,
+  "issueUrl": "https://github.com/code-423n4/2023-01-popcorn-findings/issues/667"
+}
