@@ -18,8 +18,10 @@
 |[L-14]|Critical Address Changes Should Use Two-step Procedure| 1 |
 |[L-15]|Lack of Input Validation| 1 |
 |[L-16]|Prevent division by 0| 1 |
+|[L-17]|Although `vaults.length` length input value is up to `uint256`, this value is truncated to `uint8` | 1 |
 
-Total 16 issues
+
+Total 17 issues
 
 
 ### Non-Critical Issues List
@@ -630,6 +632,30 @@ src/utils/MultiRewardStaking.sol:
 
 
 ```
+
+
+### [L-17] Although `vaults.length` length input value is up to `uint256`, this value is truncated to `uint8`
+
+Although `vaults.length` length input value is up to `uint256`, this value is truncated to `uint8`
+
+If the user enters more `vaults` parameter number than uint8 value, this will be truncated, instead a require control that checks more than `uint8` value should be added, so that one entry above uint8 will not be possible.
+
+```solidity
+src/vault/VaultController.sol:
+  334     */
+  335:   function changeVaultAdapters(address[] calldata vaults) external {
+  336:     uint8 len = uint8(vaults.length);
+  337:     for (uint8 i = 0; i < len; i++) {
+  338:       (bool success, bytes memory returnData) = adminProxy.execute(
+  339:         vaults[i],
+  340:         abi.encodeWithSelector(IVault.changeAdapter.selector)
+  341:       );
+  342:       if (!success) revert UnderlyingError(returnData);
+  343:     }
+  344:   }
+
+```
+
 
 
 ### [N-01] Omissions in Events
