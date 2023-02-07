@@ -49,6 +49,6 @@ in VaultController  the function checks
  `vaultController->HarvestCooldown` is set on the adapter contract  which can `=`  1 day 
 but in the `adapterBase`  the cooldown can't be  `=`1 day 
 The worst thing that can happen  undesired cooldown
- #####  Their is no check that  on the vault metadata,so a user can get phished 
+ ##### There is no check on the vault metadata, so a user can get phished 
 On the UX if there is no check on the  `vault.metadata` and an attacker creates a different vault but the same metadata, a user can be phished
 On the Ux have verified vaults 
