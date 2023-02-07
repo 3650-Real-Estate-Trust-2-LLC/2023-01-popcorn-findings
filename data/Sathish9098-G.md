@@ -257,7 +257,13 @@ File : src/vault/Vault.sol
    
 [Link to Code](https://github.com/code-423n4/2023-01-popcorn//blob/main/src/vault/Vault.sol)
 
+##
 
+### [GAS-9]  OPTIMIZE NAMES TO SAVE GAS
+
+public/external function names and public member variable names can be optimized to save gas. See [this]()link for an example of how it works. In this report are the interfaces/abstract contracts that can be optimized so that the most frequently-called functions use the least amount of gas possible during method lookup. Method IDs that have two leading zero bytes can save 128 gas each during deployment, and renaming functions to have lower method IDs will save 22 gas per call, per sorted position shifted.
+
+> INSTANCES (15) 
 
 
 
