@@ -1,0 +1,8 @@
+{
+  "contest": 211,
+  "handle": "rbserver",
+  "risk": "2",
+  "title": "More times `AdapterBase.takeFees` modifier is triggered, harder it gets for `FEE_RECIPIENT` to receive performance fee for adapter",
+  "issueId": 575,
+  "issueUrl": "https://github.com/code-423n4/2023-01-popcorn-findings/issues/575"
+}
