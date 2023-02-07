@@ -22,8 +22,9 @@
 | [G-19] |Optimize names to save gas (22 gas) |All contracts  |
 | [G-20] |External visibility can be used in public functions | 13 |
 | [G-21] |Use a more recent version of solidity | All contracts |
+| [G-22] |Cheaper to calculate domain separator every time | 3 |
 
-Total 21 issues
+Total 22 issues
 
 ### [G-01] Gas overflow during iteration (DoS)
 
@@ -924,3 +925,43 @@ All contracts in scope (**35 files**) are written in ``pragma solidity ^0.8.15;`
 
 **Context:**
 All contracts
+
+### [G-22] Cheaper to calculate domain separator every time
+
+Since INITIAL_CHAIN_ID and INITIAL_DOMAIN_SEPARATOR are no longer immutable, but are state variables, you end up looking up their value every time, which incurs a very large gas penalty. 
+ 
+Use OpenZeppelin's version which is optimized for this case.
+https://github.com/OpenZeppelin/openzeppelin-contracts-upgradeable/blob/master/contracts/token/ERC20/extensions/draft-ERC20PermitUpgradeable.sol
+
+3 results - 3 files:
+
+```solidity
+src\utils\MultiRewardStaking.sol:
+
+  488:     return block.chainid == INITIAL_CHAIN_ID ? INITIAL_DOMAIN_SEPARATOR : computeDomainSeparator();
+
+```
+https://github.com/code-423n4/2023-01-popcorn//blob/main/src/utils/MultiRewardStaking.sol#L488
+
+```solidity
+src\vault\Vault.sol:
+
+  710:         return
+  711:             block.chainid == INITIAL_CHAIN_ID
+  712:                 ? INITIAL_DOMAIN_SEPARATOR
+  713:                 : computeDomainSeparator();
+  714:     }
+```
+https://github.com/code-423n4/2023-01-popcorn//blob/main/src/vault/Vault.sol#L710-L714
+
+```solidity
+src\vault\adapter\abstracts\AdapterBase.sol:
+
+  678:         return
+  679:             block.chainid == INITIAL_CHAIN_ID
+  680:                 ? INITIAL_DOMAIN_SEPARATOR
+  681:                 : computeDomainSeparator();
+  682:     }
+
+```
+https://github.com/code-423n4/2023-01-popcorn//blob/main/src/vault/adapter/abstracts/AdapterBase.sol#L678-L682
