@@ -83,13 +83,3 @@ contract Test {
 }
 ```
 it would return 1.
-
-- BeefyAdapter.rewardTokens() in the case beefyBooster is not setup, it would return a token of the zero address, consider returning an array of size 0.
-```
-   function _rewardTokens() external view returns (address[] memory _rewardTokens) {
-        if (address(beefyBooster) == address(0)) return new address[](0);
-        else  _rewardTokens = new address[](1);
-        _rewardTokens[0] = beefyBooster.rewardToken();
-        return _rewardTokens;
-    }
-```
