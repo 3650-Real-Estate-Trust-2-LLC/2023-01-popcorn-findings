@@ -14,6 +14,7 @@
 | [L-09] | ERC4626 does not work with fee-on-transfer tokens                          | 2             |
 | [L-10] | ERC4626 implmentation is not fully up to EIP-4626's specification          | 2             |
 | [L-11] | Missing checks for `address(0)`                                            | 2             |
+| [L-12] | Missing Event for initialize                                               | 4             |
 
 | Total Non-Critical issues |
 |---------------------------|
@@ -339,6 +340,65 @@ Check of `address(0)` to protect the code from `(0x00000000000000000000000000000
 #### Recommended Mitigation Steps
 
 Add checks for `address(0)` when assigning values to address state variables.	
+
+## [L-12] Missing Event for initialize
+
+#### Description
+
+Events help non-contract tools to track changes, and events prevent users from being surprised by changes Issuing event-emit during initialization is a detail that many projects skip.
+
+```solidity
+function initialize(
+        bytes memory adapterInitData,
+        address registry,
+        bytes memory beefyInitData
+    ) external initializer {
+        (address _beefyVault, address _beefyBooster) = abi.decode(
+            beefyInitData,
+            (address, address)
+        );
+        __AdapterBase_init(adapterInitData);
+
+        if (!IPermissionRegistry(registry).endorsed(_beefyVault))
+            revert NotEndorsed(_beefyVault);
+        if (IBeefyVault(_beefyVault).want() != asset())
+            revert InvalidBeefyVault(_beefyVault);
+        if (
+            _beefyBooster != address(0) &&
+            IBeefyBooster(_beefyBooster).stakedToken() != _beefyVault
+        ) revert InvalidBeefyBooster(_beefyBooster);
+
+        _name = string.concat(
+            "Popcorn Beefy",
+            IERC20Metadata(asset()).name(),
+            " Adapter"
+        );
+        _symbol = string.concat("popB-", IERC20Metadata(asset()).symbol());
+
+        beefyVault = IBeefyVault(_beefyVault);
+        beefyBooster = IBeefyBooster(_beefyBooster);
+
+        beefyBalanceCheck = IBeefyBalanceCheck(
+            _beefyBooster == address(0) ? _beefyVault : _beefyBooster
+        );
+
+        IERC20(asset()).approve(_beefyVault, type(uint256).max);
+
+        if (_beefyBooster != address(0))
+            IERC20(_beefyVault).approve(_beefyBooster, type(uint256).max);
+    }
+```
+
+#### Lines of code 
+
+- [YearnAdapter.sol#L34-L55](https://github.com/code-423n4/2023-01-popcorn//blob/main/src/vault/adapter/yearn/YearnAdapter.sol#L34-L55)
+- [Vault.sol#L57-L98](https://github.com/code-423n4/2023-01-popcorn//blob/main/src/vault/Vault.sol#L57-L98)
+- [MultiRewardStaking.sol#L41-L57](https://github.com/code-423n4/2023-01-popcorn//blob/main/src/utils/MultiRewardStaking.sol#L41-L57)
+- [BeefyAdapter.sol#L46-L84](https://github.com/code-423n4/2023-01-popcorn//blob/main/src/vault/adapter/beefy/BeefyAdapter.sol#L46-L84)
+
+#### Recommended Mitigation Steps
+
+Add Event-Emit
 
 ## [NC-01] Open TODO
 
