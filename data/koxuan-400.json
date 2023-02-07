@@ -1,0 +1,8 @@
+{
+  "contest": 211,
+  "handle": "koxuan",
+  "risk": "2",
+  "title": "fee on transfer token will cause MultiRewardEscrow to have more rewards than what it has",
+  "issueId": 400,
+  "issueUrl": "https://github.com/code-423n4/2023-01-popcorn-findings/issues/400"
+}
