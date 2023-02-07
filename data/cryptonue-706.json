@@ -1,0 +1,8 @@
+{
+  "contest": 211,
+  "handle": "cryptonue",
+  "risk": "2",
+  "title": "Wrongly input a rewardToken address will make adapter / yield strategy failed/reverted ",
+  "issueId": 706,
+  "issueUrl": "https://github.com/code-423n4/2023-01-popcorn-findings/issues/706"
+}
