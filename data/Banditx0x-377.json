@@ -1,0 +1,8 @@
+{
+  "contest": 211,
+  "handle": "Banditx0x",
+  "risk": "3",
+  "title": "canCreate() modifier incorrectly uses address(1), causing unintended reversions in depolyStaking and depolyAdapter functions",
+  "issueId": 377,
+  "issueUrl": "https://github.com/code-423n4/2023-01-popcorn-findings/issues/377"
+}
