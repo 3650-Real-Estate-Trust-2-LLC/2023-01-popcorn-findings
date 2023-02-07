@@ -1,0 +1,8 @@
+{
+  "contest": 211,
+  "handle": "0xmuxyz",
+  "risk": "2",
+  "title": "Missing to convert the data types of each `fees` to the proper data types",
+  "issueId": 460,
+  "issueUrl": "https://github.com/code-423n4/2023-01-popcorn-findings/issues/460"
+}
