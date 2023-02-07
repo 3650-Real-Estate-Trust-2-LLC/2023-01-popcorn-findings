@@ -18,13 +18,6 @@ but on   the `initialize` function, there is such a check
         fees = fees_;
 ```
 Make checks  for the `initialize` function
-
-##### their is an extra `_verifyToken()` function in `deployAdapter()`
-When `deployAdapter` is called in the `deployVault` function, the asset is verified 
-so when `deployAdapter` is called the token is already verified
-Remove the `verifyToken` from the inside call 
-https://github.com/code-423n4/2023-01-popcorn/blob/7a513a9734b9e49af33041e2032ffc131f3b73b0/src/vault/VaultController.sol#L192
-
 ##### `targets` parameters do not represent   `AdminProxy
 the `targets` instead are users  that get permission
 ```solidity
