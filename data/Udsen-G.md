@@ -1,4 +1,4 @@
-## 1. CALLDATA VARIABLE SHOULD BE USED TO EMIT THE EVENT INSTEAD OF USING THE STATE VARIABLE.
+## 1. CALLDATA VARIABLE SHOULD BE USED TO EMIT THE EVENT INSTEAD OF USING THE STATE VARIABLE, TO SAVE GAS.
 
 It is gas efficient to use the calldata variable as the argument to `QuitPeriodSet` event instead of using the state variable. 
 This will save an extra `SLOAD`.
