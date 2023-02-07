@@ -60,3 +60,12 @@ Suggestion: add setVaultQuitPeriod  and setVaultFeeRecipient
 # 6. Missing removeClone in CloneRegistry
 
 There is no removeClone function in CloneRegistry, if we found any clone is vulnerable, we cannot remove it from the CloneRegistry, so that we can not prevent it from being proposed as adapters.
+
+# 7. VaultController's deployStaking incompatible with created Vault
+
+https://github.com/code-423n4/2023-01-popcorn/blob/d95fc31449c260901811196d617366d6352258cd/src/vault/VaultController.sol#L278-L281
+
+`depoloyStaking` requires that asset is not a clone by calling _verifyToken; but `_deployStaking` function is also called at https://github.com/code-423n4/2023-01-popcorn/blob/d95fc31449c260901811196d617366d6352258cd/src/vault/VaultController.sol#L108 for the new created vault, which is a clone. These two behaviours does not match.
+
+So that we cannot deploy a new staking contract for existing vault, this may not be expected.
+
