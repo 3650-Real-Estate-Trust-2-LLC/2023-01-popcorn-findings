@@ -13,3 +13,5 @@ There is no any visible point to initialize success as true, but it might be use
 ### Not using safecast
 https://github.com/code-423n4/2023-01-popcorn/blob/d95fc31449c260901811196d617366d6352258cd/src/vault/VaultController.sol#L314
 In this line and on another where explicit conversation used it better to use safecast. (in this line safecast8()). User can send to this 257 vault's and 1 new adapter. He put more gas in it, there is no any exlpoit. But it seems better to revert transation's like this.
+### Too mane power of owner
+Owner can execute any function in any contract with call in AdminProxy. It better give to governance at all or maybe rename this modifier and role
