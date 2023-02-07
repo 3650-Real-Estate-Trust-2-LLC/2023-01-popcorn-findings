@@ -1,0 +1,8 @@
+{
+  "contest": 211,
+  "handle": "ulqiorra",
+  "risk": "3",
+  "title": "Any user can drain the entire reward fund in MultiRewardStaking due to incorrect calculation of `supplierDelta`",
+  "issueId": 791,
+  "issueUrl": "https://github.com/code-423n4/2023-01-popcorn-findings/issues/791"
+}
