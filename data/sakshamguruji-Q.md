@@ -98,4 +98,9 @@ Here https://github.com/code-423n4/2023-01-popcorn//blob/main/src/vault/adapter/
 "Dont wait more than X days" instead.
 
 
+## WRONG COMMENT ON THE FUNCTION 
 
+### Description:
+
+The comment here https://github.com/code-423n4/2023-01-popcorn//blob/main/src/vault/VaultController.sol#L274 says "Caller must be owner"
+which is incorrect , it should be looking at `canCreate` not `onlyOwner` .
