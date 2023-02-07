@@ -66,4 +66,4 @@ pause( ) in AdapterBase calls _protocolWithdraw( ).
             _pause();
          }
 
-_protocolWithdraw( ) in YearnAdapter calls ConvertToUnderlyingShares
+_protocolWithdraw( ) in YearnAdapter calls ConvertToUnderlyingShares, which will throw an arithmetic error if the balance is 0.  
