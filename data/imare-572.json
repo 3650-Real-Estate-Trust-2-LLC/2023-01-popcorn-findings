@@ -1,0 +1,8 @@
+{
+  "contest": 211,
+  "handle": "imare",
+  "risk": "2",
+  "title": "Compromised `VaultController` owner has excessive control over the entire protocol and ownership change happens instantly",
+  "issueId": 572,
+  "issueUrl": "https://github.com/code-423n4/2023-01-popcorn-findings/issues/572"
+}
