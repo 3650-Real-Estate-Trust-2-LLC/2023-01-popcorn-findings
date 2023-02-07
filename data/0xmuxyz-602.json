@@ -1,0 +1,8 @@
+{
+  "contest": 211,
+  "handle": "0xmuxyz",
+  "risk": "2",
+  "title": "Vault# `withdraw()` function always fail if `msg.sender != owner` and the `owner` did not approve for `msg.sender` to spend any amount before the Vault# `withdraw()` is called",
+  "issueId": 602,
+  "issueUrl": "https://github.com/code-423n4/2023-01-popcorn-findings/issues/602"
+}
