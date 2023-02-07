@@ -56,3 +56,7 @@ However, 2 functions are missing corresponding function:   setQuitPeriod and  se
 This makes nobody can change quit period  and fee recipient of Vaults.
 
 Suggestion: add setVaultQuitPeriod  and setVaultFeeRecipient
+
+# 6. Missing removeClone in CloneRegistry
+
+There is no removeClone function in CloneRegistry, if we found any clone is vulnerable, we cannot remove it from the CloneRegistry, so that we can not prevent it from being proposed as adapters.
