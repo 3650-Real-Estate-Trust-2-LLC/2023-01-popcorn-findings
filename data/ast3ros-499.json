@@ -1,0 +1,8 @@
+{
+  "contest": 211,
+  "handle": "ast3ros",
+  "risk": "3",
+  "title": "[H-01] Management Fee for a vault is charged even when there is no assets under management and subject to manipulation.",
+  "issueId": 499,
+  "issueUrl": "https://github.com/code-423n4/2023-01-popcorn-findings/issues/499"
+}
