@@ -45,3 +45,29 @@ The unnecessary variable `assetsCheckpoint` can be removed and the natspec comme
      */
     function changeAdapter() external takeFees {
 ```
+
+## [QA-03] Function state mutability can be restricted to view
+
+src/utils/MultiRewardStaking.sol:351:3:
+
+```solidity
+function _calcRewardsEnd(
+    uint32 rewardsEndTimestamp,
+    uint160 rewardsPerSecond,
+    uint256 amount
+  ) internal returns (uint32) {
+```
+
+src/vault/VaultController.sol:242:3:
+
+```solidity
+function _encodeAdapterData(DeploymentArgs memory adapterData, bytes memory baseAdapterData)
+    internal
+    returns (bytes memory)
+```
+
+src/vault/VaultController.sol:667:3:
+
+```solidity
+function _verifyCreatorOrOwner(address vault) internal returns (VaultMetadata memory metadata) {
+```
