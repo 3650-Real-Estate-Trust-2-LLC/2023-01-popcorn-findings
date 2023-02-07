@@ -1,6 +1,6 @@
 ## [L] `CloneRegistry` might contain duplicates of cloned address
 
-```js
+```solidity
 File: CloneRegistry.sol
 41:   function addClone(
 42:     bytes32 templateCategory,
@@ -21,7 +21,7 @@ It's better to check if the clone exist before adding it.
 
 For example, adding the check in the `addClone()`
 
-```js
+```solidity
 if(cloneExists[clone]) revert CloneExists();
 ```
 
@@ -37,7 +37,7 @@ We can make the `removeRewardToken()` follow some restriction to make sure there
 
 ## [L] Doesn't check the amount
 
-```js
+```solidity
 File: RewardsClaimer.sol
 25:     for (uint256 i = 0; i < len; i++) {
 26:       ERC20 token = ERC20(rewardTokens[i]);
@@ -73,7 +73,7 @@ we might abstract this kind of functions
 
 ## [N] Wrong Comments information
 
-```js
+```solidity
 File: VaultController.sol
 792:     // Dont wait more than X seconds
 793:     if (newCooldown > 1 days) revert InvalidHarvestCooldown(newCooldown);
@@ -97,7 +97,7 @@ It is recommended to pin to a concrete compiler version.
 
 ## [N] SIGNATURE MALLEABILITY OF EVM’S ECRECOVER()
 
-```js
+```solidity
 address recoveredAddress = ecrecover(
     keccak256(
         abi.encodePacked(
