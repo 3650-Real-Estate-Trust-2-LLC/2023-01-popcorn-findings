@@ -1,3 +1,17 @@
+## Parameterized instead of hard coded
+Immutable instances should be parameterized at the constructor instead of getting them directly assigned in the state variable declaration.
+
+Here are some of the instances entailed:
+ 
+[File: VaultController.sol#L36-L40](https://github.com/code-423n4/2023-01-popcorn//blob/main/src/vault/VaultController.sol#L36-L40)
+
+```solidity
+  bytes32 public immutable VAULT = "Vault";
+  bytes32 public immutable ADAPTER = "Adapter";
+  bytes32 public immutable STRATEGY = "Strategy";
+  bytes32 public immutable STAKING = "Staking";
+  bytes4 internal immutable DEPLOY_SIG = bytes4(keccak256("deploy(bytes32,bytes32,bytes)"));
+```
 ## Unspecific compiler version pragma
 For some source-units the compiler version pragma is very unspecific, i.e. ^0.8.15. While this often makes sense for libraries to allow them to be included with multiple different versions of an application, it may be a security risk for the actual application implementation itself. A known vulnerable compiler version may accidentally be selected or security tools might fall-back to an older compiler version ending up actually checking a different EVM compilation that is ultimately deployed on the blockchain.
 
@@ -38,6 +52,12 @@ For instance, it will be of added values to the users and developers if:
 ```diff
 -    /// @notice The amount of assets that are free to be withdrawn from the yVault after locked profts.
 +    /// @notice The amount of assets that are free to be withdrawn from the yVault after locked profits.
+```
+[File: VaultController.sol#L87](https://github.com/code-423n4/2023-01-popcorn//blob/main/src/vault/VaultController.sol#L87)
+
+```diff
+-   * @dev This function is the one stop solution to create a new vault with all necessary admin functions or auxiliery contracts.
++   * @dev This function is the one stop solution to create a new vault with all necessary admin functions or auxiliary contracts.
 ```
 ## Return statement on named returns
 
@@ -127,3 +147,4 @@ Consider saving the interfaces and libraries entailed respectively, and having t
 Here are some of the instances entailed:
 
 [File: IYearn.sol#L32-L34](https://github.com/code-423n4/2023-01-popcorn//blob/main/src/vault/adapter/yearn/IYearn.sol#L32-L34)
+
