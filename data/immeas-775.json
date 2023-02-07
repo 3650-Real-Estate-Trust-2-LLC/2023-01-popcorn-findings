@@ -1,0 +1,8 @@
+{
+  "contest": 211,
+  "handle": "immeas",
+  "risk": "3",
+  "title": "reentrancy in `MultiRewardStaking::claimRewards` for tokens with transfer callbacks, like erc777",
+  "issueId": 775,
+  "issueUrl": "https://github.com/code-423n4/2023-01-popcorn-findings/issues/775"
+}
