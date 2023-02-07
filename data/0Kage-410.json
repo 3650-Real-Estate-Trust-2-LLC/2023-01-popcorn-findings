@@ -1,0 +1,8 @@
+{
+  "contest": 211,
+  "handle": "0Kage",
+  "risk": "3",
+  "title": "Rounding error in accrual calculations for lower decimal reward tokens (eg. USDC) over smaller timeframes can lead to loss of staker rewards",
+  "issueId": 410,
+  "issueUrl": "https://github.com/code-423n4/2023-01-popcorn-findings/issues/410"
+}
