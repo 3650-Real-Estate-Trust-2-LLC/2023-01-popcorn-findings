@@ -1,0 +1,8 @@
+{
+  "contest": 211,
+  "handle": "0xMirce",
+  "risk": "2",
+  "title": "`BeefyAdapter.sol` does not satisfy the `ERC4626` standard because function `totalAssets` reverts when `beefyVault.totalSupply()` is `0`",
+  "issueId": 427,
+  "issueUrl": "https://github.com/code-423n4/2023-01-popcorn-findings/issues/427"
+}
