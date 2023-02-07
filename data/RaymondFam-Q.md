@@ -33,6 +33,12 @@ For instance, it will be of added values to the users and developers if:
 - * Is used by `VaultController` to check if a target is a registerd clone.
 + * Is used by `VaultController` to check if a target is a registered clone.
 ```
+[File: YearnAdapter.sol#L100](https://github.com/code-423n4/2023-01-popcorn//blob/main/src/vault/adapter/yearn/YearnAdapter.sol#L100)
+
+```diff
+-    /// @notice The amount of assets that are free to be withdrawn from the yVault after locked profts.
++    /// @notice The amount of assets that are free to be withdrawn from the yVault after locked profits.
+```
 ## Return statement on named returns
 
 Functions with named returns should not have a return statement to avoid unnecessary confusion.
@@ -75,3 +81,49 @@ Consider having the function refactored as follows to ensure all clones pushed i
     emit CloneAdded(clone);
   }
 ```
+## Use `delete` to clear variables
+`delete a` assigns the initial value for the type to `a`. i.e. for integers it is equivalent to `a = 0`, but it can also be used on arrays, where it assigns a dynamic array of length zero or a static array of the same length with all elements reset. For structs, it assigns a struct with all members reset. Similarly, it can also be used to set an address to zero address or a boolean to false. It has no effect on whole mappings though (as the keys of mappings may be arbitrary and are generally unknown). However, individual keys and what they map to can be deleted: If `a` is a mapping, then `delete a[x]` will delete the value stored at x.
+
+The delete key better conveys the intention and is also more idiomatic.
+
+For instance, the `a = false` instance below may be refactored as follows:
+
+[File: TemplateRegistry.sol#L75](https://github.com/code-423n4/2023-01-popcorn//blob/main/src/vault/TemplateRegistry.sol#L75)
+
+```diff
+-    template.endorsed = false;
++    delete template.endorsed;
+```
+## Solidity's Style Guide on contract layout
+According to Solidity's Style Guide below:
+
+https://docs.soliditylang.org/en/v0.8.17/style-guide.html
+
+In order to help readers identify which functions they can call, and find the constructor and fallback definitions more easily, functions should be grouped according to their visibility and ordered in the following manner:
+
+constructor, receive function (if exists), fallback function (if exists), external, public, internal, private
+
+And, within a grouping, place the view and pure functions last.
+
+Additionally, inside each contract, library or interface, use the following order:
+
+type declarations, state variables, events, modifiers, functions
+
+Consider adhering to the above guidelines for all contract instances entailed.
+
+## Lines too long
+Lines in source code are typically limited to 80 characters, but it’s reasonable to stretch beyond this limit when need be as monitor screens theses days are comparatively larger. Considering the files will most likely reside in GitHub that will have a scroll bar automatically kick in when the length is over 164 characters, all code lines and comments should be split when/before hitting this length. Keep line width to max 120 characters for better readability where possible.
+
+Here are some of the instances entailed:
+
+[File: AdapterBase.sol#L6](https://github.com/code-423n4/2023-01-popcorn/blob/main/src/vault/adapter/abstracts/AdapterBase.sol#L6)
+[File: MultiRewardStaking.sol#L7](https://github.com/code-423n4/2023-01-popcorn//blob/main/src/utils/MultiRewardStaking.sol#L7)
+
+## Interfaces and libraries should be separately saved and imported
+Some contracts have interface(s) or libraries showing up in its/their entirety at the top/bottom of the contract facilitating an ease of references on the same file page. This has, in certain instances, made the already large contract size to house an excessive code base. Additionally, it might create difficulty locating them when attempting to cross reference the specific interfaces embedded elsewhere but not saved into a particular .sol file.
+
+Consider saving the interfaces and libraries entailed respectively, and having them imported like all other files.
+
+Here are some of the instances entailed:
+
+[File: IYearn.sol#L32-L34](https://github.com/code-423n4/2023-01-popcorn//blob/main/src/vault/adapter/yearn/IYearn.sol#L32-L34)
