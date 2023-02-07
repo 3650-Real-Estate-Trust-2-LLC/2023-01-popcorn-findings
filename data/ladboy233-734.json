@@ -1,0 +1,8 @@
+{
+  "contest": 211,
+  "handle": "ladboy233",
+  "risk": "2",
+  "title": " legacy proposedAdapter and proposedFees state and proposedTimeStamp should be reset after timelock change applies",
+  "issueId": 734,
+  "issueUrl": "https://github.com/code-423n4/2023-01-popcorn-findings/issues/734"
+}
