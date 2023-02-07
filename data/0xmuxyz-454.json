@@ -1,0 +1,8 @@
+{
+  "contest": 211,
+  "handle": "0xmuxyz",
+  "risk": "2",
+  "title": "Due to lack of `approve()` , `yVault.deposit()` within the YearnAdapter# `_protocolDeposit()` above always fail when the YearnAdapter#`strategyDeposit()` (the AdapterBase# `strategyDeposit()` ) is called",
+  "issueId": 454,
+  "issueUrl": "https://github.com/code-423n4/2023-01-popcorn-findings/issues/454"
+}
