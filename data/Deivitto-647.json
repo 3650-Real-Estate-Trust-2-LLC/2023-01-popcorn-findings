@@ -1,0 +1,8 @@
+{
+  "contest": 211,
+  "handle": "Deivitto",
+  "risk": "2",
+  "title": " ERC20 `approve` fail for some tokens like USDT",
+  "issueId": 647,
+  "issueUrl": "https://github.com/code-423n4/2023-01-popcorn-findings/issues/647"
+}
