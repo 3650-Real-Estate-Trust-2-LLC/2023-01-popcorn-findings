@@ -50,3 +50,58 @@ As an example, the instance below may be refactored as follows:
 +            }
           }
 ```
+## Non-strict inequalities are cheaper than strict ones
+In the EVM, there is no opcode for non-strict inequalities (>=, <=) and two operations are performed (> + = or < + =).
+
+As an example, consider replacing `>=` with the strict counterpart `>` in the following inequality instance:
+
+[File: YearnAdapter.sol#L150](https://github.com/code-423n4/2023-01-popcorn//blob/main/src/vault/adapter/yearn/YearnAdapter.sol#L150)
+
+```diff
+-        if (assets >= _depositLimit) return 0;
+// Rationale for subtracting 1 on the right side of the inequality:
+// x >= 10; [10, 11, 12, ...]
+// x > 10 - 1 is the same as x > 9; [10, 11, 12 ...]
++        if (assets > _depositLimit - 1) return 0;
+```
+## += and -= cost more gas
+`+=` and `-=` generally cost 22 more gas than writing out the assigned equation explicitly. The amount of gas wasted can be quite sizable when repeatedly operated in a loop.
+
+For instance, the `-=` instance below may be refactored as follows:
+
+[File: MultiRewardEscrow.sol#L110](https://github.com/code-423n4/2023-01-popcorn//blob/main/src/utils/MultiRewardEscrow.sol#L110)
+
+```diff
+-      amount -= fee;
++      amount = amount - fee;
+```
+## Use storage instead of memory for structs/arrays
+A storage pointer is cheaper since copying a state struct in memory would incur as many SLOADs and MSTOREs as there are slots. In another words, this causes all fields of the struct/array to be read from storage, incurring a Gcoldsload (2100 gas) for each field of the struct/array, and then further incurring an additional MLOAD rather than a cheap stack read. As such, declaring the variable with the storage keyword and caching any fields that need to be re-read in stack variables will be much cheaper, involving only Gcoldsload for all associated field reads. Read the whole struct/array into a memory variable only when it is being returned by the function, passed into a function that requires memory, or if the array/struct is being read from another memory array/struct.
+
+For instance, the specific example below may be refactored as follows:
+
+[File: MultiRewardEscrow.sol#L157](https://github.com/code-423n4/2023-01-popcorn//blob/main/src/utils/MultiRewardEscrow.sol#L157)
+
+```diff
+-      Escrow memory escrow = escrows[escrowId];
++      Escrow storage escrow = escrows[escrowId];
+```
+## `break` or `continue` in for loop
+`for` loop entailing large array with reverting logic should incorporate `break` or `continue` to cater for element(s) failing to get through the iteration(s). This will tremendously save gas on instances where the loop specifically fails to execute at the end of the iterations.
+
+Here is an instance entailed where `setFees()` is associated with reverting `DontGetGreedy()`:
+
+[File: MultiRewardEscrow.sol#L207-L216](https://github.com/code-423n4/2023-01-popcorn//blob/main/src/utils/MultiRewardEscrow.sol#L207-L216)
+
+```solidity
+  function setFees(IERC20[] memory tokens, uint256[] memory tokenFees) external onlyOwner {
+    if (tokens.length != tokenFees.length) revert ArraysNotMatching(tokens.length, tokenFees.length);
+
+    for (uint256 i = 0; i < tokens.length; i++) {
+      if (tokenFees[i] >= 1e17) revert DontGetGreedy(tokenFees[i]);
+
+      fees[tokens[i]].feePerc = tokenFees[i];
+      emit FeeSet(tokens[i], tokenFees[i]);
+    }
+  }
+```
