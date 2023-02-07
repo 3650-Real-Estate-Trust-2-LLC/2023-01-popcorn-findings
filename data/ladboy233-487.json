@@ -1,0 +1,8 @@
+{
+  "contest": 211,
+  "handle": "ladboy233",
+  "risk": "2",
+  "title": "lastHarvest timestamp is not updated when harvest is called",
+  "issueId": 487,
+  "issueUrl": "https://github.com/code-423n4/2023-01-popcorn-findings/issues/487"
+}
