@@ -1,0 +1,8 @@
+{
+  "contest": 211,
+  "handle": "n33k",
+  "risk": "2",
+  "title": "ABI mismatch when calling initialize function",
+  "issueId": 817,
+  "issueUrl": "https://github.com/code-423n4/2023-01-popcorn-findings/issues/817"
+}
