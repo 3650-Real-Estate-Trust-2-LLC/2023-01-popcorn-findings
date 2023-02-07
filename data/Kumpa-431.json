@@ -1,0 +1,8 @@
+{
+  "contest": 211,
+  "handle": "Kumpa",
+  "risk": "2",
+  "title": "Non-18-decimal tokens may cause unexpected consequence in fee calculations",
+  "issueId": 431,
+  "issueUrl": "https://github.com/code-423n4/2023-01-popcorn-findings/issues/431"
+}
