@@ -1,0 +1,8 @@
+{
+  "contest": 211,
+  "handle": "rbserver",
+  "risk": "2",
+  "title": "Calling `Vault.changeAdapter` function can fail to change adapter to adapter of interest",
+  "issueId": 566,
+  "issueUrl": "https://github.com/code-423n4/2023-01-popcorn-findings/issues/566"
+}
