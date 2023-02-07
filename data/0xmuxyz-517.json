@@ -1,0 +1,8 @@
+{
+  "contest": 211,
+  "handle": "0xmuxyz",
+  "risk": "3",
+  "title": "The owner (deployer) to assign `too short` period into the `harvestCooldown` by mistake. (i.e. 1 second), which results in the loss of funds of the vault",
+  "issueId": 517,
+  "issueUrl": "https://github.com/code-423n4/2023-01-popcorn-findings/issues/517"
+}
