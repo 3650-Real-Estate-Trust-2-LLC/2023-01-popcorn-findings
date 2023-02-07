@@ -1,0 +1,8 @@
+{
+  "contest": 211,
+  "handle": "joestakey",
+  "risk": "2",
+  "title": "`MultiRewardStaking` does not work with fee-on-transfer tokens",
+  "issueId": 812,
+  "issueUrl": "https://github.com/code-423n4/2023-01-popcorn-findings/issues/812"
+}
