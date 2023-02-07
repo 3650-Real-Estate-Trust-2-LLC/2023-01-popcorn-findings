@@ -1,0 +1,8 @@
+{
+  "contest": 211,
+  "handle": "mert_eren",
+  "risk": "3",
+  "title": "Using changeRewardSpeed before the endtime calculate end time wrongly and make reward distrubition unhealthy",
+  "issueId": 502,
+  "issueUrl": "https://github.com/code-423n4/2023-01-popcorn-findings/issues/502"
+}
