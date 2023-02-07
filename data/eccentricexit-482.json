@@ -1,0 +1,8 @@
+{
+  "contest": 211,
+  "handle": "eccentricexit",
+  "risk": "2",
+  "title": "Escrow owner can frontrun user and force them into an amount they did not agree.",
+  "issueId": 482,
+  "issueUrl": "https://github.com/code-423n4/2023-01-popcorn-findings/issues/482"
+}
