@@ -1,0 +1,8 @@
+{
+  "contest": 211,
+  "handle": "0Kage",
+  "risk": "3",
+  "title": "Re-entrancy risk in `claimRewards` can drain all rewards from Staking contract if reward token is ERC777",
+  "issueId": 392,
+  "issueUrl": "https://github.com/code-423n4/2023-01-popcorn-findings/issues/392"
+}
