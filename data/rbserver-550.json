@@ -1,0 +1,8 @@
+{
+  "contest": 211,
+  "handle": "rbserver",
+  "risk": "2",
+  "title": "Users can still withdraw or redeem when vault and/or adapter are/is paused while vault owner has a reason for pausing all vault functionalities",
+  "issueId": 550,
+  "issueUrl": "https://github.com/code-423n4/2023-01-popcorn-findings/issues/550"
+}
