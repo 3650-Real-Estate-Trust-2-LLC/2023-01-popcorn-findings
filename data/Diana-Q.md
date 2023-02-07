@@ -1,21 +1,4 @@
-
-## 01 safeapprove() is deprecated
-
-[Deprecated](https://github.com/OpenZeppelin/openzeppelin-contracts/blob/bfff03c0d2a59bcd8e2ead1da9aed9edf0080d05/contracts/token/ERC20/utils/SafeERC20.sol#L38-L45) in favor of `safeIncreaseAllowance()` and `safeDecreaseAllowance()`. If only setting the initial allowance to the value that means infinite, `safeIncreaseAllowance()` can be used instead
-
-_There is 1 instance of this issue:_
-
-https://github.com/code-423n4/2023-01-popcorn//blob/main/src/utils/MultiRewardStaking.sol
-
-```
-File: src/utils/MultiRewardStaking.sol
-
-271: rewardToken.safeApprove(address(escrow), type(uint256).max);
-```
-
-----
-
-## 02 Best practice is to prevent signature malleability
+## 01 Best practice is to prevent signature malleability
 
 Use OpenZeppelin’s `ECDSA` contract rather than calling `ecrecover()` directly
 
@@ -47,7 +30,7 @@ File: src/vault/adapter/abstracts/AdapterBase.sol
 
 ------
 
-## 03 Missing events for functions that change critical parameters 
+## 02 Missing events for functions that change critical parameters 
 
 The afunctions that change critical parameters should emit events. Events allow capturing the changed parameters so that off-chain tools/interfaces can register such changes with timelocks that allow users to evaluate them and consider if they would like to engage/exit based on how they perceive the changes as affecting the trustworthiness of the protocol or profitability of the implemented financial services. The alternative of directly querying on-chain contract state for such changes is not considered practical for most users/usages.
 
@@ -72,7 +55,7 @@ File: src/vault/VaultController.sol
 
 ----
 
-## 04 Adding a return statement when the function defines a named return variable, is redundant
+## 03 Adding a return statement when the function defines a named return variable, is redundant
 
 _There are 2 instances of this issue_
 
@@ -102,7 +85,7 @@ File: src/vault/adapter/abstracts/AdapterBase.sol
 
 -----
 
-## 05 Use scientific notation rather than exponentiation
+## 04 Use scientific notation rather than exponentiation
 
 Use scientific notation (e.g. 1e18) rather than exponentiation (e.g. `10**18`)
 
@@ -129,7 +112,7 @@ File: src/vault/adapter/yearn/YearnAdapter.sol
 
 -----------
 
-## 06 Open TODOS
+## 05 Open TODOS
 
 Code architecture, incentives, and error handling/reporting questions/issues should be resolved before deployment
 
@@ -145,7 +128,7 @@ File: src/vault/adapter/abstracts/AdapterBase.sol
 
 -------
 
-## 07 Typos
+## 06 Typos
 
 _There are 3 instances of this issue_
 
@@ -173,7 +156,7 @@ In line 181, it should be `or` instead of `our`
 
 -------
 
-## 08 Use a more recent version of solidity
+## 07 Use a more recent version of solidity
 
 It's a best practice to use the latest compiler version.
 Older compilers might be susceptible to some bugs. We recommend changing the solidity version pragma to the latest version to enforce the use of an up to date compiler.
@@ -186,7 +169,7 @@ _This issue exists in all the In-scope contracts_. _There are 35 instances of th
 
 ----------
 
-## 09 Non-library or interface files should use fixed compiler versions, not floating ones
+## 08 Non-library or interface files should use fixed compiler versions, not floating ones
 
 In the contracts, floating pragmas should not be used. Contracts should be deployed with the same compiler version and flags that they have been tested with thoroughly. Locking the pragma helps to ensure that contracts do not accidentally get deployed using, for example, an outdated compiler version that might introduce bugs that affect the contract system negatively.
 
