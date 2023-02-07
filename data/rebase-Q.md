@@ -30,6 +30,10 @@ Test result: ok. 1 passed; 0 failed; finished in 7.64ms
 ```
 
 Finding #2
+Affected code:
+https://github.com/code-423n4/2023-01-popcorn/blob/main/src/vault/Vault.sol#L594
+https://github.com/code-423n4/2023-01-popcorn/blob/main/test/vault/Vault.t.sol#L863
+
 Missing `onlyOwner` modifier on `src.vault.Vault.changeAdapter` allows anyone to set a new Adapter for this Vault after the quit period has passed. The existing test in `test.vault.Vault.testFail__changeAdapter_NonOwner` is incorrectly implemented to verify the issue and fails on `NotPassedQuitPeriod` rather than properly catching the error of lack of ownership, e.g.
 ```
 ~/se/currents/latest/2023-01-popcorn │ on main !2 ?1  forge test --match-path test/vault/Vault.t.sol --match-test "testFail__changeAdapter_NonOwner" -vvvv
