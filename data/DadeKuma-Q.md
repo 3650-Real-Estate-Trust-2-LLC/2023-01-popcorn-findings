@@ -18,7 +18,7 @@ Total issues: 5
 |[N-03]| Lock pragmas to a specific compiler version | ALL |
 |[N-04]| Showing the full-length numbers in comments increase readability | 1 |
 
-Total issues: 5
+Total issues: 4
 
 ## Low Risk
 ### [L-01] Variable shadowing 
@@ -26,7 +26,7 @@ Total issues: 5
 **Context:**
 
 ```solidity
-xxx results - 3 files
+31 results - 3 files
 
 src/utils/MultiRewardStaking.sol
 
@@ -44,9 +44,36 @@ src/vault/adapter/abstracts/AdapterBase.sol
 - asset
 - owner
 
+60: address asset,
+72: __ERC4626_init(IERC20Metadata(asset));
+178: if (assets > maxWithdraw(owner)) revert MaxError(assets);
+182: _withdraw(_msgSender(), receiver, owner, assets, shares);
+193: if (shares > maxRedeem(owner)) revert MaxError(shares);
+196: _withdraw(_msgSender(), receiver, owner, assets, shares);
+217: if (caller != owner) {
+218: _spendAllowance(owner, caller, shares);
+228: _burn(owner, shares);
+234: emit Withdraw(caller, receiver, owner, assets, shares);
+656: owner,
+659: nonces[owner]++,
+670: if (recoveredAddress == address(0) || recoveredAddress != owner)
+
 src/vault/Vault.sol
 
 - owner
+
+72: __Owned_init(owner);
+230: if (msg.sender != owner)
+231: _approve(owner, msg.sender, allowance(owner, msg.sender) - shares);
+233: _burn(owner, shares);
+239: emit Withdraw(msg.sender, receiver, owner, assets, shares);
+260: if (msg.sender != owner)
+261: _approve(owner, msg.sender, allowance(owner, msg.sender) - shares);
+271: _burn(owner, shares);
+277: emit Withdraw(msg.sender, receiver, owner, assets, shares);
+688: owner,
+691: nonces[owner]++,
+702: if (recoveredAddress == address(0) || recoveredAddress != owner)
 ```
 
 **Recommendation**
@@ -157,9 +184,9 @@ function addTemplate(
 }
 ```
 
-All contracts miss `@return`.
+Most functions miss `@return`.
 
-Some functions miss `@param` or `@inheritdoc` (most are `view`):
+Some functions miss `@param` or `@inheritdoc` (most are `view` functions):
 
 ```solidity
 src/utils/MultiRewardEscrow.sol
