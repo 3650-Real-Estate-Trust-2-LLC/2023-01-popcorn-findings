@@ -1,0 +1,8 @@
+{
+  "contest": 211,
+  "handle": "Aymen0909",
+  "risk": "2",
+  "title": "Risk of blocking user's rewards withdrawal if  `escrowPercentage > 1e18`",
+  "issueId": 751,
+  "issueUrl": "https://github.com/code-423n4/2023-01-popcorn-findings/issues/751"
+}
