@@ -1,0 +1,8 @@
+{
+  "contest": 211,
+  "handle": "Josiah",
+  "risk": "2",
+  "title": "FIRST ERC4626 DEPOSIT CAN BE EXPLOITED ON SHARE CALCULATION",
+  "issueId": 735,
+  "issueUrl": "https://github.com/code-423n4/2023-01-popcorn-findings/issues/735"
+}
