@@ -153,10 +153,44 @@ It’s recommended to reuse the code in order to be more readable and light
 
 ##
 
-## [L-6]  USE LATEST openzeppelin-upgradeable versions 
+## [L-6]  USING VULNERABLE DEPENDENCY OF OPENZEPPELIN
 
-Your current version of @openzeppelin/contracts-upgradeable is 4.7.1 and latest version is 4.8.1
+The package.json configuration file says that the project is using 4.7.3 of OZ which has a not last update version
 
+File: package.json
+
+   26:   "openzeppelin-upgradeable": "npm:@openzeppelin/contracts-upgradeable@4.7.1",
+
+
+Recommended Mitigation Steps
+Use patched versions.
+
+Latest non vulnerable version 4.8.0.
+
+##
+## [L-7]  AVOID HARDCODED VALUES
+
+File : src/vault/Vault.sol
+
+   630 :  if (_quitPeriod < 1 days || _quitPeriod > 7 days)  //@audit 1days and 7 days hardcoded values 
+
+[Link to Code](https://github.com/code-423n4/2023-01-popcorn//blob/main/src/vault/Vault.sol)
+
+File:  src/vault/VaultController.sol
+
+   753:  if (newFee > 2e17) revert InvalidPerformanceFee(newFee);  //@audit 2e17 hardcoded value 
+
+   793:   if (newCooldown > 1 days) revert InvalidHarvestCooldown(newCooldown);  //@audit 1day hardcoded value 
+
+[Link to Code](https://github.com/code-423n4/2023-01-popcorn//blob/main/src/vault/VaultController.sol)
+
+File:  src/vault/adapter/abstracts/AdapterBase.sol
+
+   502:  if (newCooldown >= 1 days) revert InvalidHarvestCooldown(newCooldown);   //@audit 1day hardcoded value 
+
+   551 :   if (newFee > 2e17) revert InvalidPerformanceFee(newFee);  //@audit 2e17 hardcoded value 
+
+[Link to Code](https://github.com/code-423n4/2023-01-popcorn//blob/main/src/vault/adapter/abstracts/AdapterBase.sol)
 
 ##
 
@@ -557,6 +591,18 @@ Recommendation Code Style:
 		/// @param pageId The id of the page to get the URI for.
 		/// @return Returns a page's URI if it has been minted 
 		function tokenURI(uint256 pageId) public view virtual override returns (string memory) {
+
+##
+
+## [NC-16]  AVOID SHADOWING INHERITED STATE VARIABLES
+
+there is a local variable named underlyingBalance_ , but there is a function named _underlyingBalance() with the same name. This use causes compilers to issue warnings, negatively affecting checking and code readability.
+
+File:  src/vault/adapter/abstracts/AdapterBase.sol
+
+222:  uint256 underlyingBalance_ = _underlyingBalance();  
+
+[Link to Code](https://github.com/code-423n4/2023-01-popcorn//blob/main/src/vault/adapter/abstracts/AdapterBase.sol)
 			
 
 
