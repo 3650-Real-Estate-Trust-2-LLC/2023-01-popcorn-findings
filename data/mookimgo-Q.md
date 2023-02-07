@@ -8,6 +8,8 @@ https://github.com/code-423n4/2023-01-popcorn/blob/d95fc31449c260901811196d61736
 
 But this code is returning `VaultMetadata`, which is wrong. In this implementation, this function is working exactly same as getVault, which should not be expected.
 
+Suggestion: delete this getSubmitter function
+
 # 2. AdapterBase's FEE_RECIPIENT can not be changed
 
 No change can be made for this FEE_RECIPIENT, consider adding a function to change it
@@ -69,3 +71,18 @@ https://github.com/code-423n4/2023-01-popcorn/blob/d95fc31449c260901811196d61736
 
 So that we cannot deploy a new staking contract for existing vault, this may not be expected.
 
+# 8. difference between code and WhitePaper
+
+The WhitePaper states that 
+
+>The protocol will not take any percentage of the fees that accrue in Vaults. Instead each Wrapper will be able to charge a small fee of a few basis points. 
+
+But the Vaults' code has fee design such as management fee and performance fee. 
+
+This difference should be handled by update the whitepaper or changing the code.
+
+# 9. Vault fees can be bypassed by just deposit into Adapters
+
+User can simply deposit into adapters to bypass vault management fee and performance fee.
+
+Consider only allow vaults to be able to deposit into Adapters.
