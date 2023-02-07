@@ -20,6 +20,48 @@ File : src/utils/MultiRewardEscrow.sol
 
 [Link to Code](https://github.com/code-423n4/2023-01-popcorn//blob/main/src/utils/MultiRewardEscrow.sol)
 
+File : src/utils/MultiRewardStaking.sol
+
+   171:  for (uint8 i; i < _rewardTokens.length; i++) {
+
+   373:  for (uint8 i; i < _rewardTokens.length; i++) {
+ 
+[Link to Code](https://github.com/code-423n4/2023-01-popcorn//blob/main/src/utils/MultiRewardStaking.sol)
+
+File : src/vault/VaultController.sol
+
+    319:  for (uint8 i = 0; i < len; i++) {
+
+   337:   for (uint8 i = 0; i < len; i++) {
+
+  357:   for (uint8 i = 0; i < len; i++) {
+
+  374:    for (uint8 i = 0; i < len; i++) {
+
+  437:    for (uint256 i = 0; i < len; i++) {
+
+  494:   for (uint256 i = 0; i < len; i++) {
+
+  523:   for (uint256 i = 0; i < len; i++) {
+
+  564:  for (uint256 i = 0; i < len; i++) {
+
+  587:  for (uint256 i = 0; i < len; i++) {
+
+  607:  for (uint256 i = 0; i < len; i++) {
+
+   620:  for (uint256 i = 0; i < len; i++) {
+
+   633:  for (uint256 i = 0; i < len; i++) {
+
+   646:  for (uint256 i = 0; i < len; i++) {
+
+   766:  for (uint256 i = 0; i < len; i++) {
+
+   806:  for (uint256 i = 0; i < len; i++) {
+
+[Link to Code](https://github.com/code-423n4/2023-01-popcorn/blob/main/src/vault/VaultController.sol)
+
 ##
 
 ###  [GAS-2]  INTERNAL FUNCTIONS ONLY CALLED ONCE CAN BE INLINED TO SAVE GAS
@@ -52,6 +94,94 @@ File : src/utils/MultiRewardEscrow.sol
 
 [Link to Code](https://github.com/code-423n4/2023-01-popcorn//blob/main/src/utils/MultiRewardEscrow.sol)
 
+File : src/utils/MultiRewardStaking.sol
+
+   [MultiRewardStaking.sol#L171-L187](https://github.com/code-423n4/2023-01-popcorn/blob/d95fc31449c260901811196d617366d6352258cd/src/utils/MultiRewardStaking.sol#L171-L187)
+
+  [MultiRewardStaking.sol#L373-L382](https://github.com/code-423n4/2023-01-popcorn/blob/d95fc31449c260901811196d617366d6352258cd/src/utils/MultiRewardStaking.sol#L373-L382)
+ 
+[Link to Code](https://github.com/code-423n4/2023-01-popcorn//blob/main/src/utils/MultiRewardStaking.sol)
+
+##
+
+### [GAS-4] BYTES CONSTANTS ARE MORE EFFICIENT THAN STRING CONSTANTS
+
+File: src/vault/adapter/beefy/BeefyAdapter.sol
+
+    24:   string internal _name;
+
+    25:   string internal _symbol;
+
+[Link to Code](https://github.com/code-423n4/2023-01-popcorn//blob/main/src/vault/adapter/beefy/BeefyAdapter.sol)
+
+File : src/utils/MultiRewardStaking.sol
+
+  31:   string private _name;
+
+  32:   string private _symbol;
+
+[Link to Code](https://github.com/code-423n4/2023-01-popcorn//blob/main/src/utils/MultiRewardStaking.sol)
+
+##
+
+## [GAS-5] <X> += <Y> COSTS MORE GAS THAN <X> = <X> + <Y> FOR STATE VARIABLES . FOR EVERY CALL CAN SAVE 13 GAS 
+
+
+File : src/utils/MultiRewardStaking.sol
+
+
+     408 :  rewardInfos[_rewardToken].index += deltaIndex;
+
+    431:   accruedRewards[_user][_rewardToken] += supplierDelta;
+
+[Link to Code](https://github.com/code-423n4/2023-01-popcorn//blob/main/src/utils/MultiRewardStaking.sol)
+
+File: src/vault/adapter/abstracts/AdapterBase.sol
+
+   158 :  underlyingBalance += _underlyingBalance() - underlyingBalance_;
+
+   225:   underlyingBalance -= underlyingBalance_ - _underlyingBalance();
+
+[Link to Code](https://github.com/code-423n4/2023-01-popcorn//blob/main/src/vault/adapter/abstracts/AdapterBase.sol)
+
+##
+
+## [GAS-6] Use uint256 instead of uint8 to save gas 
+
+File : src/vault/VaultController.sol
+
+
+   436 :   uint8 len = uint8(vaults.length);
+
+  488:     uint8 len = uint8(vaults.length);
+
+  517:    uint8 len = uint8(vaults.length);
+
+  563:   uint8 len = uint8(templateCategories.length);
+
+  583:   uint8 len = uint8(templateCategories.length);
+
+  606:   uint8 len = uint8(vaults.length);
+
+  619:   uint8 len = uint8(vaults.length);
+
+632:    uint8 len = uint8(vaults.length);
+
+  645:  uint8 len = uint8(vaults.length);
+
+ 765:  uint8 len = uint8(adapters.length);
+
+ 805:  uint8 len = uint8(adapters.length);
+
+[Link to Code](https://github.com/code-423n4/2023-01-popcorn/blob/main/src/vault/VaultController.sol)
+
+File: src/vault/adapter/abstracts/AdapterBase.sol
+
+   38:  uint8 internal _decimals;
+
+[Link to Code](https://github.com/code-423n4/2023-01-popcorn//blob/main/src/vault/adapter/abstracts/AdapterBase.sol)
+
+##
 
 
   
