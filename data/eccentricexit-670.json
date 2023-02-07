@@ -1,0 +1,8 @@
+{
+  "contest": 211,
+  "handle": "eccentricexit",
+  "risk": "2",
+  "title": "Owner can trick caller of `MultiRewardStaking.fundReward` into paying all rewards at once.",
+  "issueId": 670,
+  "issueUrl": "https://github.com/code-423n4/2023-01-popcorn-findings/issues/670"
+}
