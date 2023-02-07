@@ -1,0 +1,8 @@
+{
+  "contest": 211,
+  "handle": "apvlki",
+  "risk": "2",
+  "title": "Reward tokens might get locked up inside the contract upon claiming rewards when escrow percentage is zero",
+  "issueId": 702,
+  "issueUrl": "https://github.com/code-423n4/2023-01-popcorn-findings/issues/702"
+}
