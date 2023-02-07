@@ -1,0 +1,8 @@
+{
+  "contest": 211,
+  "handle": "SadBase",
+  "risk": "3",
+  "title": "ERC777 Reentrancy When Claiming Rewards Can Be Used to Drain the Staking Rewards Pool",
+  "issueId": 626,
+  "issueUrl": "https://github.com/code-423n4/2023-01-popcorn-findings/issues/626"
+}
