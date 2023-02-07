@@ -15,4 +15,9 @@ A vaultcontroller that doesn't want a user to make deposit in his/her vault can 
 
 ## function takeManagementAndPerformanceFees is empty 
 
-## 
+## Avoid having functions of the same function 
+functions should not have the same name 
+
+https://github.com/code-423n4/2023-01-popcorn/blob/d95fc31449c260901811196d617366d6352258cd/src/vault/Vault.sol#L124
+
+https://github.com/code-423n4/2023-01-popcorn/blob/d95fc31449c260901811196d617366d6352258cd/src/vault/Vault.sol#L134
