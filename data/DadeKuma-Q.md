@@ -13,11 +13,10 @@ Total issues: 5
 ### Non-Critical Issues
 |Number|Title|Context|
 |:--:|:-------|:--:|
-|[N-01]| Immutable instead of constant | 1 |
-|[N-02]| Wrong/missing Natspec | 1 |
-|[N-03]| Inconsistent function visibility order | 1 |
-|[N-04]| Lock pragmas to a specific compiler version | 1 |
-|[N-05]| Showing the full-length numbers in comments increase readability | 1 |
+|[N-01]| Use `constant` for constants instead of `immutable` | 1 |
+|[N-02]| Wrong/missing Natspec | ALL |
+|[N-03]| Lock pragmas to a specific compiler version | ALL |
+|[N-04]| Showing the full-length numbers in comments increase readability | 1 |
 
 Total issues: 5
 
@@ -120,35 +119,74 @@ There are some variables under the `IMMUTABLES` title that are not `immutable`: 
 
 ## Non-Critical
 
-### [NC-01] Immutable instead of constant 
-
-### [NC-02] Wrong/missing Natspec 
-
-### [NC-03] Inconsistent function visibility order
-
-### [NC-04] Lock pragmas to a specific compiler version
+### [NC-01] Use `constant` for constants instead of `immutable`
 
 **Context**
 
 ```solidity
-5 results - 4 files
+src/vault/VaultController.sol
 
-2: pragma solidity ^0.8.15;
-
-2: pragma solidity ^0.8.15;
-
-2: pragma solidity ^0.8.15;
-
-2: pragma solidity ^0.8.15;
-
+36: bytes32 public immutable VAULT = "Vault";
+37: bytes32 public immutable ADAPTER = "Adapter";
+38: bytes32 public immutable STRATEGY = "Strategy";
+39: bytes32 public immutable STAKING = "Staking";
 ```
+
+### [NC-02] Wrong/missing Natspec
+
+**Context**
+
+The `@notice` is wrong, as the caller could be anyone:
+
+```solidity
+src/vault/DeploymentController.sol
+
+/**
+ * @notice Adds a new category for templates. Caller must be owner. (`VaultController` via `AdminProxy`)
+ * @param templateCategory Category of the new template.
+ * @param templateId Unique Id of the new template.
+ * @param template New template (See ITemplateRegistry for more details)
+ * @dev (See TemplateRegistry for more details)
+ */
+function addTemplate(
+  bytes32 templateCategory,
+  bytes32 templateId,
+  Template calldata template
+) external {
+  templateRegistry.addTemplate(templateCategory, templateId, template);
+}
+```
+
+All contracts miss `@return`.
+
+Some functions miss `@param` or `@inheritdoc` (most are `view`):
+
+```solidity
+src/utils/MultiRewardEscrow.sol
+src/utils/MultiRewardStaking.sol
+src/vault/adapter/abstracts/AdapterBase.sol
+src/vault/adapter/abstracts/WithRewards.sol
+src/vault/adapter/beefy/BeefyAdapter.sol
+src/vault/adapter/yearn/YearnAdapter.sol
+src/vault/AdminProxy.sol
+src/vault/PermissionRegistry.sol
+src/vault/TemplateRegistry.sol
+src/vault/Vault.sol
+src/vault/VaultRegistry.sol
+```
+
+### [NC-03] Lock pragmas to a specific compiler version
+
+**Context**
+
+All contracts
 
 **Description:**
 Pragma statements are appropriate when the contract is a library that is intended for consumption by other developers. Otherwise, the developer would need to manually update the pragma, in order to compile locally.
 
 [As a best practice](https://consensys.github.io/smart-contract-best-practices/development-recommendations/solidity-specific/locking-pragmas/) it's better to lock the pragma to a specific version.
 
-### [NC-05] Showing the full-length numbers in comments increase readability
+### [NC-04] Showing the full-length numbers in comments increase readability
 
 ```diff
 src/vault/adapter/yearn/YearnAdapter.sol
