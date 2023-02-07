@@ -1,0 +1,8 @@
+{
+  "contest": 211,
+  "handle": "0xmuxyz",
+  "risk": "3",
+  "title": "The `feeShares` to be minted will be `0` if some amount of assets that is less than certain threshold would be deposited into the vault, which lead to the loss of feeShare that is supposed to be minted to the feeRecipient",
+  "issueId": 638,
+  "issueUrl": "https://github.com/code-423n4/2023-01-popcorn-findings/issues/638"
+}
