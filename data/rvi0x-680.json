@@ -1,0 +1,8 @@
+{
+  "contest": 211,
+  "handle": "rvi0x",
+  "risk": "3",
+  "title": "Vault will lost funds and may some function stop working when asset is fee on transfer",
+  "issueId": 680,
+  "issueUrl": "https://github.com/code-423n4/2023-01-popcorn-findings/issues/680"
+}
