@@ -1,0 +1,8 @@
+{
+  "contest": 211,
+  "handle": "ladboy233",
+  "risk": "2",
+  "title": "User may get no shares when deposit in the vault, user can get no asset when burns shares to call redeem",
+  "issueId": 468,
+  "issueUrl": "https://github.com/code-423n4/2023-01-popcorn-findings/issues/468"
+}
