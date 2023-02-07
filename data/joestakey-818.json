@@ -1,0 +1,8 @@
+{
+  "contest": 211,
+  "handle": "joestakey",
+  "risk": "2",
+  "title": "`MultiRewardEscrow.claimRewards()` can break for rebasing tokens",
+  "issueId": 818,
+  "issueUrl": "https://github.com/code-423n4/2023-01-popcorn-findings/issues/818"
+}
