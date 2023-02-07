@@ -150,7 +150,7 @@ In the above function event is emitted before the fees value is actually changed
   }
 ```
 
-**Recommended Mitigation** ---> The above functions are both in the VaultRegistry contract and they return the exact same thing, even though they are named differently. Perhaps getSubmitter is to return the `creator` value in `VaultMetadata` struct? If this is the case the code in getSubmitter() should be updated to return such or one of the functions should be removed to reduce bytecode size as they are both doing the same thing.
+**Recommended Mitigation** ---> The above functions are both in the VaultRegistry contract and they return the exact same thing, even though they are named differently. Perhaps getSubmitter is to return the `creator` value in `VaultMetadata` struct? If this is the case the code in getSubmitter() should be updated to return such (metadata[vault].creator) or one of the functions should be removed to reduce bytecode size as they are both doing the same thing.
 
 
 
