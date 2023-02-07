@@ -1,3 +1,4 @@
+Finding #1
 Should not nominate new admin proxy to address zero, add this test to `test.vault.VaultController.t.sol`:
 ```
    function test__nominateZeroAddressNewAdminProxyOwner() public {
@@ -27,3 +28,31 @@ Traces:
 
 Test result: ok. 1 passed; 0 failed; finished in 7.64ms
 ```
+
+Finding #2
+Missing `onlyOwner` modifier on `src.vault.Vault.changeAdapter` allows anyone to set a new Adapter for this Vault after the quit period has passed. The existing test in `test.vault.Vault.testFail__changeAdapter_NonOwner` is incorrectly implemented to verify the issue and fails on `NotPassedQuitPeriod` rather than properly catching the error of lack of ownership, e.g.
+```
+~/se/currents/latest/2023-01-popcorn │ on main !2 ?1  forge test --match-path test/vault/Vault.t.sol --match-test "testFail__changeAdapter_NonOwner" -vvvv
+
+[⠊] Compiling...
+No files changed, compilation skipped
+
+Running 1 test for test/vault/Vault.t.sol:VaultTest
+[PASS] testFail__changeAdapter_NonOwner() (gas: 32770)
+Traces:
+  [32770] VaultTest::testFail__changeAdapter_NonOwner() 
+    ├─ [0] VM::prank(alice: [0x000000000000000000000000000000000000ABcD]) 
+    │   └─ ← ()
+    ├─ [22509] vault::changeAdapter() 
+    │   ├─ [2640] MockERC4626::balanceOf(vault: [0xF62849F9A0B5Bf2913b396098F7c7019b51A820a]) [staticcall]
+    │   │   └─ ← 0
+    │   ├─ [2523] MockERC4626::convertToAssets(0) [staticcall]
+    │   │   └─ ← 0
+    │   └─ ← "NotPassedQuitPeriod(259200)"
+    └─ ← "NotPassedQuitPeriod(259200)"
+
+Test result: ok. 1 passed; 0 failed; finished in 3.50ms
+```
+Recommendation: add `onlyOwner` modifier to `changeAdapter` function and refactor `testFail__changeAdapter_NonOwner`
+
+
