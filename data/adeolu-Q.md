@@ -154,8 +154,37 @@ In the above function event is emitted before the fees value is actually changed
 
 
 
+## multiple checking for equal array length in setEscrowTokenFees() in VaultController contract 
 
+```
+  function setEscrowTokenFees(IERC20[] calldata tokens, uint256[] calldata fees) external onlyOwner {
+    _verifyEqualArrayLength(tokens.length, fees.length);
+    (bool success, bytes memory returnData) = adminProxy.execute(
+      address(escrow),
+      abi.encodeWithSelector(IMultiRewardEscrow.setFees.selector, tokens, fees)
+    );
+    if (!success) revert UnderlyingError(returnData);
+  }
+```
+link to setEscrowTokenFees in repo --> https://github.com/code-423n4/2023-01-popcorn/blob/d95fc31449c260901811196d617366d6352258cd/src/vault/VaultController.sol#L543
 
+In `setEscrowTokenFees` in `VaultController` contract, the lengths of  token and fees arrays are checked to be equal and it is also checked for equality again in the `setFees` function in `MultiRewardEscrow` contract. See setFees function in MultiRewardEscrow below;
+
+```
+  function setFees(IERC20[] memory tokens, uint256[] memory tokenFees) external onlyOwner {
+    if (tokens.length != tokenFees.length) revert ArraysNotMatching(tokens.length, tokenFees.length);
+
+    for (uint256 i = 0; i < tokens.length; i++) {
+      if (tokenFees[i] >= 1e17) revert DontGetGreedy(tokenFees[i]);
+
+      fees[tokens[i]].feePerc = tokenFees[i];
+      emit FeeSet(tokens[i], tokenFees[i]);
+    }
+  }
+```
+link to setFees  in repo ---> https://github.com/code-423n4/2023-01-popcorn/blob/d95fc31449c260901811196d617366d6352258cd/src/utils/MultiRewardEscrow.sol#L207
+
+**Recommended mitigation** ---> Remove the check in one of the two functions, I suggest removing the equal length check in `setEscrowTokenFees` as `setFees` is the underlying function being called in `setEscrowTokenFees`
 
 
 
