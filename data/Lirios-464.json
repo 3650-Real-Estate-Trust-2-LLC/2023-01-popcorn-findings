@@ -1,0 +1,8 @@
+{
+  "contest": 211,
+  "handle": "Lirios",
+  "risk": "2",
+  "title": "vault.changeFee: unapproved users can set fee to 0",
+  "issueId": 464,
+  "issueUrl": "https://github.com/code-423n4/2023-01-popcorn-findings/issues/464"
+}
