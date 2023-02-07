@@ -1,0 +1,8 @@
+{
+  "contest": 211,
+  "handle": "aashar",
+  "risk": "2",
+  "title": "Function execution will succeed even if there is an error because of unchecked delegatecall",
+  "issueId": 387,
+  "issueUrl": "https://github.com/code-423n4/2023-01-popcorn-findings/issues/387"
+}
