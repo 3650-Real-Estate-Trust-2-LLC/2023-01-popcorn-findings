@@ -1,0 +1,8 @@
+{
+  "contest": 211,
+  "handle": "0xNineDec",
+  "risk": "2",
+  "title": "Race condition enabled by external claim method",
+  "issueId": 763,
+  "issueUrl": "https://github.com/code-423n4/2023-01-popcorn-findings/issues/763"
+}
