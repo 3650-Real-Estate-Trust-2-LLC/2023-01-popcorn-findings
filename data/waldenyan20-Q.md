@@ -2,5 +2,9 @@
 The variable `owner` is used in both these code snippets:
 https://github.com/code-423n4/2023-01-popcorn/blob/d95fc31449c260901811196d617366d6352258cd/src/utils/MultiRewardStaking.sol#L121-L134
 https://github.com/code-423n4/2023-01-popcorn/blob/d95fc31449c260901811196d617366d6352258cd/src/utils/MultiRewardStaking.sol#L445-L485
+https://github.com/code-423n4/2023-01-popcorn/blob/d95fc31449c260901811196d617366d6352258cd/src/vault/Vault.sol#L57-L98
+https://github.com/code-423n4/2023-01-popcorn/blob/d95fc31449c260901811196d617366d6352258cd/src/vault/Vault.sol#L211-L240
+https://github.com/code-423n4/2023-01-popcorn/blob/d95fc31449c260901811196d617366d6352258cd/src/vault/Vault.sol#L253-L278
+https://github.com/code-423n4/2023-01-popcorn/blob/d95fc31449c260901811196d617366d6352258cd/src/vault/Vault.sol#L664-L707
 
-and it shadows the global `owner` variable from the `OwnedUpgradeable` contract being inherited. You should be careful about this and rename it to something like `user` that is less ambiguous.
+and it shadows the global `owner` variable from the `OwnedUpgradeable` contract being inherited. You should be careful about this and rename it to something like `user` or `_owner`, depending on the context, that is less ambiguous.
