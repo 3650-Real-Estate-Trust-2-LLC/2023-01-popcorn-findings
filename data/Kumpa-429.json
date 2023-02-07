@@ -1,0 +1,8 @@
+{
+  "contest": 211,
+  "handle": "Kumpa",
+  "risk": "3",
+  "title": "Depositing a very small amount of assets may cause the token to get locked up without receiving any shares back. ",
+  "issueId": 429,
+  "issueUrl": "https://github.com/code-423n4/2023-01-popcorn-findings/issues/429"
+}
