@@ -1,5 +1,5 @@
 Finding #1
-Should not nominate new admin proxy to address zero, add this test to `test.vault.VaultController.t.sol`:
+Should not nominate new admin proxy to address zero, add this test to `test.vault.VaultController.t.sol` to verify the finding:
 ```
    function test__nominateZeroAddressNewAdminProxyOwner() public {
         controller.nominateNewAdminProxyOwner(address(0));
