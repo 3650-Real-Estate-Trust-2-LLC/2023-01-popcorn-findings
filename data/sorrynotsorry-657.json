@@ -1,0 +1,8 @@
+{
+  "contest": 211,
+  "handle": "sorrynotsorry",
+  "risk": "2",
+  "title": "Vault contracts is not EIP4626 compliant",
+  "issueId": 657,
+  "issueUrl": "https://github.com/code-423n4/2023-01-popcorn-findings/issues/657"
+}
