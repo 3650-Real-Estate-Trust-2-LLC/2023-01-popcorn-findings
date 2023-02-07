@@ -1,0 +1,8 @@
+{
+  "contest": 211,
+  "handle": "Malatrax",
+  "risk": "2",
+  "title": "HarvestCooldown can be bypassed because lastHarvest is never updated, leading to potential risk of funds depending on the strategy attached.",
+  "issueId": 773,
+  "issueUrl": "https://github.com/code-423n4/2023-01-popcorn-findings/issues/773"
+}
