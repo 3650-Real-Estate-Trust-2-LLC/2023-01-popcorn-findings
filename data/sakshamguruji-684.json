@@ -1,0 +1,8 @@
+{
+  "contest": 211,
+  "handle": "sakshamguruji",
+  "risk": "2",
+  "title": "Return Value Not Checked On DelegateCall Leads To User Paying Fees For Failed Transaction",
+  "issueId": 684,
+  "issueUrl": "https://github.com/code-423n4/2023-01-popcorn-findings/issues/684"
+}
