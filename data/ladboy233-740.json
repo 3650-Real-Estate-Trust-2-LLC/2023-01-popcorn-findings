@@ -1,0 +1,8 @@
+{
+  "contest": 211,
+  "handle": "ladboy233",
+  "risk": "2",
+  "title": "YearnAdapter previewRedeem / previewWithdraw does not consider the fee on yearn vault side",
+  "issueId": 740,
+  "issueUrl": "https://github.com/code-423n4/2023-01-popcorn-findings/issues/740"
+}
