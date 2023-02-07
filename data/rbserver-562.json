@@ -1,0 +1,8 @@
+{
+  "contest": 211,
+  "handle": "rbserver",
+  "risk": "2",
+  "title": "`YearnAdapter` contract's `maxMint` function is not EIP-4626 compliant",
+  "issueId": 562,
+  "issueUrl": "https://github.com/code-423n4/2023-01-popcorn-findings/issues/562"
+}
