@@ -1,0 +1,8 @@
+{
+  "contest": 211,
+  "handle": "rbserver",
+  "risk": "2",
+  "title": "`Vault.totalAssets` and `AdapterBase.totalAssets` functions are not compliant to EIP-4626 when vault uses `BeefyAdapter` contract as its adapter and the used Beefy vault's `totalSupply()` is 0",
+  "issueId": 577,
+  "issueUrl": "https://github.com/code-423n4/2023-01-popcorn-findings/issues/577"
+}
