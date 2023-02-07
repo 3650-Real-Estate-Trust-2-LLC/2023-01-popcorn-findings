@@ -1,0 +1,8 @@
+{
+  "contest": 211,
+  "handle": "0xmuxyz",
+  "risk": "2",
+  "title": "`rewardsEndTimestamp` is not aligned to `uint256` for comparing with `block.timestamp`, which may cause a miscalculation",
+  "issueId": 661,
+  "issueUrl": "https://github.com/code-423n4/2023-01-popcorn-findings/issues/661"
+}
