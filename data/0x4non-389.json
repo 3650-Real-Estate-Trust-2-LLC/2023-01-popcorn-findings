@@ -1,0 +1,8 @@
+{
+  "contest": 211,
+  "handle": "0x4non",
+  "risk": "3",
+  "title": "Lack of slippage can result on protocol losses on `harvest` via an evil contract that runs a sandwich attack",
+  "issueId": 389,
+  "issueUrl": "https://github.com/code-423n4/2023-01-popcorn-findings/issues/389"
+}
