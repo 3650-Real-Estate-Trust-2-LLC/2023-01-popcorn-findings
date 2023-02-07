@@ -1,0 +1,8 @@
+{
+  "contest": 211,
+  "handle": "ladboy233",
+  "risk": "2",
+  "title": "Stragety withdrawal fee estimation is not accurate in BeefyAdapter.sol",
+  "issueId": 786,
+  "issueUrl": "https://github.com/code-423n4/2023-01-popcorn-findings/issues/786"
+}
