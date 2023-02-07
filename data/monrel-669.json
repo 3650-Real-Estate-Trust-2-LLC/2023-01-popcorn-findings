@@ -1,0 +1,8 @@
+{
+  "contest": 211,
+  "handle": "monrel",
+  "risk": "3",
+  "title": "Reward Tokens with fee-on-transfer can lock user's rewards",
+  "issueId": 669,
+  "issueUrl": "https://github.com/code-423n4/2023-01-popcorn-findings/issues/669"
+}
