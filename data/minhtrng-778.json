@@ -1,0 +1,8 @@
+{
+  "contest": 211,
+  "handle": "minhtrng",
+  "risk": "2",
+  "title": "Sync of highWaterMark can be used to avoid performance fees",
+  "issueId": 778,
+  "issueUrl": "https://github.com/code-423n4/2023-01-popcorn-findings/issues/778"
+}
