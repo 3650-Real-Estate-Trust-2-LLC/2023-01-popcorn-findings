@@ -1,0 +1,8 @@
+{
+  "contest": 211,
+  "handle": "immeas",
+  "risk": "2",
+  "title": "user can bypass `managementFee` by front running fee collection with a withdraw then deposit",
+  "issueId": 782,
+  "issueUrl": "https://github.com/code-423n4/2023-01-popcorn-findings/issues/782"
+}
