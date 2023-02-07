@@ -1,0 +1,8 @@
+{
+  "contest": 211,
+  "handle": "0xWeiss",
+  "risk": "3",
+  "title": "erc777 cross function re-entrancy",
+  "issueId": 453,
+  "issueUrl": "https://github.com/code-423n4/2023-01-popcorn-findings/issues/453"
+}
