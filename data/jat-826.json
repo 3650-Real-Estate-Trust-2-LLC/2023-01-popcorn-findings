@@ -1,0 +1,8 @@
+{
+  "contest": 211,
+  "handle": "jat",
+  "risk": "2",
+  "title": "Use safeTransferFrom and safeApprove foe the reward tokens in Vault Controller instead of transferFrom and approve functions",
+  "issueId": 826,
+  "issueUrl": "https://github.com/code-423n4/2023-01-popcorn-findings/issues/826"
+}
