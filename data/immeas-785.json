@@ -1,0 +1,8 @@
+{
+  "contest": 211,
+  "handle": "immeas",
+  "risk": "2",
+  "title": "`quitPeriod` is effectively always just `1 day`",
+  "issueId": 785,
+  "issueUrl": "https://github.com/code-423n4/2023-01-popcorn-findings/issues/785"
+}
