@@ -1,0 +1,8 @@
+{
+  "contest": 211,
+  "handle": "mert_eren",
+  "risk": "3",
+  "title": "Possible reentrancy attack in claimToken when erc777 used as reward token in multiRewardstaking. ",
+  "issueId": 446,
+  "issueUrl": "https://github.com/code-423n4/2023-01-popcorn-findings/issues/446"
+}
