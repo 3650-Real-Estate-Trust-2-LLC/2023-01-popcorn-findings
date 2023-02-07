@@ -1,0 +1,8 @@
+{
+  "contest": 211,
+  "handle": "0xNazgul",
+  "risk": "3",
+  "title": "[NAZ-H5] Underlying Assets Stealing In All EIP4626 Implementations via share price manipulation",
+  "issueId": 605,
+  "issueUrl": "https://github.com/code-423n4/2023-01-popcorn-findings/issues/605"
+}
