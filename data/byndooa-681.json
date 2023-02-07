@@ -1,0 +1,8 @@
+{
+  "contest": 211,
+  "handle": "byndooa",
+  "risk": "3",
+  "title": "`DeploymentController.addTemplate()` frontrun with the same `templateId` can pre-register a `templateId` with wrong parameters and block a correct transaction",
+  "issueId": 681,
+  "issueUrl": "https://github.com/code-423n4/2023-01-popcorn-findings/issues/681"
+}
