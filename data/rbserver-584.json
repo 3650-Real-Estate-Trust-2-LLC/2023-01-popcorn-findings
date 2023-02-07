@@ -1,0 +1,8 @@
+{
+  "contest": 211,
+  "handle": "rbserver",
+  "risk": "2",
+  "title": "Users can directly call `AdapterBase.deposit`, `AdapterBase.mint`, `AdapterBase.withdraw`, and `AdapterBase.redeem` functions to avoid fees charged by `Vault` contract for these functionalities",
+  "issueId": 584,
+  "issueUrl": "https://github.com/code-423n4/2023-01-popcorn-findings/issues/584"
+}
