@@ -1,0 +1,8 @@
+{
+  "contest": 211,
+  "handle": "hansfriese",
+  "risk": "2",
+  "title": "`YearnAdapter.pause` can revert in an emergency",
+  "issueId": 725,
+  "issueUrl": "https://github.com/code-423n4/2023-01-popcorn-findings/issues/725"
+}
