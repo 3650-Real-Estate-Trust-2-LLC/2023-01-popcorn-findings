@@ -1,0 +1,8 @@
+{
+  "contest": 211,
+  "handle": "monrel",
+  "risk": "2",
+  "title": "quitPeriod can not be changed since setQuitPeriod() is never called from VaultController ",
+  "issueId": 731,
+  "issueUrl": "https://github.com/code-423n4/2023-01-popcorn-findings/issues/731"
+}
