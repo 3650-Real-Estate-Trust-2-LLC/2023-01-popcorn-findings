@@ -1,7 +1,7 @@
 ## x += y costs more gas than x = x + y
 
 **Description:**
-It has been repeatedly proven even through codearena contests that x += y shorthand costs more gas than the longer version for state variables. This also applies to the reverse, x -= y costs more gas than x = x - y
+It has been repeatedly proven even through codearena contests that `x += y` shorthand costs more gas than the longer version for state variables. This also applies to the reverse, `x -= y` costs more gas than `x = x - y`
 
 **Proof of concept**
 ```solidity 
