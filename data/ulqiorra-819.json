@@ -1,0 +1,8 @@
+{
+  "contest": 211,
+  "handle": "ulqiorra",
+  "risk": "2",
+  "title": "Small rewards from MultiRewardStaking spread out over multiple safes in MultiRewardEscrow can lead to a loss of user interest in claiming them",
+  "issueId": 819,
+  "issueUrl": "https://github.com/code-423n4/2023-01-popcorn-findings/issues/819"
+}
