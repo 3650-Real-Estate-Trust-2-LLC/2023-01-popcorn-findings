@@ -1,0 +1,8 @@
+{
+  "contest": 211,
+  "handle": "cccz",
+  "risk": "2",
+  "title": "AdapterBase should always use delegatecall to call the functions in the strategy",
+  "issueId": 435,
+  "issueUrl": "https://github.com/code-423n4/2023-01-popcorn-findings/issues/435"
+}
