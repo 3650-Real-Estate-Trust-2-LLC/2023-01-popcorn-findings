@@ -23,8 +23,9 @@
 | [G-20] |External visibility can be used in public functions | 13 |
 | [G-21] |Use a more recent version of solidity | All contracts |
 | [G-22] |Cheaper to calculate domain separator every time | 3 |
+| [G-23] |Use hardcode address instead ``address(this)`` | 20 |
 
-Total 22 issues
+Total 23 issues
 
 ### [G-01] Gas overflow during iteration (DoS)
 
@@ -965,3 +966,96 @@ src\vault\adapter\abstracts\AdapterBase.sol:
 
 ```
 https://github.com/code-423n4/2023-01-popcorn//blob/main/src/vault/adapter/abstracts/AdapterBase.sol#L678-L682
+
+### [G-23] Use hardcode address instead ``address(this)``
+
+Instead of ``address(this)``, it is more gas-efficient to pre-calculate and use the address with a hardcode. Foundry's ``script.sol`` and solmate````LibRlp.sol`` contracts can do this.
+
+Reference:
+https://book.getfoundry.sh/reference/forge-std/compute-create-address
+https://twitter.com/transmissions11/status/1518507047943245824
+
+
+20 results - 8 files
+```solidity
+src\utils\MultiRewardEscrow.sol:
+
+  100:     token.safeTransferFrom(msg.sender, address(this), amount);
+```
+https://github.com/code-423n4/2023-01-popcorn//blob/main/src/utils/MultiRewardEscrow.sol#L100
+
+
+```solidity
+
+src\utils\MultiRewardStaking.sol:
+
+  113:     IERC20(asset()).safeTransferFrom(caller, address(this), assets);
+
+  259:       rewardToken.safeTransferFrom(msg.sender, address(this), amount);
+
+  305:     uint256 remainder = rewardToken.balanceOf(address(this));
+
+  334:     rewardToken.safeTransferFrom(msg.sender, address(this), amount);
+```
+https://github.com/code-423n4/2023-01-popcorn//blob/main/src/utils/MultiRewardStaking.sol#L113
+ 
+```solidity
+src\vault\Vault.sol:
+
+  153:         asset.safeTransferFrom(msg.sender, address(this), assets);
+  154  
+  155:         adapter.deposit(assets, address(this));
+
+  193:         asset.safeTransferFrom(msg.sender, address(this), assets);
+  194  
+  195:         adapter.deposit(assets, address(this));
+
+  237:         adapter.withdraw(assets, receiver, address(this));
+
+  275:         adapter.withdraw(assets, receiver, address(this));
+
+  286:         return adapter.convertToAssets(adapter.balanceOf(address(this)));
+
+  612:         adapter.deposit(asset.balanceOf(address(this)), address(this));
+```
+https://github.com/code-423n4/2023-01-popcorn//blob/main/src/vault/Vault.sol#L153
+
+
+```solidity
+src\vault\VaultController.sol:
+
+  170:       asset.safeTransferFrom(msg.sender, address(this), initialDeposit);
+ 
+  526:       rewardTokens[i].transferFrom(msg.sender, address(this), amounts[i]);
+```
+https://github.com/code-423n4/2023-01-popcorn//blob/main/src/vault/VaultController.sol#L170
+
+```solidity
+src\vault\adapter\abstracts\AdapterBase.sol:
+
+  153:         IERC20(asset()).safeTransferFrom(caller, address(this), assets);
+```
+
+
+```solidity
+src\vault\adapter\abstracts\OnlyStrategy.sol:
+
+  11:     if (msg.sender != address(this)) revert NotStrategy(msg.sender);
+```
+
+
+```solidity
+src\vault\adapter\beefy\BeefyAdapter.sol:
+ 
+  118:         return beefyBalanceCheck.balanceOf(address(this));
+
+  199:             beefyBooster.stake(beefyVault.balanceOf(address(this)));
+```
+https://github.com/code-423n4/2023-01-popcorn//blob/main/src/vault/adapter/abstracts/AdapterBase.sol#L118
+
+```solidity
+src\vault\adapter\yearn\YearnAdapter.sol:
+
+  85:         return yVault.balanceOf(address(this));
+```
+https://github.com/code-423n4/2023-01-popcorn//blob/main/src/vault/adapter/yearn/YearnAdapter.sol#L85
