@@ -1,0 +1,8 @@
+{
+  "contest": 211,
+  "handle": "KingNFT",
+  "risk": "2",
+  "title": "Users would loss their rewards when caller is not owner",
+  "issueId": 385,
+  "issueUrl": "https://github.com/code-423n4/2023-01-popcorn-findings/issues/385"
+}
