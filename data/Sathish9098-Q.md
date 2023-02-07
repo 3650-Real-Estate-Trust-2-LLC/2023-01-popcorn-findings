@@ -14,8 +14,10 @@ File : src/vault/Vault.sol
 214:         address owner
 215:      ) public nonReentrant syncFeeCheckpoint returns (uint256 shares) {
 
-+     require(assets>0, "The assets is less");
-+     require(assets<= maxWithdraw(owner), "withdraw more than max");
+> Recommended Mitigation Steps : 
+
+     require(assets>0, "The assets is less");
+     require(assets<= maxWithdraw(owner), "withdraw more than max");
 
  170 :      function mint(uint256 shares, address receiver)
  171:        public
@@ -23,8 +25,11 @@ File : src/vault/Vault.sol
  173:       whenNotPaused
  174:       syncFeeCheckpoint
  175:       returns (uint256 assets)
-+            require(shares>0, "The shares is less");
-+            require(shares<= maxMint(receiver), "Mint more than max");
+
+> Recommended Mitigation Steps : 
+
+            require(shares>0, "The shares is less");
+            require(shares<= maxMint(receiver), "Mint more than max");
 
 134:      function deposit(uint256 assets, address receiver)
 135 :        public
@@ -33,36 +38,16 @@ File : src/vault/Vault.sol
  138 :      syncFeeCheckpoint
  139:       returns (uint256 shares)
 
-+     require(assets>0, "The assets is less");
-+     require(assets<= maxDeposite(receiver), "deposit more than max");
+> Recommended Mitigation Steps : 
+
+     require(assets>0, "The assets is less");
+     require(assets<= maxDeposite(receiver), "deposit more than max");
 
 [Link to Code](https://github.com/code-423n4/2023-01-popcorn//blob/main/src/vault/Vault.sol)
 
 ##
 
-## [L-2] INITIALIZE() FUNCTION CAN BE CALLED BY ANYBODY
-
-initialize() function can be called by anybody when the contract is not initialized.
-
-Here is a definition of initialize() function
-
-File : src/vault/Vault.sol
-
-[Vault.sol#L57-L72](https://github.com/code-423n4/2023-01-popcorn/blob/d95fc31449c260901811196d617366d6352258cd/src/vault/Vault.sol#L57-L72)
-
-[Link to Code](https://github.com/code-423n4/2023-01-popcorn//blob/main/src/vault/Vault.sol)
-
-> Recommended Mitigation Steps
-
-Add a control that makes initialize() only call the Deployer Contract or EOA;
-
-if (msg.sender != DEPLOYER_ADDRESS) {
-            revert NotDeployer();
-        }
-
-##
-
-## [L-3] OWNER CAN RENOUNCE OWNERSHIP
+## [L-2] OWNER CAN RENOUNCE OWNERSHIP
 
 Typically, the contract’s owner is the account that deploys the contract. As a result, the owner is able to perform certain privileged activities.
 
@@ -84,9 +69,9 @@ File : src/vault/Vault.sol
 
     643:   function pause() external onlyOwner {
 
-   648 :  function unpause() external onlyOwner {
+     648 :  function unpause() external onlyOwner {
 
-  [Link to Code](https://github.com/code-423n4/2023-01-popcorn//blob/main/src/vault/Vault.sol)
+[Link to Code](https://github.com/code-423n4/2023-01-popcorn//blob/main/src/vault/Vault.sol)
 
 File:  src/vault/VaultController.sol
 
@@ -96,35 +81,92 @@ File:  src/vault/VaultController.sol
 
       561:    function addTemplateCategories(bytes32[] calldata templateCategories) external onlyOwner {
 
-      723:   function nominateNewAdminProxyOwner(address newOwner) external onlyOwner {
+       723:   function nominateNewAdminProxyOwner(address newOwner) external onlyOwner {
 
-     764:     function setAdapterPerformanceFees(address[] calldata adapters) external onlyOwner {
+      764:     function setAdapterPerformanceFees(address[] calldata adapters) external onlyOwner {
 
-     791:    function setHarvestCooldown(uint256 newCooldown) external onlyOwner {
+      791:    function setHarvestCooldown(uint256 newCooldown) external onlyOwner {
+ 
+      804:    function setAdapterHarvestCooldowns(address[] calldata adapters) external onlyOwner {
 
-     804:    function setAdapterHarvestCooldowns(address[] calldata adapters) external onlyOwner {
+      832:    function setDeploymentController(IDeploymentController _deploymentController) external onlyOwner {
 
-    832:    function setDeploymentController(IDeploymentController _deploymentController) external onlyOwner {
-
-    864:    function setActiveTemplateId(bytes32 templateCategory, bytes32 templateId) external onlyOwner {
-
-  
+      864:    function setActiveTemplateId(bytes32 templateCategory, bytes32 templateId) external onlyOwner {
 
 [Link to Code](https://github.com/code-423n4/2023-01-popcorn//blob/main/src/vault/VaultController.sol)
-
-
 
 > Recommended Mitigation Steps:
 
 We recommend to either reimplement the function to disable it or to clearly specify if it is part of the contract design
 
+##
 
+## [L-3]  DECIMALS() NOT PART OF ERC20 STANDARD
+
+decimals() is not part of the official ERC20 standard and might fail for tokens that do not implement it. While in practice it is very unlikely, as usually most of the tokens implement it, this should still be considered as a potential issue
+
+File : src/vault/Vault.sol
+
+    82:  _decimals = IERC20Metadata(address(asset_)).decimals();
+
+[Link to Code](https://github.com/code-423n4/2023-01-popcorn//blob/main/src/vault/Vault.sol)
+
+##
+
+## [L-4]  AVOID DUPLICATE CODE
+
+File:  src/vault/VaultController.sol
+
+[pauseAdapters](https://github.com/code-423n4/2023-01-popcorn/blob/d95fc31449c260901811196d617366d6352258cd/src/vault/VaultController.sol#L605-L615)
+
+[pauseVaults ](https://github.com/code-423n4/2023-01-popcorn/blob/d95fc31449c260901811196d617366d6352258cd/src/vault/VaultController.sol#L618-L628)
+
+The pauseAdapters and pauseVaults methods of the VaultController contract are very similar, the only difference being the following peace of code
+
+>  pauseAdapters()
+
+      610 :   IVault(vaults[i]).adapter(),
+
+>   pauseVaults 
+
+       623 :    vaults[i],
+
+  > Similar to unpauseAdapters and unpauseVaults methods of the VaultController contract are very similar, the only difference being the following peace of code
+
+>  unpauseAdapters ()
+
+     636:    IVault(vaults[i]).adapter(),
+
+>   unpauseVaults ()
+
+     649:   vaults[i],
+
+[Link to Code](https://github.com/code-423n4/2023-01-popcorn//blob/main/src/vault/VaultController.sol)
+
+>  Recommended Mitigation Steps : 
+
+It’s recommended to reuse the code in order to be more readable and light
+
+##
+
+## [L-5]  NatSpec comments should be increased in contracts
+
+##
+
+## [L-6]  USE LATEST openzeppelin-upgradeable versions 
+
+Your current version of @openzeppelin/contracts-upgradeable is 4.7.1 and latest version is 4.8.1
+
+
+##
 
 # NON CRITICAL FINDINGS 
 
 ##
 
 ## [NC -1]  USE A MORE RECENT VERSION OF SOLIDITY . LATEST SOLIDITY VERSION IS 0.8.17 . LATEST VERSION HAVE MORE ADVANCED FEATURES .
+
+> INSTANCES (16)
 
 File : src/vault/PermissionRegistry.sol
 
@@ -155,6 +197,8 @@ File : src/vault/adapter/yearn/YearnAdapter.sol
 
 ## [NC-2] TYPOS
 
+> INSTANCES (4)
+
 File : src/vault/CloneRegistry.sol
 
      /// @audit registerd   = >  registered
@@ -162,6 +206,23 @@ File : src/vault/CloneRegistry.sol
      14 :   * Is used by `VaultController` to check if a target is a registerd clone.
 
 [Link to Code](https://github.com/code-423n4/2023-01-popcorn//blob/main/src/vault/CloneRegistry.sol)
+
+File : src/vault/VaultController.sol
+
+      /// @audit ownes = >  owns
+
+     47:  * @param _adminProxy `AdminProxy` ownes contracts in the vault ecosystem.
+
+     /// @audit informations= >  information's
+
+     85:   * @param metadata Vault metadata for the `VaultRegistry` (Will be used by the frontend for additional informations)
+ 
+     /// @audit auxiliery = >  auxiliary 
+
+    87:  * @dev This function is the one stop solution to create a new vault with all necessary admin functions or auxiliery contracts.
+    
+[Link to Code](https://github.com/code-423n4/2023-01-popcorn/blob/main/src/vault/VaultController.sol)
+
 
 ##
 
@@ -209,8 +270,7 @@ within a grouping, place the view and pure functions last.
 
 File : src/vault/Vault.sol
 
-[Vault.sol#L716] (https://github.com/code-423n4/2023-01-popcorn/blob/d95fc31449c260901811196d617366d6352258cd/src/vault/Vault.sol#L716)
-
+[Vault.sol#L716](https://github.com/code-423n4/2023-01-popcorn/blob/d95fc31449c260901811196d617366d6352258cd/src/vault/Vault.sol#L716)
 
 [Link to Code](https://github.com/code-423n4/2023-01-popcorn//blob/main/src/vault/Vault.sol)
 
@@ -220,9 +280,9 @@ internal and private functions: the mixedCase format starting with an underscore
 
 File : src/utils/MultiRewardStaking.sol
 
-   487:  function DOMAIN_SEPARATOR() public view returns (bytes32) {
+     487:  function DOMAIN_SEPARATOR() public view returns (bytes32) {
 
-   491:  function computeDomainSeparator() internal view virtual returns (bytes32) {
+     491:  function computeDomainSeparator() internal view virtual returns (bytes32) {
 
 [Link to Code](https://github.com/code-423n4/2023-01-popcorn//blob/main/src/utils/MultiRewardStaking.sol)
 
@@ -264,21 +324,25 @@ Events with no old value
 File : src/vault/VaultController.sol
 
     function nominateNewAdminProxyOwner(address newOwner) external onlyOwner {
-    adminProxy.nominateNewOwner(newOwner);
-  }
+    adminProxy.nominateNewOwner(newOwner);  //@audit nominateNewOwner() Call
+     }
 
+##
 
-   function acceptAdminProxyOwnership() external {
-    adminProxy.acceptOwnership();
-  }
+    function acceptAdminProxyOwnership() external {
+    adminProxy.acceptOwnership();   //@audit acceptOwnership() Call
+    } 
 
-File: Owned.sol
+[Link to Code](https://github.com/code-423n4/2023-01-popcorn/blob/main/src/vault/VaultController.sol)
+##
+
+File: src/utils/Owned.sol
 
     function nominateNewOwner(address _owner) external virtual onlyOwner {
     nominatedOwner = _owner;
     emit OwnerNominated(_owner);
-    }
-
+     }
+##
 
     function acceptOwnership() external virtual {
     require(msg.sender == nominatedOwner, "You must be nominated before you can accept ownership");
@@ -287,8 +351,8 @@ File: Owned.sol
     nominatedOwner = address(0);
     }
 
+[Link to Code](https://github.com/code-423n4/2023-01-popcorn/blob/main/src/utils/Owned.sol)
 
-[Link to Code](https://github.com/code-423n4/2023-01-popcorn/blob/main/src/vault/VaultController.sol)
 
 ##
 
@@ -298,12 +362,12 @@ File: Owned.sol
 
     function nominateNewAdminProxyOwner(address newOwner) external onlyOwner {
     adminProxy.nominateNewOwner(newOwner);
-  }
+    }
 
 
-   function acceptAdminProxyOwnership() external {
+     function acceptAdminProxyOwnership() external {
     adminProxy.acceptOwnership();
-  }
+    }
 
 [Link to Code](https://github.com/code-423n4/2023-01-popcorn/blob/main/src/vault/VaultController.sol)
 
@@ -346,6 +410,154 @@ File: src/vault/adapter/abstracts/AdapterBase.sol
 
 [Link to Code](https://github.com/code-423n4/2023-01-popcorn//blob/main/src/vault/adapter/abstracts/AdapterBase.sol)
 
+##
+
+## [NC-10]  PUBLIC FUNCTIONS NOT CALLED BY THE CONTRACT SHOULD BE DECLARED EXTERNAL INSTEAD
+
+##
+
+## [NC-11]  NON-LIBRARY/INTERFACE FILES SHOULD USE FIXED COMPILER VERSIONS, NOT FLOATING ONES
+
+All interfaces using the floating solidity version instead of fixed version. Interfaces must use fixed version compiler 
+
+
+> Instances (18)
+
+
+File:  src/interfaces/IEIP165.sol
+
+2 :  pragma solidity ^0.8.15;
+
+
+[Link to Code](https://github.com/code-423n4/2023-01-popcorn//blob/main/src/interfaces/IEIP165.sol)
+
+##
+
+## [NC-12]  EMPTY BLOCKS SHOULD BE REMOVED OR EMIT SOMETHING
+
+Description
+Code contains empty block
+
+      File: src/utils/EIP165.sol
+
+      7:   function supportsInterface(bytes4 interfaceId) public view virtual returns (bool) {}
+
+
+      File: src/vault/AdminProxy.sol
+
+      16:   constructor(address _owner) Owned(_owner) {}
+
+
+      File: src/vault/CloneFactory.sol
+
+      23:   constructor(address _owner) Owned(_owner) {}
+
+
+      File: src/vault/CloneRegistry.sol
+
+      22:   constructor(address _owner) Owned(_owner) {}
+
+
+     File: src/vault/PermissionRegistry.sol
+
+     20:   constructor(address _owner) Owned(_owner) {}
+
+
+     File: src/vault/TemplateRegistry.sol
+
+     24:   constructor(address _owner) Owned(_owner) {}
+
+
+     File: src/vault/Vault.sol
+
+     477:     {}
+
+
+     File: src/vault/VaultRegistry.sol
+
+     21:   constructor(address _owner) Owned(_owner) {}
+
+
+     File: src/vault/adapter/abstracts/WithRewards.sol
+
+     13:   function rewardTokens() external view virtual returns (address[] memory) {}
+
+     15:   function claim() public virtual onlyStrategy {}
+
+##
+
+## [NC-13]  GENERATE PERFECT CODE HEADERS EVERY TIME
+
+Description
+I recommend using header for Solidity code layout and readability
+
+[Code Headers](https://github.com/transmissions11/headers)
+
+##
+
+## [NC-14]  NATSPEC IS MISSING
+
+Description
+NatSpec is missing for the following functions , constructor and modifier,Events
+
+File : src/vault/Vault.sol
+
+    124:   function deposit(uint256 assets) public returns (uint256) {
+
+    160 :   function mint(uint256 shares) external returns (uint256) {
+
+    200 :   function withdraw(uint256 assets) public returns (uint256) {
+
+    709:    function DOMAIN_SEPARATOR() public view returns (bytes32) {
+
+    108:  event Deposit(
+
+    114:   event Withdraw(
+
+
+     modifier syncFeeCheckpoint() {
+        _;
+        highWaterMark = convertToAssets(1e18);
+      }
+
+    512:  event NewFeesProposed(VaultFees newFees, uint256 timestamp);
+
+    513:   event ChangedFees(VaultFees oldFees, VaultFees newFees);
+
+    514:   event FeeRecipientUpdated(address oldFeeRecipient, address newFeeRecipient);
+
+[Link to Code](https://github.com/code-423n4/2023-01-popcorn//blob/main/src/vault/Vault.sol)
+
+##
+
+## [NC-15]  INCLUDE RETURN PARAMETERS IN NATSPEC COMMENTS
+
+ [Natspec-Format](https://docs.soliditylang.org/en/v0.8.15/natspec-format.html)
+
+If Return parameters are declared, you must prefix them with ”/// @return”.
+
+Some code analysis programs do analysis by reading NatSpec details, if they can’t see the “@return” tag, they do incomplete analysis.
+
+Recommended Mitigation Steps :
+Include return parameters in NatSpec comments
+
+File : src/vault/VaultController.sol
+
+[deployVault()](https://github.com/code-423n4/2023-01-popcorn/blob/d95fc31449c260901811196d617366d6352258cd/src/vault/VaultController.sol#L78-L97)
+
+  
+[deployStaking() ](https://github.com/code-423n4/2023-01-popcorn/blob/d95fc31449c260901811196d617366d6352258cd/src/vault/VaultController.sol#L273-L278)
+
+[Link to Code](https://github.com/code-423n4/2023-01-popcorn/blob/main/src/vault/VaultController.sol)
+
+
+Recommendation Code Style:
+
+		/// @notice information about what a function does
+		/// @param pageId The id of the page to get the URI for.
+		/// @return Returns a page's URI if it has been minted 
+		function tokenURI(uint256 pageId) public view virtual override returns (string memory) {
+			
 
 
 
@@ -354,15 +566,4 @@ File: src/vault/adapter/abstracts/AdapterBase.sol
 
 
 
-
-NC-1	Missing checks for address(0) when assigning values to address state variables	1
-NC-2	Return values of approve() not checked	12
-NC-3	Event is missing indexed fields	24
-NC-4	Functions not used internally could be marked external	15
-
-L-1	abi.encodePacked() should not be used with dynamic types when passing the result to a hash function such as keccak256()	1
-L-2	Do not use deprecated library functions	1
-L-3	Empty Function Body - Consider commenting why	10
-L-4	Initializers could be front-run	14
-L-5	Unsafe ERC20 operation(s)	11
 
