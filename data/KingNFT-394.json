@@ -1,0 +1,8 @@
+{
+  "contest": 211,
+  "handle": "KingNFT",
+  "risk": "2",
+  "title": "Reentrancy attack on ````claimRewards()```` function of ````MultiRewardStaking```` contract",
+  "issueId": 394,
+  "issueUrl": "https://github.com/code-423n4/2023-01-popcorn-findings/issues/394"
+}
