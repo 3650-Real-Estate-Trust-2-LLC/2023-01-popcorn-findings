@@ -1,0 +1,8 @@
+{
+  "contest": 211,
+  "handle": "ladboy233",
+  "risk": "2",
+  "title": "Lack of access control in Pool2SingleAssetCompounder.sol and lack of allowance cleaning when router is updated.",
+  "issueId": 746,
+  "issueUrl": "https://github.com/code-423n4/2023-01-popcorn-findings/issues/746"
+}
