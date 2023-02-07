@@ -35,7 +35,7 @@ The `fundReward` function at the [MultiRewardStaking.sol](https://github.com/cod
 
 But at the LoC 339 calls the internal function [_accrueRewards](https://github.com/code-423n4/2023-01-popcorn/blob/main/src/utils/MultiRewardStaking.sol#L339) that does the same.
 
-# [G-5] The `_transfer(address, address, uint256)` internal function from the `MultiRewardStaking.sol` contract can be implemented in a more gas-efficient manner.
+# [G-05] The `_transfer(address, address, uint256)` internal function from the `MultiRewardStaking.sol` contract can be implemented in a more gas-efficient manner.
 
 In order to apply the `_transfer` logic, it uses the internal functions `_burn` and `_mint` which are implemented the following way:
 
@@ -90,3 +90,32 @@ function _transfer(
     super._transfer(from, to, amount);
  }
 ```
+# [G-06] Use the `unchecked {}` block for arithmetic that wont overflow/underflow
+
+Solidity from the version 0.8.0 added by default overflow and underflow checks, this increase the gas consumption. By wrapping the operations within `unchecked` blocks, the checks are disabled and the gas cost gets reduced.
+
+The `claimRewards` function from the `MultiRewardEscrow.sol` contract is implemented as follows:
+
+```
+function claimRewards(bytes32[] memory escrowIds) external {
+    for (uint256 i = 0; i < escrowIds.length; i++) {
+      bytes32 escrowId = escrowIds[i];
+      Escrow memory escrow = escrows[escrowId];
+
+      uint256 claimable = _getClaimableAmount(escrow);
+      if (claimable == 0) revert NotClaimable(escrowId);
+
+      escrows[escrowId].balance -= claimable;
+      escrows[escrowId].lastUpdateTime = block.timestamp.safeCastTo32();
+
+      escrow.token.safeTransfer(escrow.account, claimable);
+      emit RewardsClaimed(escrow.token, escrow.account, claimable);
+    }
+  }
+```
+The statement `escrows[escrowId].balance -= claimable;` can be wrapped on an `unchecked` block. This wont underflow because the `uint256 claimable` variable cannot be greater than `escrows[escrowId].balance ` since the function `_getClaimableAmount` returns the minimum number of two numbers, one being `escrow.balance`.
+
+Other similar instances:
+
+[LoC 102 MultiRewardEscrow.sol](https://github.com/code-423n4/2023-01-popcorn/blob/main/src/utils/MultiRewardEscrow.sol#L102)
+[LoC 110 MultiRewardEscrow.sol](https://github.com/code-423n4/2023-01-popcorn/blob/main/src/utils/MultiRewardEscrow.sol#L110)
