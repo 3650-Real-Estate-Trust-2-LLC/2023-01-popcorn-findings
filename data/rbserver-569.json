@@ -1,0 +1,8 @@
+{
+  "contest": 211,
+  "handle": "rbserver",
+  "risk": "2",
+  "title": "`harvestCooldown` has no effect after `(lastHarvest + harvestCooldown) < block.timestamp` becomes true for the first time",
+  "issueId": 569,
+  "issueUrl": "https://github.com/code-423n4/2023-01-popcorn-findings/issues/569"
+}
