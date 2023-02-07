@@ -24,3 +24,18 @@ Examples:
         address assetOwner
     )
 ```
+
+# Vault contract implementation does not disable initializers
+
+The Vault.sol contract should implement `_disableInitializers()` in its constructure to prevent implementation contracts from being initialized. As this contract does not use `selfdestruct()` the risk is minimized but could still lead to user confusion if it is taken over by a third party.
+
+https://docs.openzeppelin.com/contracts/4.x/api/proxy#Initializable-_disableInitializers--
+
+https://github.com/code-423n4/2023-01-popcorn/blob/main/src/vault/Vault.sol#L26
+
+Proposed:
+```js
+constructor() {
+  _disableInitializers();
+}
+```
