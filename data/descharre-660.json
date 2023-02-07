@@ -1,0 +1,8 @@
+{
+  "contest": 211,
+  "handle": "descharre",
+  "risk": "2",
+  "title": "Not every token transfer uses openZeppelin safeERC20 library",
+  "issueId": 660,
+  "issueUrl": "https://github.com/code-423n4/2023-01-popcorn-findings/issues/660"
+}
