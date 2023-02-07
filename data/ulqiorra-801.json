@@ -1,0 +1,8 @@
+{
+  "contest": 211,
+  "handle": "ulqiorra",
+  "risk": "3",
+  "title": "Missed `owner` accrual in MultiRewardStaking `_withdraw()` leads to reward loss",
+  "issueId": 801,
+  "issueUrl": "https://github.com/code-423n4/2023-01-popcorn-findings/issues/801"
+}
