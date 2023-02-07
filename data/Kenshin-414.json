@@ -1,0 +1,8 @@
+{
+  "contest": 211,
+  "handle": "Kenshin",
+  "risk": "3",
+  "title": "Malicious ERC20 tokens can drain its all escrowed balance from the contract",
+  "issueId": 414,
+  "issueUrl": "https://github.com/code-423n4/2023-01-popcorn-findings/issues/414"
+}
