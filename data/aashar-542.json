@@ -1,0 +1,8 @@
+{
+  "contest": 211,
+  "handle": "aashar",
+  "risk": "3",
+  "title": "nominateNewDependencyOwner() function cannot be called ever",
+  "issueId": 542,
+  "issueUrl": "https://github.com/code-423n4/2023-01-popcorn-findings/issues/542"
+}
