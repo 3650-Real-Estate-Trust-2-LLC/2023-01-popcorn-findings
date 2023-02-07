@@ -1,0 +1,8 @@
+{
+  "contest": 211,
+  "handle": "n33k",
+  "risk": "2",
+  "title": "Attach non-endorsed Adapter to Vaults resulting in DOS",
+  "issueId": 769,
+  "issueUrl": "https://github.com/code-423n4/2023-01-popcorn-findings/issues/769"
+}
