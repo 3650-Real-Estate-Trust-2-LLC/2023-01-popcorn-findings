@@ -1,0 +1,8 @@
+{
+  "contest": 211,
+  "handle": "0xNazgul",
+  "risk": "2",
+  "title": "[NAZ-M2] Unchecked return of `execute()` ",
+  "issueId": 541,
+  "issueUrl": "https://github.com/code-423n4/2023-01-popcorn-findings/issues/541"
+}
