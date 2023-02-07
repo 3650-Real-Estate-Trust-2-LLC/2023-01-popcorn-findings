@@ -1,0 +1,8 @@
+{
+  "contest": 211,
+  "handle": "joestakey",
+  "risk": "2",
+  "title": "`AdapterBase.accruedPerformanceFee` does not work with tokens with low decimals",
+  "issueId": 802,
+  "issueUrl": "https://github.com/code-423n4/2023-01-popcorn-findings/issues/802"
+}
