@@ -1,0 +1,8 @@
+{
+  "contest": 211,
+  "handle": "okkothejawa",
+  "risk": "3",
+  "title": "Wrong sanity check `_verifyCreatorOrOwner` in `vaultController` may lead to DOS",
+  "issueId": 673,
+  "issueUrl": "https://github.com/code-423n4/2023-01-popcorn-findings/issues/673"
+}
