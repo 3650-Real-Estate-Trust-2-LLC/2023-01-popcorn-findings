@@ -1,0 +1,8 @@
+{
+  "contest": 211,
+  "handle": "monrel",
+  "risk": "3",
+  "title": "Permit is susceptible to phishing attack due to identical names.",
+  "issueId": 704,
+  "issueUrl": "https://github.com/code-423n4/2023-01-popcorn-findings/issues/704"
+}
