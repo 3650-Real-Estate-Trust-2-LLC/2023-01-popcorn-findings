@@ -1,0 +1,8 @@
+{
+  "contest": 211,
+  "handle": "Deivitto",
+  "risk": "2",
+  "title": "`deployVault` and `deployAdapter` don't take into account result of `execute`",
+  "issueId": 640,
+  "issueUrl": "https://github.com/code-423n4/2023-01-popcorn-findings/issues/640"
+}
