@@ -1,0 +1,8 @@
+{
+  "contest": 211,
+  "handle": "aashar",
+  "risk": "3",
+  "title": "Reentrancy possibility if ERC777 tokens are used",
+  "issueId": 567,
+  "issueUrl": "https://github.com/code-423n4/2023-01-popcorn-findings/issues/567"
+}
