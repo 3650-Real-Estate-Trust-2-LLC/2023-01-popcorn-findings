@@ -435,7 +435,8 @@ When the reward speed is changed in `MultiRewardStaking`, the new end time is ca
 
 A simple Foundry test I wrote demonstrates that the contracts fail to calculate the rewards properly after the reward speed is changed:
 
-```// SPDX-License-Identifier: GPL-3.0
+```
+// SPDX-License-Identifier: GPL-3.0
 // Docgen-SOLC: 0.8.15
 
 pragma solidity ^0.8.15;
