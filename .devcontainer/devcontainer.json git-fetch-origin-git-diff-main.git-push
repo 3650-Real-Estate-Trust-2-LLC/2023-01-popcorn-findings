@@ -1,0 +1,25 @@
+{
+  "image": "mcr.microsoft.com/devcontainers/universal:2",
+  "features": {
+  }
+}{
+    "name": "My Dev Container",
+    "image": "mcr.microsoft.com/vscode/devcontainers/base:0-bullseye",
+    "features": {
+        "ghcr.io/devcontainers/features/node:1": {
+            "version": "16"
+        }
+    },
+    "postCreateCommand": "npm install",
+    "customizations": {
+        "vscode": {
+            "extensions": [
+                "dbaeumer.vscode-eslint",
+                "esbenp.prettier-vscode"
+            ]
+        }
+    },
+    "settings": {
+        "terminal.integrated.defaultProfile.linux": "bash"
+    }
+}
